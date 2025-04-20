@@ -1,0 +1,39 @@
+
+
+.Typewriter__cursor{-webkit-animation:Typewriter-cursor 1s infinite;animation:Typewriter-cursor 1s infinite;margin-left:1px}@-webkit-keyframes Typewriter-cursor{0%{opacity:0}50%{opacity:1}100%{opacity:0}}@keyframes Typewriter-cursor{0%{opacity:0}50%{opacity:1}100%{opacity:0}}
+
+
+                body, * {
+                    font-family: 'Array', sans-serif !important;
+                }
+            
+
+
+                ::-moz-selection {
+                    background: #bf4532;
+                    color: #bf4532;
+                }
+                ::selection {
+                    background: #bf4532;
+                    color: #bf4532;
+                }
+                
+
+
+                                        .username-typewriter .Typewriter {
+                                            font-size: 36.5px;
+                                            font-weight: 400;
+                                        }
+                                    
+
+
+                                    .gVYn0S_8cadb2f2abb9edb616fd svg {
+                                        color: #bf4532!important;
+                                        filter: drop-shadow(#bf4532 1px 0 7px)!important;
+                                    }
+
+
+                                    .yVLU0w_c653568133149442be47 svg {
+                                        color: #bf4532!important;
+                                        filter: drop-shadow(#bf4532 1px 0 7px)!important;
+                                    }
