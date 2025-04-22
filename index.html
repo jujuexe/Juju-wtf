@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="https://github.com/jujuexe/fr/blob/main/980195a4b420a62cfca4fa7450db7ab7.png?raw=true" />
-
+  <link rel="icon" type="image/png" href="https://github.com/jujuexe/fr/blob/main/980195a4b420a62cfca4fa7450db7ab7.png?raw=true">
   <meta property="og:url" content="https://juju.wtf/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="JuJu">
   <meta property="og:description" content="hai person">
-  <meta property="og:image" content="https://github.com/jujuexe/fr/blob/main/980195a4b420a62cfca4fa7450db7ab7.png?raw=true" />
-
+  <meta property="og:image" content="https://github.com/jujuexe/fr/blob/main/980195a4b420a62cfca4fa7450db7ab7.png?raw=true">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>♡ juju.lol</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-
   <script>
     let titleText = "juju.wtf ";
     let index = 0;
@@ -38,12 +35,10 @@
       }, 500);
     }, 5000);
   </script>
-
   <style>
     * {
       box-sizing: border-box;
     }
-
     body {
       margin: 0;
       padding: 0;
@@ -53,17 +48,18 @@
       height: 100vh;
       overflow: hidden;
     }
-
-    #background-image {
+    #background-video {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
       object-fit: cover;
-      z-index: -1; /* Background stays behind */
+      z-index: -1;
     }
-
+    #background-video::-webkit-media-controls {
+      display: none;
+    }
     .intro-screen {
       position: fixed;
       top: 0;
@@ -78,31 +74,27 @@
       font-size: 2rem;
       cursor: pointer;
       transition: opacity .5s ease;
-      z-index: 100; /* Intro screen on top */
+      z-index: 100;
     }
-
     .intro-screen:hover {
       text-shadow: 0 0 10px #fff;
     }
-
     .hidden {
       opacity: 0;
       pointer-events: none;
     }
-
     .container {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
-      z-index: 10; /* Above background */
+      z-index: 10;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
     }
-
     .pfp {
       width: 100px;
       height: 100px;
@@ -111,7 +103,6 @@
       margin-bottom: 20px;
       border: 2px solid #fff;
     }
-
     .title {
       font-size: 1.2rem;
       text-transform: lowercase;
@@ -119,7 +110,6 @@
       position: relative;
       transition: transform .3s ease, opacity .5s ease;
     }
-
     .discord-logo {
       display: inline-block;
       width: 100px;
@@ -133,28 +123,32 @@
       transition: transform 0.3s ease;
       margin-top: 30px;
     }
-
     .discord-logo:hover {
       transform: scale(1.05);
     }
   </style>
 </head>
-
 <body>
-  <div class="intro-screen glow" id="intro-screen">click to enter</div>
-
-  <img id="background-image" src="https://github.com/jujuexe/fr/raw/refs/heads/main/94615d1dab33e63c79d8e5f905ea2843.webp" alt="Background">
-
+  <button class="intro-screen glow" id="intro-screen" aria-label="Enter site">click to enter</button>
+  <video id="background-video" muted playsinline webkit-playsinline loop preload="metadata">
+    <source src="https://pub-3bfa94b368d34d7e839934cc455b9712.r2.dev/flxrosamason.mp4" type="video/mp4">
+  </video>
   <div class="container">
     <img src="https://github.com/jujuexe/fr/raw/refs/heads/main/94615d1dab33e63c79d8e5f905ea2843.webp" alt="pfp" class="pfp">
     <div class="title">juju.wtf</div>
     <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord">discord</a>
   </div>
-
   <script>
     const introScreen = document.getElementById('intro-screen');
+    const video = document.getElementById('background-video');
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
+      video.muted = true;
+      video.play().then(() => {
+        video.muted = false;
+      }).catch((error) => {
+        console.error('Video playback failed:', error);
+      });
     });
   </script>
 </body>
