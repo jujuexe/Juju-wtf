@@ -54,20 +54,14 @@
       overflow: hidden;
     }
 
-    #background-video {
+    #background-image {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
       object-fit: cover;
-      z-index: -1; /* Ensure video stays in background */
-      display: block; /* Prevent default inline behavior */
-    }
-
-    /* Prevent fullscreen on iOS */
-    #background-video::-webkit-media-controls {
-      display: none !important;
+      z-index: -1; /* Background stays behind */
     }
 
     .intro-screen {
@@ -102,7 +96,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
-      z-index: 10; /* Above video */
+      z-index: 10; /* Above background */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -143,46 +137,13 @@
     .discord-logo:hover {
       transform: scale(1.05);
     }
-
-    #audio-controls {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, .7);
-      padding: 10px 20px;
-      border-radius: 10px;
-      text-align: center;
-      opacity: 0;
-      animation: fadeIn 1s ease-out forwards;
-      z-index: 10; /* Above video */
-    }
-
-    #pause-button {
-      background: none;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-      margin-top: 5px;
-      text-transform: lowercase;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-      }
-    }
   </style>
 </head>
 
 <body>
   <div class="intro-screen glow" id="intro-screen">click to enter</div>
 
-  <video id="background-video" muted playsinline webkit-playsinline loop preload="metadata">
-    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/youtube_pEWB_PqmNpE_1920x1080_h264%20(1)%20(1).mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <img id="background-image" src="https://github.com/jujuexe/fr/raw/refs/heads/main/94615d1dab33e63c79d8e5f905ea2843.webp" alt="Background">
 
   <div class="container">
     <img src="https://github.com/jujuexe/fr/raw/refs/heads/main/94615d1dab33e63c79d8e5f905ea2843.webp" alt="pfp" class="pfp">
@@ -190,41 +151,10 @@
     <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord">discord</a>
   </div>
 
-  <div id="audio-controls">
-    <div id="song-title">Now Playing: Flxr</div>
-    <button id="pause-button">pause</button>
-  </div>
-
   <script>
     const introScreen = document.getElementById('intro-screen');
-    const video = document.getElementById('background-video');
-    const pauseButton = document.getElementById('pause-button');
-
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
-      video.muted = true; // Start muted to comply with iOS
-      video.play().then(() => {
-        // Unmute after playback starts, if desired
-        video.muted = false;
-      }).catch((error) => {
-        console.error('Video playback failed:', error);
-        // Fallback: Keep muted if unmuting fails
-        video.muted = true;
-      });
-    });
-
-    let isPaused = false;
-    pauseButton.addEventListener('click', () => {
-      if (isPaused) {
-        video.play().catch((error) => {
-          console.error('Video playback failed:', error);
-        });
-        pauseButton.textContent = 'pause';
-      } else {
-        video.pause();
-        pauseButton.textContent = 'play';
-      }
-      isPaused = !isPaused;
     });
   </script>
 </body>
