@@ -4,11 +4,20 @@
     <title>Redirecting…</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-      // Only redirect if path is not valid
-      const validPages = ['/', '/home.html', '/verify.html'];
+      // List of valid pages
+      const validPages = ['home.html', 'verify.html', '/'];
+
       const currentPath = window.location.pathname;
 
-      if (!validPages.includes(currentPath)) {
+      // Check if the current path ends with any valid page
+      const isValid = validPages.some(page => {
+        return page === '/' 
+          ? currentPath === '/' 
+          : currentPath.endsWith('/' + page) || currentPath.endsWith(page);
+      });
+
+      // Redirect if not valid
+      if (!isValid) {
         window.location.href = "https://juju.wtf";
       }
     </script>
