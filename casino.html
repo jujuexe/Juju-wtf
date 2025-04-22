@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Juju Casino</title>
+  <title>Juju Casino – Mines</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       background: #111;
@@ -11,13 +12,16 @@
       text-align: center;
       padding: 20px;
     }
+
     #token-count {
       font-size: 22px;
       margin-bottom: 20px;
     }
+
     .game {
       margin-top: 30px;
     }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(5, 60px);
@@ -25,6 +29,7 @@
       justify-content: center;
       margin: 20px 0;
     }
+
     .tile {
       width: 60px;
       height: 60px;
@@ -35,14 +40,17 @@
       line-height: 60px;
       user-select: none;
     }
+
     .tile.revealed {
       background: #1e1e1e;
       color: #0f0;
     }
+
     .tile.mine {
       background: #900;
       color: #fff;
     }
+
     select, button {
       padding: 10px;
       margin: 10px;
@@ -50,6 +58,44 @@
       color: white;
       border: none;
       font-size: 16px;
+      border-radius: 6px;
+    }
+
+    #cashout-btn {
+      background: #0a0;
+    }
+
+    #cashout-modal {
+      display: none;
+    }
+
+    /* Modal Styling */
+    #cashout-modal .modal-box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(20, 20, 20, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      color: white;
+      z-index: 9999;
+      box-shadow: 0 0 20px #000;
+      width: 300px;
+    }
+
+    #cashout-modal button.close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: #900;
+      border: none;
+      color: white;
+      font-size: 20px;
+      padding: 4px 10px;
+      cursor: pointer;
+      border-radius: 5px;
     }
   </style>
 </head>
@@ -60,18 +106,22 @@
 
   <div class="game">
     <label for="mine-count">Number of Mines:</label>
-    <select id="mine-count">
-      <!-- Options from 1 to 24 -->
-      <script>
-        for (let i = 1; i <= 24; i++) {
-          document.write(`<option value="${i}">${i}</option>`);
-        }
-      </script>
-    </select>
+    <select id="mine-count"></select>
     <button onclick="startGame()">Start Game</button>
 
     <div class="grid" id="grid"></div>
+    <button id="cashout-btn" onclick="cashOut()" disabled>💰 Cash Out</button>
     <div id="status"></div>
+  </div>
+
+  <!-- Cashout Modal -->
+  <div id="cashout-modal">
+    <div class="modal-box">
+      <button class="close-btn" onclick="closeCashoutModal()">X</button>
+      <h2>💰 Cashed Out!</h2>
+      <p id="cashout-amount" style="font-size: 24px; margin: 10px 0;"></p>
+      <p id="cashout-multiplier" style="font-size: 18px; color: #aaa;"></p>
+    </div>
   </div>
 
   <script>
@@ -80,19 +130,26 @@
     let revealedTiles = new Set();
     let gameActive = false;
     let mines = 3;
-    let multiplier = 1;
+
+    // Populate dropdown
+    const mineDropdown = document.getElementById("mine-count");
+    for (let i = 1; i <= 24; i++) {
+      const option = document.createElement("option");
+      option.value = i;
+      option.textContent = i;
+      mineDropdown.appendChild(option);
+    }
 
     function updateTokensDisplay() {
       document.getElementById("tokens").textContent = tokens;
     }
 
     function startGame() {
-      const mineCount = parseInt(document.getElementById("mine-count").value);
-      mines = mineCount;
-      multiplier = 1;
-      minePositions = generateMines(mineCount);
+      mines = parseInt(mineDropdown.value);
+      minePositions = generateMines(mines);
       revealedTiles.clear();
       gameActive = true;
+      document.getElementById("cashout-btn").disabled = false;
       document.getElementById("status").textContent = "";
       renderGrid();
     }
@@ -125,26 +182,47 @@
         tile.textContent = "💥";
         document.getElementById("status").textContent = "You hit a mine! Game over.";
         gameActive = false;
+        document.getElementById("cashout-btn").disabled = true;
         return;
       }
 
       revealedTiles.add(index);
       tile.classList.add("revealed");
       tile.textContent = "💎";
-      multiplier += 0.3;
-
-      // Optional: Reward per tile safely revealed
-      let reward = Math.floor(100 * multiplier);
-      tokens += reward;
-      updateTokensDisplay();
 
       if (revealedTiles.size === 25 - mines) {
         document.getElementById("status").textContent = "You cleared the board!";
+        document.getElementById("cashout-btn").disabled = true;
         gameActive = false;
       }
     }
 
-    // On load
+    function cashOut() {
+      if (!gameActive) return;
+
+      const diamondsClicked = revealedTiles.size;
+      const totalTiles = 25;
+      const safeTiles = totalTiles - mines;
+
+      const fairMultiplier = (1 / (1 - (diamondsClicked / safeTiles))).toFixed(2);
+      const reward = Math.floor(100 * fairMultiplier);
+
+      tokens += reward;
+      updateTokensDisplay();
+
+      document.getElementById("cashout-amount").textContent = `+${reward} Tokens`;
+      document.getElementById("cashout-multiplier").textContent = `Multiplier: x${fairMultiplier}`;
+      document.getElementById("cashout-modal").style.display = 'block';
+
+      gameActive = false;
+      document.getElementById("cashout-btn").disabled = true;
+      document.getElementById("status").textContent = "You cashed out!";
+    }
+
+    function closeCashoutModal() {
+      document.getElementById("cashout-modal").style.display = "none";
+    }
+
     updateTokensDisplay();
     renderGrid();
   </script>
