@@ -8,16 +8,17 @@
       const validPages = ['home.html', 'verify.html', '/'];
 
       const currentPath = window.location.pathname;
+      const referrer = document.referrer;
 
-      // Check if the current path ends with any valid page
       const isValid = validPages.some(page => {
         return page === '/' 
           ? currentPath === '/' 
           : currentPath.endsWith('/' + page) || currentPath.endsWith(page);
       });
 
-      // Redirect if not valid
-      if (!isValid) {
+      const isFromVerify = referrer.includes('verify.html');
+
+      if (!isValid && !isFromVerify) {
         window.location.href = "https://juju.wtf";
       }
     </script>
