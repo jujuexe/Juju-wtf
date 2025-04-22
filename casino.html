@@ -18,7 +18,6 @@
 
     .left-panel {
       width: 350px;
-      margin-right: 50px;
     }
 
     #token-count {
@@ -76,8 +75,10 @@
       margin-top: 10px;
     }
 
-    #cashout-modal {
-      display: none;
+    #game-info {
+      margin: 10px 0;
+      font-size: 16px;
+      color: #aaa;
     }
 
     #cashout-modal .modal-box {
@@ -130,7 +131,17 @@
     <label for="mine-count">Number of Mines:</label>
     <select id="mine-count"></select>
 
-    <button id="game-btn" onclick="handleGameClick()">Start Game</button>
+    <!-- Game Control -->
+    <div id="game-control">
+      <button id="game-btn" onclick="handleGameClick()">Start Game</button>
+    </div>
+
+    <!-- Game Info While Playing -->
+    <div id="game-info" style="display: none;">
+      <div>💰 Current Cashout: <span id="current-profit">0</span> tokens</div>
+      <div>📈 Multiplier: <span id="current-multiplier">x0.00</span></div>
+      <button onclick="cashOut()" style="margin-top: 10px; background: #0a0;">💰 Cash Out</button>
+    </div>
 
     <div class="grid" id="grid"></div>
     <div id="profit-display">💰 Profit This Round: 0</div>
@@ -138,7 +149,7 @@
   </div>
 
   <!-- Cashout Modal -->
-  <div id="cashout-modal">
+  <div id="cashout-modal" style="display:none;">
     <div class="modal-box">
       <button class="close-btn" onclick="closeCashoutModal()">X</button>
       <h2>💰 Cashed Out!</h2>
@@ -154,8 +165,8 @@
     let gameActive = false;
     let mines = 3;
     let currentProfit = 0;
+    let currentMultiplier = 0;
 
-    // Setup dropdown
     const mineDropdown = document.getElementById("mine-count");
     for (let i = 1; i <= 24; i++) {
       const option = document.createElement("option");
@@ -170,6 +181,8 @@
 
     function updateProfitDisplay() {
       document.getElementById("profit-display").textContent = `💰 Profit This Round: ${currentProfit}`;
+      document.getElementById("current-profit").textContent = currentProfit;
+      document.getElementById("current-multiplier").textContent = `x${currentMultiplier.toFixed(2)}`;
     }
 
     function startGame() {
@@ -178,22 +191,25 @@
       revealedTiles.clear();
       gameActive = true;
       currentProfit = 0;
+      currentMultiplier = 0;
+
       updateProfitDisplay();
-      document.getElementById("game-btn").textContent = "💰 Cash Out";
+      document.getElementById("game-btn").style.display = "none";
+      document.getElementById("game-info").style.display = "block";
       document.getElementById("status").textContent = "";
       renderGrid();
     }
 
     function endGame() {
       gameActive = false;
+      document.getElementById("game-btn").style.display = "block";
+      document.getElementById("game-info").style.display = "none";
       document.getElementById("game-btn").textContent = "Start Game";
     }
 
     function handleGameClick() {
       if (!gameActive) {
         startGame();
-      } else {
-        cashOut();
       }
     }
 
@@ -234,11 +250,13 @@
       tile.classList.add("revealed");
       tile.textContent = "💎";
 
-      const fairMultiplier = (1 / (1 - (revealedTiles.size / (25 - mines)))).toFixed(2);
-      currentProfit = Math.floor(100 * fairMultiplier);
+      const safeTiles = 25 - mines;
+      currentMultiplier = 1 / (1 - (revealedTiles.size / safeTiles));
+      currentProfit = Math.floor(100 * currentMultiplier);
+
       updateProfitDisplay();
 
-      if (revealedTiles.size === 25 - mines) {
+      if (revealedTiles.size === safeTiles) {
         document.getElementById("status").textContent = "You cleared the board!";
         endGame();
       }
@@ -247,15 +265,11 @@
     function cashOut() {
       if (!gameActive || currentProfit <= 0) return;
 
-      const diamondsClicked = revealedTiles.size;
-      const safeTiles = 25 - mines;
-      const fairMultiplier = (1 / (1 - (diamondsClicked / safeTiles))).toFixed(2);
-
       tokens += currentProfit;
       updateTokensDisplay();
 
       document.getElementById("cashout-amount").textContent = `+${currentProfit} Tokens`;
-      document.getElementById("cashout-multiplier").textContent = `Multiplier: x${fairMultiplier}`;
+      document.getElementById("cashout-multiplier").textContent = `Multiplier: x${currentMultiplier.toFixed(2)}`;
       document.getElementById("cashout-modal").style.display = 'block';
 
       currentProfit = 0;
