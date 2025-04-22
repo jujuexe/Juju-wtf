@@ -21,11 +21,12 @@
     h2 {
       margin-bottom: 20px;
       font-weight: 500;
+      font-size: 1.5rem;
     }
 
     .spinner {
-      border: 6px solid rgba(255, 255, 255, 0.2);
-      border-top: 6px solid white;
+      border: 6px solid rgba(255, 255, 255, 0.3);
+      border-top: 6px solid #fff;
       border-radius: 50%;
       width: 50px;
       height: 50px;
@@ -33,13 +34,19 @@
     }
 
     @keyframes spin {
-      0% { transform: rotate(0deg); }
+      0%   { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .spinner {
+        animation: none;
+      }
     }
   </style>
 </head>
 <body>
-  <h2>Verifying you're human…</h2>
-  <div class="spinner"></div>
+  <h2 aria-live="polite">Verifying you're human…</h2>
+  <div class="spinner" role="status" aria-label="Loading"></div>
 </body>
 </html>
