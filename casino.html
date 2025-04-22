@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casino Games</title>
+    <title>Case Battles - Casino</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,35 +23,84 @@
             font-size: 2.5em;
         }
 
-        .game-container {
+        .main-container {
             display: flex;
             justify-content: center;
             gap: 20px;
+            flex-wrap: wrap;
             margin-top: 50px;
         }
 
-        .game {
+        .case-item {
             background-color: #444;
             border-radius: 10px;
             padding: 20px;
-            width: 200px;
+            width: 250px;
             text-align: center;
+            cursor: pointer;
         }
 
-        .game img {
+        .case-item img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
         }
 
-        .game h2 {
+        .case-item h2 {
             font-size: 1.5em;
             margin-top: 10px;
         }
 
-        .game p {
-            font-size: 1.1em;
-            margin-top: 10px;
+        .case-item.selected {
+            background-color: #28a745;
+        }
+
+        .case-item.selected img {
+            border: 2px solid #fff;
+        }
+
+        .battle-info {
+            background-color: #333;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 10px;
+        }
+
+        .battle-info h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .battle-info p {
+            font-size: 1.2em;
+        }
+
+        .loot-table {
+            display: none;
+            background-color: #444;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            text-align: left;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .loot-table h3 {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+
+        .loot-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .loot-item img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
         }
 
         footer {
@@ -67,30 +116,110 @@
 <body>
 
 <header>
-    <h1>Welcome to the Casino</h1>
+    <h1>Case Battles - Fight for Loot!</h1>
 </header>
 
-<div class="game-container">
-    <!-- Blackjack Game -->
-    <div class="game">
-        <img src="https://rollbet.gg/img/blackjack.a095a5a2.png" alt="Blackjack">
-        <h2>Blackjack</h2>
-        <p>Try your luck in Blackjack and beat the dealer!</p>
-        <button>Play Blackjack</button>
+<div class="main-container">
+    <!-- Case Item 1 -->
+    <div class="case-item" data-case="juicer-case">
+        <img src="https://static.rbxgold.com/cases/juicer-case.png" alt="Juicer Case">
+        <h2>Juicer Case</h2>
     </div>
 
-    <!-- Slots Game -->
-    <div class="game">
-        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/..." alt="Slots">
-        <h2>Slots</h2>
-        <p>Spin the reels and hit the jackpot!</p>
-        <button>Play Slots</button>
+    <!-- Case Item 2 -->
+    <div class="case-item" data-case="noice-case">
+        <img src="https://static.rbxgold.com/cases/noice-case.png" alt="Noice Case">
+        <h2>Noice Case</h2>
+    </div>
+
+    <!-- Case Item 3 -->
+    <div class="case-item" data-case="kheeks-case">
+        <img src="https://static.rbxgold.com/cases/kheeks-case.png" alt="Kheeks Case">
+        <h2>Kheeks Case</h2>
+    </div>
+
+    <!-- Case Item 4 -->
+    <div class="case-item" data-case="perfect-100x-case">
+        <img src="https://static.rbxgold.com/cases/perfect-100x-case.png" alt="Perfect 100x Case">
+        <h2>Perfect 100x Case</h2>
+    </div>
+
+    <!-- Case Item 5 -->
+    <div class="case-item" data-case="smokestacker-case">
+        <img src="https://static.rbxgold.com/cases/smokestacker-case.png" alt="Smokestacker Case">
+        <h2>Smokestacker Case</h2>
+    </div>
+
+    <!-- Case Item 6 -->
+    <div class="case-item" data-case="vampire-bling-case">
+        <img src="https://static.rbxgold.com/cases/vampire-bling-case.png" alt="Vampire Bling Case">
+        <h2>Vampire Bling Case</h2>
+    </div>
+
+    <!-- Case Item 7 -->
+    <div class="case-item" data-case="yum-luck-case">
+        <img src="https://static.rbxgold.com/cases/yum-luck-case.png" alt="Yum Luck Case">
+        <h2>Yum Luck Case</h2>
+    </div>
+
+    <!-- Case Item 8 -->
+    <div class="case-item" data-case="tixy-case">
+        <img src="https://static.rbxgold.com/cases/tixy-case.png" alt="Tixy Case">
+        <h2>Tixy Case</h2>
+    </div>
+
+    <!-- Case Item 9 -->
+    <div class="case-item" data-case="hatgold-case">
+        <img src="https://static.rbxgold.com/cases/hatgold-case.png" alt="Hatgold Case">
+        <h2>Hatgold Case</h2>
+    </div>
+
+    <!-- Case Item 10 -->
+    <div class="case-item" data-case="15-percent-jackpot-case">
+        <img src="https://static.rbxgold.com/cases/15-percent-jackpot-case.png" alt="15 Percent Jackpot Case">
+        <h2>15% Jackpot Case</h2>
     </div>
 </div>
 
+<!-- Loot Tables -->
+<div class="loot-table" id="juicer-case-loot">
+    <h3>Juicer Case Loot Table</h3>
+    <div class="loot-item"><img src="https://static.rbxgold.com/cases/juicer-case.png" alt="Loot"> 18,000 Catching Snowflakes - 1% Drop Rate</div>
+    <div class="loot-item"><img src="https://static.rbxgold.com/cases/juicer-case.png" alt="Loot"> 16,000 Emerald Valk Shades - 1% Drop Rate</div>
+    <div class="loot-item"><img src="https://static.rbxgold.com/cases/juicer-case.png" alt="Loot"> 16,000 Green Wistful Wink - 1% Drop Rate</div>
+    <div class="loot-item"><img src="https://static.rbxgold.com/cases/juicer-case.png" alt="Loot"> 15,000 Blue Wistful Wink - 1% Drop Rate</div>
+    <div class="loot-item"><img src="https://static.rbxgold.com/cases/juicer-case.png" alt="Loot"> 15,000 Purple Wistful Wink - 1% Drop Rate</div>
+    <!-- Add more loot items as needed -->
+</div>
+
+<!-- Add loot tables for other cases in the same format as above -->
+
 <footer>
-    <p>&copy; 2025 Casino Games. All Rights Reserved.</p>
+    <p>Casino &copy; 2025 - All rights reserved.</p>
 </footer>
+
+<script>
+    const caseItems = document.querySelectorAll('.case-item');
+    const lootTables = document.querySelectorAll('.loot-table');
+
+    // Function to toggle the visibility of loot table for the selected case
+    caseItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const caseName = item.getAttribute('data-case');
+            const selectedLootTable = document.getElementById(`${caseName}-loot`);
+            
+            // Hide all loot tables first
+            lootTables.forEach(table => {
+                table.style.display = 'none';
+            });
+            
+            // Show the selected loot table
+            if (selectedLootTable) {
+                selectedLootTable.style.display = 'block';
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
