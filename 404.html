@@ -1,23 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Redirecting…</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
     <script>
-      // Define allowed pages
-      const allowedPages = ['/', '/home.html', '/index.html'];
-
-      const path = window.location.pathname;
-
-      // Check if path matches any allowed page
-      const isAllowed = allowedPages.some(page => path === page || path.endsWith(page));
-
-      if (!isAllowed) {
+      // Redirect after 2 seconds
+      setTimeout(function() {
         window.location.href = "https://juju.wtf";
-      }
+      }, 2000);
     </script>
+    <style>
+      body {
+        font-family: sans-serif;
+        background: #f9f9f9;
+        text-align: center;
+        padding: 2rem;
+        margin: 0;
+      }
+
+      h1 {
+        color: #333;
+        font-size: 1.5rem;
+      }
+
+      p {
+        color: #777;
+        font-size: 1rem;
+      }
+    </style>
   </head>
-  <body style="font-family: sans-serif; background: #f9f9f9; text-align: center; padding: 2rem;">
-    <p>If you're not redirected, <a href="https://juju.wtf">click here</a>.</p>
+  <body>
+    <h1>Oops! This page doesn't exist.</h1>
+    <p>Redirecting you to the homepage...</p>
   </body>
 </html>
