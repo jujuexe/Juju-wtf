@@ -18,7 +18,6 @@
       document.title = titleText.slice(index) + titleText.slice(0, index);
       index = (index + 1) % titleText.length;
     }, 200);
-
     const messages = ["hai :3", "juju.wtf"];
     let msgIndex = 0;
     setInterval(() => {
@@ -126,6 +125,33 @@
     .discord-logo:hover {
       transform: scale(1.05);
     }
+    #audio-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, .7);
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+      z-index: 10;
+    }
+    #pause-button {
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 5px;
+      text-transform: lowercase;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
@@ -138,9 +164,14 @@
     <div class="title">juju.wtf</div>
     <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord">discord</a>
   </div>
+  <div id="audio-controls">
+    <div id="song-title">Now Playing: Flxr</div>
+    <button id="pause-button">pause</button>
+  </div>
   <script>
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
+    const pauseButton = document.getElementById('pause-button');
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
       video.muted = true;
@@ -149,6 +180,19 @@
       }).catch((error) => {
         console.error('Video playback failed:', error);
       });
+    });
+    let isPaused = false;
+    pauseButton.addEventListener('click', () => {
+      if (isPaused) {
+        video.play().catch((error) => {
+          console.error('Video playback failed:', error);
+        });
+        pauseButton.textContent = 'pause';
+      } else {
+        video.pause();
+        pauseButton.textContent = 'play';
+      }
+      isPaused = !isPaused;
     });
   </script>
 </body>
