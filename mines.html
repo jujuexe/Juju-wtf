@@ -83,8 +83,8 @@
     }
 
     .tile.mine {
-      background: #900;
-      color: #fff;
+      background: #222;
+      color: #f00;
     }
 
     .tile.locked {
@@ -131,6 +131,11 @@
       border-radius: 5px;
       width: 100px;
     }
+
+    .emoji {
+      font-size: 28px;
+    }
+
   </style>
 </head>
 <body>
@@ -221,10 +226,12 @@
       tile.classList.add('revealed');
 
       if (Math.random() < (mineCount / gridSize)) {
+        tile.innerHTML = '💣'; // Bomb emoji for mines
         tile.classList.add('mine');
         endGame(false); // End game on mine
       } else {
         revealedTiles++;
+        tile.innerHTML = '💎'; // Diamond emoji for safe tiles
         multiplier = 1 + (revealedTiles / gridSize); // Increase multiplier
         document.getElementById('multiplier').textContent = `${multiplier.toFixed(2)}x`;
       }
