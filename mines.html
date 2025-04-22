@@ -2,22 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Juju Casino – Mines</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juju Casino – Mines</title>
   <style>
     body {
-      margin: 0;
-      background: #111;
-      color: #fff;
+      background-color: #111;
+      color: white;
       font-family: 'Arial', sans-serif;
       display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      padding: 20px;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
 
-    .left-panel {
-      width: 350px;
+    .game-container {
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 48px;
+      color: #f0f0f0;
+      margin-bottom: 20px;
     }
 
     #token-count {
@@ -25,6 +35,29 @@
       margin-bottom: 20px;
     }
 
+    .button-container {
+      margin-top: 20px;
+    }
+
+    /* Return to Casino Button */
+    .return-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 15px;
+      background: #444;
+      border-radius: 5px;
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      transition: background 0.3s ease;
+    }
+
+    .return-button:hover {
+      background-color: #0f0;
+    }
+
+    /* Game Grid */
     .grid {
       display: grid;
       grid-template-columns: repeat(5, 60px);
@@ -54,236 +87,187 @@
       color: #fff;
     }
 
-    select, button {
+    .tile.locked {
+      cursor: not-allowed;
+      background: #666;
+    }
+
+    .input-container {
+      margin-top: 20px;
+    }
+
+    .cashout-display {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+
+    /* Start Button and Cashout */
+    .start-button {
+      padding: 15px 30px;
+      font-size: 20px;
+      background: #444;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .start-button:hover {
+      background-color: #0f0;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .bet-input {
       padding: 10px;
-      margin: 10px 0;
+      font-size: 16px;
+      margin-right: 10px;
       background: #333;
       color: white;
       border: none;
-      font-size: 16px;
-      border-radius: 6px;
-      width: 100%;
-    }
-
-    #profit-display {
-      font-size: 18px;
-      margin-top: 10px;
-      color: #0f0;
-    }
-
-    #status {
-      margin-top: 10px;
-    }
-
-    #game-info {
-      margin: 10px 0;
-      font-size: 16px;
-      color: #aaa;
-    }
-
-    #cashout-modal .modal-box {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(20, 20, 20, 0.95);
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-      color: white;
-      z-index: 9999;
-      box-shadow: 0 0 20px #000;
-      width: 300px;
-      animation: fadeInUp 0.5s ease-out;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -60%);
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-      }
-    }
-
-    #cashout-modal button.close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      background: #900;
-      border: none;
-      color: white;
-      font-size: 20px;
-      padding: 4px 10px;
-      cursor: pointer;
       border-radius: 5px;
+      width: 100px;
     }
   </style>
 </head>
 <body>
 
-  <div class="left-panel">
-    <h1>💣 Juju Mines</h1>
-    <div id="token-count">Tokens: <span id="tokens">25000</span></div>
+  <div class="game-container">
 
-    <label for="mine-count">Number of Mines:</label>
-    <select id="mine-count"></select>
+    <!-- Return to Casino Button -->
+    <a href="/casino" class="return-button">← Return to Casino</a>
 
-    <!-- Game Control -->
-    <div id="game-control">
-      <button id="game-btn" onclick="handleGameClick()">Start Game</button>
+    <h1>Mines Game <span>💣</span></h1>
+
+    <p id="token-count">Balance: <span id="balance">1000</span> Tokens</p>
+
+    <!-- Bet Size Input -->
+    <div class="input-container">
+      <label for="bet-size">Bet Size:</label>
+      <input type="number" id="bet-size" class="bet-input" min="1" max="100" value="10">
     </div>
 
-    <!-- Game Info While Playing -->
-    <div id="game-info" style="display: none;">
-      <div>💰 Current Cashout: <span id="current-profit">0</span> tokens</div>
-      <div>📈 Multiplier: <span id="current-multiplier">x0.00</span></div>
-      <button onclick="cashOut()" style="margin-top: 10px; background: #0a0;">💰 Cash Out</button>
+    <!-- Grid for Mines -->
+    <div class="grid">
+      <!-- Tiles will be dynamically generated here -->
     </div>
 
-    <div class="grid" id="grid"></div>
-    <div id="profit-display">💰 Profit This Round: 0</div>
-    <div id="status"></div>
-  </div>
+    <!-- Start Game Button -->
+    <button class="start-button" id="start-button" onclick="startGame()">Start Game</button>
 
-  <!-- Cashout Modal -->
-  <div id="cashout-modal" style="display:none;">
-    <div class="modal-box">
-      <button class="close-btn" onclick="closeCashoutModal()">X</button>
-      <h2>💰 Cashed Out!</h2>
-      <p id="cashout-amount" style="font-size: 24px; margin: 10px 0;"></p>
-      <p id="cashout-multiplier" style="font-size: 18px; color: #aaa;"></p>
+    <!-- Cashout and Multiplier Display -->
+    <div class="cashout-display hidden" id="cashout-display">
+      <p>Multiplier: <span id="multiplier">1x</span></p>
+      <p>Cashout: <span id="cashout-amount">0</span> Tokens</p>
     </div>
+
   </div>
 
   <script>
-    let tokens = 25000;
-    let minePositions = [];
-    let revealedTiles = new Set();
-    let gameActive = false;
-    let mines = 3;
-    let currentProfit = 0;
-    let currentMultiplier = 0;
+    // Variables
+    let balance = 1000;
+    let betSize = 10;
+    let gridSize = 25;
+    let mineCount = 5;
+    let revealedTiles = 0;
+    let multiplier = 1;
+    let tiles = [];
 
-    const mineDropdown = document.getElementById("mine-count");
-    for (let i = 1; i <= 24; i++) {
-      const option = document.createElement("option");
-      option.value = i;
-      option.textContent = i;
-      mineDropdown.appendChild(option);
+    // Initialize the game grid
+    function createGrid() {
+      const gridElement = document.querySelector('.grid');
+      gridElement.innerHTML = ''; // Clear existing grid
+      tiles = [];
+      for (let i = 0; i < gridSize; i++) {
+        const tile = document.createElement('div');
+        tile.classList.add('tile');
+        tile.setAttribute('data-index', i);
+        tile.addEventListener('click', handleTileClick);
+        gridElement.appendChild(tile);
+        tiles.push(tile);
+      }
     }
 
-    function updateTokensDisplay() {
-      document.getElementById("tokens").textContent = tokens;
-    }
-
-    function updateProfitDisplay() {
-      document.getElementById("profit-display").textContent = `💰 Profit This Round: ${currentProfit}`;
-      document.getElementById("current-profit").textContent = currentProfit;
-      document.getElementById("current-multiplier").textContent = `x${currentMultiplier.toFixed(2)}`;
-    }
-
+    // Start the game
     function startGame() {
-      mines = parseInt(mineDropdown.value);
-      minePositions = generateMines(mines);
-      revealedTiles.clear();
-      gameActive = true;
-      currentProfit = 0;
-      currentMultiplier = 0;
-
-      updateProfitDisplay();
-      document.getElementById("game-btn").style.display = "none";
-      document.getElementById("game-info").style.display = "block";
-      document.getElementById("status").textContent = "";
-      renderGrid();
-    }
-
-    function endGame() {
-      gameActive = false;
-      document.getElementById("game-btn").style.display = "block";
-      document.getElementById("game-info").style.display = "none";
-      document.getElementById("game-btn").textContent = "Start Game";
-    }
-
-    function handleGameClick() {
-      if (!gameActive) {
-        startGame();
-      }
-    }
-
-    function generateMines(count) {
-      const positions = new Set();
-      while (positions.size < count) {
-        positions.add(Math.floor(Math.random() * 25));
-      }
-      return [...positions];
-    }
-
-    function renderGrid() {
-      const grid = document.getElementById("grid");
-      grid.innerHTML = "";
-      for (let i = 0; i < 25; i++) {
-        const tile = document.createElement("div");
-        tile.className = "tile";
-        tile.dataset.index = i;
-        tile.onclick = () => revealTile(i, tile);
-        grid.appendChild(tile);
-      }
-    }
-
-    function revealTile(index, tile) {
-      if (!gameActive || revealedTiles.has(index)) return;
-
-      if (minePositions.includes(index)) {
-        tile.classList.add("mine");
-        tile.textContent = "💥";
-        document.getElementById("status").textContent = "You hit a mine! 💀 Profit lost.";
-        currentProfit = 0;
-        updateProfitDisplay();
-        endGame();
+      betSize = parseInt(document.getElementById('bet-size').value);
+      if (betSize > balance) {
+        alert("Insufficient balance for this bet.");
         return;
       }
+      balance -= betSize; // Debit balance
+      document.getElementById('balance').textContent = balance;
 
-      revealedTiles.add(index);
-      tile.classList.add("revealed");
-      tile.textContent = "💎";
+      document.getElementById('start-button').classList.add('hidden');
+      document.getElementById('cashout-display').classList.remove('hidden');
 
-      const safeTiles = 25 - mines;
-      currentMultiplier = 1 / (1 - (revealedTiles.size / safeTiles));
-      currentProfit = Math.floor(100 * currentMultiplier);
+      multiplier = 1; // Reset multiplier
+      revealedTiles = 0;
 
-      updateProfitDisplay();
+      createGrid();
+      setMines();
+    }
 
-      if (revealedTiles.size === safeTiles) {
-        document.getElementById("status").textContent = "You cleared the board!";
-        endGame();
+    // Handle tile click
+    function handleTileClick(event) {
+      const tile = event.target;
+      const index = parseInt(tile.getAttribute('data-index'));
+
+      if (tile.classList.contains('revealed') || tile.classList.contains('locked')) return;
+
+      tile.classList.add('revealed');
+
+      if (Math.random() < (mineCount / gridSize)) {
+        tile.classList.add('mine');
+        endGame(false); // End game on mine
+      } else {
+        revealedTiles++;
+        multiplier = 1 + (revealedTiles / gridSize); // Increase multiplier
+        document.getElementById('multiplier').textContent = `${multiplier.toFixed(2)}x`;
+      }
+
+      // Check if all non-mine tiles are revealed (win condition)
+      if (revealedTiles === gridSize - mineCount) {
+        endGame(true); // End game with win
       }
     }
 
-    function cashOut() {
-      if (!gameActive || currentProfit <= 0) return;
+    // Set mines randomly
+    function setMines() {
+      const mineIndices = [];
+      while (mineIndices.length < mineCount) {
+        const randIndex = Math.floor(Math.random() * gridSize);
+        if (!mineIndices.includes(randIndex)) {
+          mineIndices.push(randIndex);
+        }
+      }
 
-      tokens += currentProfit;
-      updateTokensDisplay();
-
-      document.getElementById("cashout-amount").textContent = `+${currentProfit} Tokens`;
-      document.getElementById("cashout-multiplier").textContent = `Multiplier: x${currentMultiplier.toFixed(2)}`;
-      document.getElementById("cashout-modal").style.display = 'block';
-
-      currentProfit = 0;
-      updateProfitDisplay();
-      endGame();
+      tiles.forEach((tile, index) => {
+        if (mineIndices.includes(index)) {
+          tile.classList.add('mine');
+        }
+      });
     }
 
-    function closeCashoutModal() {
-      document.getElementById("cashout-modal").style.display = "none";
-    }
+    // End the game
+    function endGame(win) {
+      if (win) {
+        const cashoutAmount = betSize * multiplier;
+        document.getElementById('cashout-amount').textContent = cashoutAmount;
+        balance += cashoutAmount; // Add winnings
+        document.getElementById('balance').textContent = balance;
+        alert("You won! Cashout: " + cashoutAmount);
+      } else {
+        alert("Game over! You hit a mine!");
+      }
 
-    // Init
-    updateTokensDisplay();
-    renderGrid();
+      document.getElementById('start-button').classList.remove('hidden');
+      document.getElementById('cashout-display').classList.add('hidden');
+      revealedTiles = 0;
+    }
   </script>
 
 </body>
