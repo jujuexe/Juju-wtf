@@ -4,21 +4,15 @@
     <title>Redirecting…</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-      // List of valid pages
-      const validPages = ['home.html', 'verify.html', '/'];
+      // Define allowed pages
+      const allowedPages = ['/', '/home.html', '/index.html'];
 
-      const currentPath = window.location.pathname;
-      const referrer = document.referrer;
+      const path = window.location.pathname;
 
-      const isValid = validPages.some(page => {
-        return page === '/' 
-          ? currentPath === '/' 
-          : currentPath.endsWith('/' + page) || currentPath.endsWith(page);
-      });
+      // Check if path matches any allowed page
+      const isAllowed = allowedPages.some(page => path === page || path.endsWith(page));
 
-      const isFromVerify = referrer.includes('verify.html');
-
-      if (!isValid && !isFromVerify) {
+      if (!isAllowed) {
         window.location.href = "https://juju.wtf";
       }
     </script>
