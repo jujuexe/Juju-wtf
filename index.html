@@ -156,7 +156,7 @@
 </head>
 <body>
   <button class="intro-screen glow" id="intro-screen" aria-label="Enter site">click to enter</button>
-  <video id="background-video" muted playsinline webkit-playsinline loop preload="metadata">
+  <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
     <source src="https://pub-3bfa94b368d34d7e839934cc455b9712.r2.dev/flxrosamason.mp4" type="video/mp4">
   </video>
   <div class="container">
@@ -172,19 +172,16 @@
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
     const pauseButton = document.getElementById('pause-button');
+    let isPaused = false;
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
-      video.muted = true;
-      video.play().then(() => {
-        video.muted = false;
-      }).catch((error) => {
+      video.play().catch(error => {
         console.error('Video playback failed:', error);
       });
     });
-    let isPaused = false;
     pauseButton.addEventListener('click', () => {
       if (isPaused) {
-        video.play().catch((error) => {
+        video.play().catch(error => {
           console.error('Video playback failed:', error);
         });
         pauseButton.textContent = 'pause';
