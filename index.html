@@ -61,7 +61,13 @@
       width: 100vw;
       height: 100vh;
       object-fit: cover;
-      z-index: -1; /* Keep video in background */
+      z-index: -1; /* Ensure video stays in background */
+      display: block; /* Prevent default inline behavior */
+    }
+
+    /* Prevent fullscreen on iOS */
+    #background-video::-webkit-media-controls {
+      display: none !important;
     }
 
     .intro-screen {
@@ -78,7 +84,7 @@
       font-size: 2rem;
       cursor: pointer;
       transition: opacity .5s ease;
-      z-index: 100; /* Ensure intro screen is on top */
+      z-index: 100; /* Intro screen on top */
     }
 
     .intro-screen:hover {
@@ -96,7 +102,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
-      z-index: 10; /* Ensure container is above video */
+      z-index: 10; /* Above video */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -149,11 +155,11 @@
       text-align: center;
       opacity: 0;
       animation: fadeIn 1s ease-out forwards;
-      z-index: 10; /* Ensure controls are above video */
+      z-index: 10; /* Above video */
     }
 
     #pause-button {
-      background: 0 0;
+      background: none;
       border: none;
       color: #fff;
       cursor: pointer;
@@ -173,8 +179,9 @@
 <body>
   <div class="intro-screen glow" id="intro-screen">click to enter</div>
 
-  <video id="background-video" muted playsinline>
+  <video id="background-video" muted playsinline webkit-playsinline loop preload="metadata">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/youtube_pEWB_PqmNpE_1920x1080_h264%20(1)%20(1).mp4" type="video/mp4">
+    Your browser does not support the video tag.
   </video>
 
   <div class="container">
@@ -195,10 +202,15 @@
 
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
-      video.play().catch((error) => {
+      video.muted = true; // Start muted to comply with iOS
+      video.play().then(() => {
+        // Unmute after playback starts, if desired
+        video.muted = false;
+      }).catch((error) => {
         console.error('Video playback failed:', error);
+        // Fallback: Keep muted if unmuting fails
+        video.muted = true;
       });
-      video.muted = false; // Unmute after user interaction
     });
 
     let isPaused = false;
