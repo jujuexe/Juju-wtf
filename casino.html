@@ -23,6 +23,12 @@
             font-size: 2.5em;
         }
 
+        .balance {
+            font-size: 1.5em;
+            color: #4CAF50;
+            margin-top: 10px;
+        }
+
         .main-container {
             display: flex;
             justify-content: center;
@@ -38,6 +44,7 @@
             width: 250px;
             text-align: center;
             cursor: pointer;
+            position: relative;
         }
 
         .case-item img {
@@ -49,6 +56,11 @@
         .case-item h2 {
             font-size: 1.5em;
             margin-top: 10px;
+        }
+
+        .case-value {
+            font-size: 1em;
+            color: #ccc;
         }
 
         .loot-table {
@@ -74,6 +86,28 @@
             margin-right: 10px;
         }
 
+        .create-battle {
+            background-color: #4CAF50;
+            padding: 15px;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            margin-top: 20px;
+            width: 200px;
+        }
+
+        .battle-options {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .battle-options select {
+            padding: 10px;
+            font-size: 1.2em;
+        }
+
         footer {
             background-color: #333;
             padding: 10px;
@@ -87,7 +121,8 @@
 <body>
 
 <header>
-    <h1>Case Battles - Fight for Loot!</h1>
+    <h1>Case Battles</h1>
+    <div class="balance">Balance: 45,000</div>
 </header>
 
 <div class="main-container">
@@ -95,99 +130,126 @@
     <div class="case-item" data-case="juicer-case">
         <img src="https://static.rbxgold.com/cases/juicer-case.png" alt="Juicer Case">
         <h2>Juicer Case</h2>
+        <div class="case-value">Value: 1,552</div>
+        <button class="add-remove" data-case="juicer-case">Add/Remove</button>
     </div>
 
     <!-- Case Item 2 -->
-    <div class="case-item" data-case="noice-case">
-        <img src="https://static.rbxgold.com/cases/noice-case.png" alt="Noice Case">
-        <h2>Noice Case</h2>
-    </div>
-
-    <!-- Case Item 3 -->
-    <div class="case-item" data-case="kheeks-case">
-        <img src="https://static.rbxgold.com/cases/kheeks-case.png" alt="Kheeks Case">
-        <h2>Kheeks Case</h2>
-    </div>
-
-    <!-- Case Item 4 -->
     <div class="case-item" data-case="perfect-100x-case">
         <img src="https://static.rbxgold.com/cases/perfect-100x-case.png" alt="Perfect 100x Case">
         <h2>Perfect 100x Case</h2>
+        <div class="case-value">Value: 773</div>
+        <button class="add-remove" data-case="perfect-100x-case">Add/Remove</button>
     </div>
 
-    <!-- Case Item 5 -->
+    <!-- Case Item 3 -->
     <div class="case-item" data-case="smokestacker-case">
         <img src="https://static.rbxgold.com/cases/smokestacker-case.png" alt="Smokestacker Case">
         <h2>Smokestacker Case</h2>
+        <div class="case-value">Value: 9,967</div>
+        <button class="add-remove" data-case="smokestacker-case">Add/Remove</button>
     </div>
 
-    <!-- Case Item 6 -->
-    <div class="case-item" data-case="vampire-bling-case">
-        <img src="https://static.rbxgold.com/cases/vampire-bling-case.png" alt="Vampire Bling Case">
-        <h2>Vampire Bling Case</h2>
-    </div>
-
-    <!-- Case Item 7 -->
+    <!-- Case Item 4 -->
     <div class="case-item" data-case="yum-luck-case">
         <img src="https://static.rbxgold.com/cases/yum-luck-case.png" alt="Yum Luck Case">
         <h2>Yum Luck Case</h2>
+        <div class="case-value">Value: 49,671</div>
+        <button class="add-remove" data-case="yum-luck-case">Add/Remove</button>
     </div>
 
-    <!-- Case Item 8 -->
-    <div class="case-item" data-case="tixy-case">
-        <img src="https://static.rbxgold.com/cases/tixy-case.png" alt="Tixy Case">
-        <h2>Tixy Case</h2>
-    </div>
-
-    <!-- Case Item 9 -->
+    <!-- Case Item 5 -->
     <div class="case-item" data-case="hatgold-case">
         <img src="https://static.rbxgold.com/cases/hatgold-case.png" alt="Hatgold Case">
         <h2>Hatgold Case</h2>
+        <div class="case-value">Value: 53,397</div>
+        <button class="add-remove" data-case="hatgold-case">Add/Remove</button>
     </div>
 
-    <!-- Case Item 10 -->
-    <div class="case-item" data-case="15-percent-jackpot-case">
-        <img src="https://static.rbxgold.com/cases/15-percent-jackpot-case.png" alt="15 Percent Jackpot Case">
-        <h2>15% Jackpot Case</h2>
-    </div>
+    <!-- More cases go here... -->
 </div>
 
-<!-- Loot Tables -->
+<!-- Loot Table -->
 <div class="loot-table" id="juicer-case-loot">
     <h3>Juicer Case Loot Table</h3>
     <div class="loot-item"><img src="https://static.rbxgold.com/cases/juicer-case.png" alt="Loot"> 18,000 Catching Snowflakes - 1% Drop Rate</div>
-    <div class="loot-item"><img src="https://static.rbxgold.com/cases/juicer-case.png" alt="Loot"> 16,000 Emerald Valk Shades - 1% Drop Rate</div>
-    <div class="loot-item"><img src="https://static.rbxgold.com/cases/juicer-case.png" alt="Loot"> 16,000 Green Wistful Wink - 1% Drop Rate</div>
-    <div class="loot-item"><img src="https://static.rbxgold.com/cases/juicer-case.png" alt="Loot"> 15,000 Blue Wistful Wink - 1% Drop Rate</div>
-    <div class="loot-item"><img src="https://static.rbxgold.com/cases/juicer-case.png" alt="Loot"> 15,000 Purple Wistful Wink - 1% Drop Rate</div>
+    <!-- Add other loot items for Juicer Case -->
 </div>
 
-<!-- Loot tables for other cases would go here -->
+<!-- Create Battle Button -->
+<button class="create-battle">Create Battle</button>
+
+<!-- Battle Options (Hidden initially) -->
+<div class="battle-options">
+    <h3>Team Configuration</h3>
+    <select id="game-mode">
+        <option value="1v1">1v1</option>
+        <option value="3-way">3-Way</option>
+        <option value="4-way">4-Way</option>
+        <option value="2v2">2v2</option>
+        <option value="crazy-mode">Crazy Mode</option>
+    </select>
+    <select id="player-count">
+        <option value="1">1 Player</option>
+        <option value="2">2 Players</option>
+        <option value="3">3 Players</option>
+        <option value="4">4 Players</option>
+    </select>
+    <button id="start-battle">Start</button>
+</div>
 
 <footer>
     <p>Case Battles &copy; 2025 - All rights reserved.</p>
 </footer>
 
 <script>
-    const caseItems = document.querySelectorAll('.case-item');
-    const lootTables = document.querySelectorAll('.loot-table');
+    let balance = 45000;
+    const balanceDisplay = document.querySelector('.balance');
+    const addRemoveButtons = document.querySelectorAll('.add-remove');
+    const createBattleButton = document.querySelector('.create-battle');
+    const battleOptions = document.querySelector('.battle-options');
+    const startBattleButton = document.getElementById('start-battle');
+    let selectedCases = [];
 
-    // Function to toggle the visibility of loot table for the selected case
-    caseItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const caseName = item.getAttribute('data-case');
-            const selectedLootTable = document.getElementById(`${caseName}-loot`);
-            
-            // Hide all loot tables first
-            lootTables.forEach(table => {
-                table.style.display = 'none';
-            });
-            
-            // Show the selected loot table
-            if (selectedLootTable) {
-                selectedLootTable.style.display = 'block';
+    // Update balance display
+    function updateBalance() {
+        balanceDisplay.textContent = `Balance: ${balance}`;
+    }
+
+    // Add/remove cases for battle
+    addRemoveButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const caseName = button.getAttribute('data-case');
+            if (selectedCases.includes(caseName)) {
+                selectedCases = selectedCases.filter(item => item !== caseName);
+                button.textContent = 'Add';
+            } else {
+                selectedCases.push(caseName);
+                button.textContent = 'Remove';
             }
         });
+    });
+
+    // Show battle options when Create Battle is clicked
+    createBattleButton.addEventListener('click', () => {
+        battleOptions.style.display = 'block';
+    });
+
+    // Start the battle and deduct balance
+    startBattleButton.addEventListener('click', () => {
+        if (selectedCases.length < 2) {
+            alert('Please select at least 2 cases to start the battle.');
+            return;
+        }
+
+        // Deduct balance for the battle (assuming each battle costs a fixed amount)
+        balance -= 1000; // Adjust this as needed for the cost
+        updateBalance();
+
+        // Simulate battle outcome and reset selections
+        alert('Battle Started!');
+        selectedCases = [];
+        updateBalance();
     });
 </script>
 
