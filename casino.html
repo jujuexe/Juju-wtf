@@ -1,1 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Juju Casino</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #token-count {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    .game {
+      margin-top: 30px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 60px);
+      grid-gap: 10px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .tile {
+      width: 60px;
+      height: 60px;
+      background: #222;
+      border: 1px solid #444;
+      cursor: pointer;
+      font-size: 24px;
+      line-height: 60px;
+      user-select: none;
+    }
+    .tile.revealed {
+      background: #1e1e1e;
+      color: #0f0;
+    }
+    .tile.mine {
+      background: #900;
+      color: #fff;
+    }
+    select, button {
+      padding: 10px;
+      margin: 10px;
+      background: #333;
+      color: white;
+      border: none;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
 
+  <h1>💣 Juju Casino – Mines</h1>
+  <div id="token-count">Tokens: <span id="tokens">25000</span></div>
+
+  <div class="game">
+    <label for="mine-count">Number of Mines:</label>
+    <select id="mine-count">
+      <!-- Options from 1 to 24 -->
+      <script>
+        for (let i = 1; i <= 24; i++) {
+          document.write(`<option value="${i}">${i}</option>`);
+        }
+      </script>
+    </select>
+    <button onclick="startGame()">Start Game</button>
+
+    <div class="grid" id="grid"></div>
+    <div id="status"></div>
+  </div>
+
+  <script>
+    let tokens = 25000;
+    let minePositions = [];
+    let revealedTiles = new Set();
+    let gameActive = false;
+    let mines = 3;
+    let multiplier = 1;
+
+    function updateTokensDisplay() {
+      document.getElementById("tokens").textContent = tokens;
+    }
+
+    function startGame() {
+      const mineCount = parseInt(document.getElementById("mine-count").value);
+      mines = mineCount;
+      multiplier = 1;
+      minePositions = generateMines(mineCount);
+      revealedTiles.clear();
+      gameActive = true;
+      document.getElementById("status").textContent = "";
+      renderGrid();
+    }
+
+    function generateMines(count) {
+      const positions = new Set();
+      while (positions.size < count) {
+        positions.add(Math.floor(Math.random() * 25));
+      }
+      return [...positions];
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById("grid");
+      grid.innerHTML = "";
+      for (let i = 0; i < 25; i++) {
+        const tile = document.createElement("div");
+        tile.className = "tile";
+        tile.dataset.index = i;
+        tile.onclick = () => revealTile(i, tile);
+        grid.appendChild(tile);
+      }
+    }
+
+    function revealTile(index, tile) {
+      if (!gameActive || revealedTiles.has(index)) return;
+
+      if (minePositions.includes(index)) {
+        tile.classList.add("mine");
+        tile.textContent = "💥";
+        document.getElementById("status").textContent = "You hit a mine! Game over.";
+        gameActive = false;
+        return;
+      }
+
+      revealedTiles.add(index);
+      tile.classList.add("revealed");
+      tile.textContent = "💎";
+      multiplier += 0.3;
+
+      // Optional: Reward per tile safely revealed
+      let reward = Math.floor(100 * multiplier);
+      tokens += reward;
+      updateTokensDisplay();
+
+      if (revealedTiles.size === 25 - mines) {
+        document.getElementById("status").textContent = "You cleared the board!";
+        gameActive = false;
+      }
+    }
+
+    // On load
+    updateTokensDisplay();
+    renderGrid();
+  </script>
+
+</body>
+</html>
