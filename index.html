@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- FavIcon -->
+  <link rel="icon" type="image/png" href="https://github.com/jujuexe/fr/blob/main/980195a4b420a62cfca4fa7450db7ab7.png?raw=true" />
+
+  <!-- Open Graph Meta (for Discord / Twitter embeds) -->
+  <meta property="og:url" content="https://juju.wtf/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="JuJu">
+  <meta property="og:description" content="hai person">
+  <meta property="og:image" content="https://github.com/jujuexe/fr/blob/main/980195a4b420a62cfca4fa7450db7ab7.png?raw=true" />
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>♡ juju.lol</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+  <script>
+    let titleText = "juju.wtf ";
+    let index = 0;
+    setInterval(() => {
+      document.title = titleText.slice(index) + titleText.slice(0, index);
+      index = (index + 1) % titleText.length;
+    }, 200);
+
+    const messages = ["hai :3", "juju.wtf"];
+    let msgIndex = 0;
+    setInterval(() => {
+      const titleElement = document.querySelector('.title');
+      titleElement.style.opacity = 0;
+      setTimeout(() => {
+        titleElement.textContent = messages[msgIndex];
+        titleElement.style.transform = 'translateY(-3px)';
+        titleElement.style.opacity = 1;
+        setTimeout(() => {
+          titleElement.style.transform = 'translateY(0)';
+        }, 150);
+        msgIndex = (msgIndex + 1) % messages.length;
+      }, 500);
+    }, 5000);
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0a0a0a;
+      color: #fff;
+      font-family: Inter, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Background video setup */
+    #background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1; /* Behind everything */
+    }
+
+    .intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: opacity .5s ease;
+      z-index: 100;
+    }
+
+    .intro-screen:hover {
+      text-shadow: 0 0 10px #fff;
+    }
+
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pfp {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      border: 2px solid #fff;
+    }
+
+    .title {
+      font-size: 1.2rem;
+      text-transform: lowercase;
+      letter-spacing: .1rem;
+      position: relative;
+      transition: transform .3s ease, opacity .5s ease;
+    }
+
+    .discord-logo {
+      display: inline-block;
+      width: 100px;
+      height: 30px;
+      background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      text-indent: -9999px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      margin-top: 30px;
+    }
+
+    .discord-logo:hover {
+      transform: scale(1.05);
+    }
+
+    #audio-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, .7);
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+      z-index: 10;
+    }
+
+    #pause-button {
+      background: 0 0;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 5px;
+      text-transform: lowercase;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="intro-screen glow" id="intro-screen">click to enter</div>
+
+  <!-- Background video used as audio -->
+  <video autoplay loop id="background-video" muted>
+    <source src="https://r2.guns.lol/e3afb2ac-1ef1-41e8-b693-f290de7c85ec.mp4" type="video/mp4">
+  </video>
+
+  <div class="container">
+    <img src="https://github.com/jujuexe/fr/raw/refs/heads/main/94615d1dab33e63c79d8e5f905ea2843.webp" alt="pfp" class="pfp">
+    <div class="title">juju.wtf</div>
+    <a href="https://discordlookup.com/user/202198605816135680" class="discord-logo" aria-label="discord">discord</a>
+  </div>
+
+  <div id="audio-controls">
+    <div id="song-title">Now Playing: Flxr</div>
+    <button id="pause-button">pause</button>
+  </div>
+
+  <script>
+    const introScreen = document.getElementById('intro-screen');
+    const video = document.getElementById('background-video');
+    const pauseButton = document.getElementById('pause-button');
+
+    introScreen.addEventListener('click', function () {
+      this.classList.add('hidden');
+      video.muted = false;
+      video.play();
+    });
+
+    let isPaused = false;
+    pauseButton.addEventListener('click', () => {
+      if (isPaused) {
+        video.play();
+        pauseButton.textContent = 'pause';
+      } else {
+        video.pause();
+        pauseButton.textContent = 'play';
+      }
+      isPaused = !isPaused;
+    });
+  </script>
+</body>
+</html>
