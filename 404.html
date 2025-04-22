@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; url=https://juju.wtf">
-  </head>
-  <body>
-    <p>Redirecting...</p>
+    <title>Redirecting…</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-      window.location.href = "https://juju.wtf";
+      // Only redirect if path is not valid
+      const validPages = ['/', '/home.html', '/verify.html'];
+      const currentPath = window.location.pathname;
+
+      if (!validPages.includes(currentPath)) {
+        window.location.href = "https://juju.wtf";
+      }
     </script>
+  </head>
+  <body style="font-family: sans-serif; background: #f9f9f9; text-align: center; padding: 2rem;">
+    <p>If you're not redirected, <a href="https://juju.wtf">click here</a>.</p>
   </body>
 </html>
