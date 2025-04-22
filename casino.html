@@ -6,11 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
+      margin: 0;
       background: #111;
       color: #fff;
       font-family: 'Arial', sans-serif;
-      text-align: center;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
       padding: 20px;
+    }
+
+    .left-panel {
+      width: 350px;
+      margin-right: 50px;
     }
 
     #token-count {
@@ -18,16 +26,11 @@
       margin-bottom: 20px;
     }
 
-    .game {
-      margin-top: 30px;
-    }
-
     .grid {
       display: grid;
       grid-template-columns: repeat(5, 60px);
       grid-gap: 10px;
-      justify-content: center;
-      margin: 20px 0;
+      margin-top: 20px;
     }
 
     .tile {
@@ -39,6 +42,7 @@
       font-size: 24px;
       line-height: 60px;
       user-select: none;
+      text-align: center;
     }
 
     .tile.revealed {
@@ -53,23 +57,29 @@
 
     select, button {
       padding: 10px;
-      margin: 10px;
+      margin: 10px 0;
       background: #333;
       color: white;
       border: none;
       font-size: 16px;
       border-radius: 6px;
+      width: 100%;
     }
 
-    #cashout-btn {
-      background: #0a0;
+    #profit-display {
+      font-size: 18px;
+      margin-top: 10px;
+      color: #0f0;
+    }
+
+    #status {
+      margin-top: 10px;
     }
 
     #cashout-modal {
       display: none;
     }
 
-    /* Modal Styling */
     #cashout-modal .modal-box {
       position: fixed;
       top: 50%;
@@ -83,6 +93,18 @@
       z-index: 9999;
       box-shadow: 0 0 20px #000;
       width: 300px;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
     }
 
     #cashout-modal button.close-btn {
@@ -101,16 +123,17 @@
 </head>
 <body>
 
-  <h1>💣 Juju Casino – Mines</h1>
-  <div id="token-count">Tokens: <span id="tokens">25000</span></div>
+  <div class="left-panel">
+    <h1>💣 Juju Mines</h1>
+    <div id="token-count">Tokens: <span id="tokens">25000</span></div>
 
-  <div class="game">
     <label for="mine-count">Number of Mines:</label>
     <select id="mine-count"></select>
-    <button onclick="startGame()">Start Game</button>
+
+    <button id="game-btn" onclick="handleGameClick()">Start Game</button>
 
     <div class="grid" id="grid"></div>
-    <button id="cashout-btn" onclick="cashOut()" disabled>💰 Cash Out</button>
+    <div id="profit-display">💰 Profit This Round: 0</div>
     <div id="status"></div>
   </div>
 
@@ -130,8 +153,9 @@
     let revealedTiles = new Set();
     let gameActive = false;
     let mines = 3;
+    let currentProfit = 0;
 
-    // Populate dropdown
+    // Setup dropdown
     const mineDropdown = document.getElementById("mine-count");
     for (let i = 1; i <= 24; i++) {
       const option = document.createElement("option");
@@ -144,14 +168,33 @@
       document.getElementById("tokens").textContent = tokens;
     }
 
+    function updateProfitDisplay() {
+      document.getElementById("profit-display").textContent = `💰 Profit This Round: ${currentProfit}`;
+    }
+
     function startGame() {
       mines = parseInt(mineDropdown.value);
       minePositions = generateMines(mines);
       revealedTiles.clear();
       gameActive = true;
-      document.getElementById("cashout-btn").disabled = false;
+      currentProfit = 0;
+      updateProfitDisplay();
+      document.getElementById("game-btn").textContent = "💰 Cash Out";
       document.getElementById("status").textContent = "";
       renderGrid();
+    }
+
+    function endGame() {
+      gameActive = false;
+      document.getElementById("game-btn").textContent = "Start Game";
+    }
+
+    function handleGameClick() {
+      if (!gameActive) {
+        startGame();
+      } else {
+        cashOut();
+      }
     }
 
     function generateMines(count) {
@@ -180,9 +223,10 @@
       if (minePositions.includes(index)) {
         tile.classList.add("mine");
         tile.textContent = "💥";
-        document.getElementById("status").textContent = "You hit a mine! Game over.";
-        gameActive = false;
-        document.getElementById("cashout-btn").disabled = true;
+        document.getElementById("status").textContent = "You hit a mine! 💀 Profit lost.";
+        currentProfit = 0;
+        updateProfitDisplay();
+        endGame();
         return;
       }
 
@@ -190,39 +234,40 @@
       tile.classList.add("revealed");
       tile.textContent = "💎";
 
+      const fairMultiplier = (1 / (1 - (revealedTiles.size / (25 - mines)))).toFixed(2);
+      currentProfit = Math.floor(100 * fairMultiplier);
+      updateProfitDisplay();
+
       if (revealedTiles.size === 25 - mines) {
         document.getElementById("status").textContent = "You cleared the board!";
-        document.getElementById("cashout-btn").disabled = true;
-        gameActive = false;
+        endGame();
       }
     }
 
     function cashOut() {
-      if (!gameActive) return;
+      if (!gameActive || currentProfit <= 0) return;
 
       const diamondsClicked = revealedTiles.size;
-      const totalTiles = 25;
-      const safeTiles = totalTiles - mines;
-
+      const safeTiles = 25 - mines;
       const fairMultiplier = (1 / (1 - (diamondsClicked / safeTiles))).toFixed(2);
-      const reward = Math.floor(100 * fairMultiplier);
 
-      tokens += reward;
+      tokens += currentProfit;
       updateTokensDisplay();
 
-      document.getElementById("cashout-amount").textContent = `+${reward} Tokens`;
+      document.getElementById("cashout-amount").textContent = `+${currentProfit} Tokens`;
       document.getElementById("cashout-multiplier").textContent = `Multiplier: x${fairMultiplier}`;
       document.getElementById("cashout-modal").style.display = 'block';
 
-      gameActive = false;
-      document.getElementById("cashout-btn").disabled = true;
-      document.getElementById("status").textContent = "You cashed out!";
+      currentProfit = 0;
+      updateProfitDisplay();
+      endGame();
     }
 
     function closeCashoutModal() {
       document.getElementById("cashout-modal").style.display = "none";
     }
 
+    // Init
     updateTokensDisplay();
     renderGrid();
   </script>
