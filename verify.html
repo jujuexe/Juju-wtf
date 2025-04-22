@@ -7,31 +7,39 @@
   <title>Verifying</title>
   <style>
     body {
-      background-color: #5e2ca5; /* Purple */
+      background-color: #5e2ca5; /* Purple background */
       color: white;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       margin: 0;
     }
 
-    .message {
-      text-align: center;
-      animation: fadeIn 0.5s ease-in-out;
+    h2 {
+      margin-bottom: 20px;
+      font-weight: 500;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .spinner {
+      border: 6px solid rgba(255, 255, 255, 0.2);
+      border-top: 6px solid white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <div class="message">
-    <h2>Verifying you’re human…</h2>
-    <p>Please wait a moment</p>
-  </div>
+  <h2>Verifying you're human…</h2>
+  <div class="spinner"></div>
 </body>
 </html>
