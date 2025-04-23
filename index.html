@@ -102,7 +102,8 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 20px;
-      border: 2px solid #fff;
+      box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
     }
     .title {
       font-size: 2rem;
@@ -121,7 +122,6 @@
         text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
       }
     }
-
     .discord-wrapper {
       position: relative;
       display: inline-block;
@@ -146,7 +146,6 @@
     .discord-wrapper:hover .discord-tooltip {
       opacity: 1;
     }
-
     .discord-logo {
       display: inline-block;
       width: 100px;
@@ -158,12 +157,12 @@
       text-indent: -9999px;
       overflow: hidden;
       transition: transform 0.3s ease;
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      text-shadow: 0 0 5px #fff, 0 0 10px #ff69b4, 0 0 15px #ff69b4;
     }
     .discord-logo:hover {
       transform: scale(1.05);
+      text-shadow: 0 0 5px #fff, 0 0 10px #ff69b4, 0 0 15px #ff69b4;
     }
-
     #audio-controls {
       position: absolute;
       bottom: 20px;
@@ -177,7 +176,10 @@
       animation: fadeIn 1s ease-out forwards;
       z-index: 10;
     }
-
+    #song-title {
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
     #pause-button {
       background: none;
       border: none;
@@ -187,14 +189,12 @@
       text-transform: lowercase;
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
     }
-
     @keyframes fadeIn {
       to {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
       }
     }
-
     .sparkle {
       position: fixed;
       width: 8px;
@@ -206,7 +206,6 @@
       box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       animation: sparkleFade 1s ease-out forwards;
     }
-
     @keyframes sparkleFade {
       0% {
         opacity: 1;
@@ -236,7 +235,6 @@
     <div id="song-title">Now Playing: Flxr</div>
     <button id="pause-button">Pause ⏯</button>
   </div>
-
   <script>
     document.addEventListener('mousemove', e => {
       const sparkle = document.createElement('div');
@@ -248,7 +246,6 @@
         sparkle.remove();
       }, 1000);
     });
-
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
     const pauseButton = document.getElementById('pause-button');
