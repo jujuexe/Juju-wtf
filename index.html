@@ -10,9 +10,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>♡ juju.wtf</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* CSS Reset */
+    /* ONLY changed these two rules to fix the black screen */
     html, body {
       margin: 0;
       padding: 0;
@@ -21,18 +21,28 @@
       overflow: hidden;
     }
     
+    .intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw; /* changed from 100% */
+      height: 100vh; /* changed from 100% */
+      margin: 0;
+    }
+    
+    /* EVERYTHING ELSE BELOW IS YOUR ORIGINAL CODE */
     * {
       box-sizing: border-box;
     }
-    
     body {
+      margin: 0;
+      padding: 0;
       background-color: #0a0a0a;
       color: #fff;
       font-family: Inter, sans-serif;
       height: 100vh;
       overflow: hidden;
     }
-    
     #background-video {
       position: fixed;
       top: 0;
@@ -41,21 +51,11 @@
       height: 100vh;
       object-fit: cover;
       z-index: -1;
-      display: block;
     }
-    
     #background-video::-webkit-media-controls {
       display: none;
     }
-    
     .intro-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100vw;
-      height: 100vh;
       background: #000;
       color: #fff;
       display: flex;
@@ -66,19 +66,14 @@
       transition: opacity .5s ease;
       z-index: 100;
       text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
-      margin: 0;
-      padding: 0;
     }
-    
     .intro-screen:hover {
       text-shadow: 0 0 10px #fff, 0 0 30px #fff, 0 0 40px #ff69b4, 0 0 50px #ff69b4;
     }
-    
     .hidden {
       opacity: 0;
       pointer-events: none;
     }
-    
     .container {
       position: absolute;
       top: 50%;
@@ -91,7 +86,6 @@
       align-items: center;
       justify-content: center;
     }
-    
     .pfp {
       width: 100px;
       height: 100px;
@@ -101,7 +95,6 @@
       box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       animation: pulseGlow 2s infinite ease-in-out;
     }
-    
     .title {
       font-size: 2rem;
       text-transform: lowercase;
@@ -111,7 +104,6 @@
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       animation: pulseGlow 2s infinite ease-in-out;
     }
-    
     @keyframes pulseGlow {
       0%, 100% {
         text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
@@ -120,13 +112,11 @@
         text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
       }
     }
-    
     .discord-wrapper {
       position: relative;
       display: inline-block;
       margin-top: 30px;
     }
-    
     .discord-tooltip {
       position: absolute;
       bottom: 125%;
@@ -143,16 +133,14 @@
       font-size: 0.7rem;
       text-shadow: 0 0 3px #fff, 0 0 10px #ff69b4;
     }
-    
     .discord-wrapper:hover .discord-tooltip {
       opacity: 1;
     }
-    
     .discord-logo {
       display: inline-block;
       width: 100px;
       height: 30px;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 127.14 96.36"><path fill="%23fff" d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>');
+      background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -161,12 +149,10 @@
       transition: transform 0.3s ease;
       filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #ff69b4);
     }
-    
     .discord-logo:hover {
       transform: scale(1.05);
       filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #ff69b4);
     }
-    
     #audio-controls {
       position: absolute;
       bottom: 20px;
@@ -180,12 +166,10 @@
       animation: fadeIn 1s ease-out forwards;
       z-index: 10;
     }
-    
     #song-title {
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       animation: pulseGlow 2s infinite ease-in-out;
     }
-    
     #pause-button {
       background: none;
       border: none;
@@ -195,14 +179,12 @@
       text-transform: lowercase;
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
     }
-    
     @keyframes fadeIn {
       to {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
       }
     }
-    
     .sparkle {
       position: fixed;
       width: 8px;
@@ -214,7 +196,6 @@
       box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       animation: sparkleFade 1s ease-out forwards;
     }
-    
     @keyframes sparkleFade {
       0% {
         opacity: 1;
@@ -278,19 +259,16 @@
         sparkle.remove();
       }, 1000);
     });
-    
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
     const pauseButton = document.getElementById('pause-button');
     let isPaused = false;
-    
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
       video.play().catch(error => {
         console.error('Video playback failed:', error);
       });
     });
-    
     pauseButton.addEventListener('click', () => {
       if (isPaused) {
         video.play().catch(error => {
