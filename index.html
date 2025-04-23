@@ -191,11 +191,11 @@
       position: absolute;
       top: -100px;
       left: 50%;
-      width: 4px;
-      height: 4px;
-      background: white;
+      width: 6px;
+      height: 6px;
+      background: #fff;
       border-radius: 50%;
-      box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+      box-shadow: 0 0 20px #fff, 0 0 30px #ff69b4;
       animation: shootStar 2s linear infinite;
     }
     @keyframes shootStar {
@@ -212,7 +212,6 @@
 </head>
 <body>
   <button class="intro-screen glow" id="intro-screen" aria-label="Enter site">click to enter</button>
-  <div class="shooting-star"></div>
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/0422%20(1).mp4" type="video/mp4">
   </video>
@@ -229,37 +228,33 @@
     <button id="pause-button">Pause ⏯</button>
   </div>
   <script>
-    // Create shooting stars dynamically
-    setInterval(() => {
-      const star = document.createElement('div');
-      star.className = 'shooting-star';
-      star.style.left = Math.random() * 100 + '%'; // Random horizontal position
-      document.body.appendChild(star);
-      setTimeout(() => {
-        star.remove();
-      }, 2000); // Remove the star after the animation ends
-    }, 200);
-
-    document.addEventListener('mousemove', e => {
-      const sparkle = document.createElement('div');
-      sparkle.className = 'sparkle';
-      document.body.appendChild(sparkle);
-      sparkle.style.left = `${e.clientX}px`;
-      sparkle.style.top = `${e.clientY}px`;
-      setTimeout(() => {
-        sparkle.remove();
-      }, 1000);
-    });
-
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
     const pauseButton = document.getElementById('pause-button');
     let isPaused = false;
+    let starsVisible = true;
+
+    // Create shooting stars dynamically
+    function createShootingStars() {
+      if (starsVisible) {
+        const star = document.createElement('div');
+        star.className = 'shooting-star';
+        star.style.left = Math.random() * 100 + '%'; // Random horizontal position
+        document.body.appendChild(star);
+        setTimeout(() => {
+          star.remove();
+        }, 2000); // Remove the star after the animation ends
+      }
+    }
+
+    setInterval(createShootingStars, 200); // Shooting stars every 200ms
+
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
       video.play().catch(error => {
         console.error('Video playback failed:', error);
       });
+      starsVisible = false; // Disable stars when video starts
     });
 
     pauseButton.addEventListener('click', () => {
