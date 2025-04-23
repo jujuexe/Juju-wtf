@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="https://github.com/jujuexe/fr/blob/main/980195a4b420a62cfca4fa7450db7ab7.png?raw=true">
-  <meta property="og:url" content="https://JuJu.wtf/">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="JuJu">
-  <meta property="og:description" content="haiii everyone :3">
-  <meta property="og:image" content="https://github.com/jujuexe/fr/blob/main/980195a4b420a62cfca4fa7450db7ab7.png?raw=true">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>♡ juju.wtf</title>
@@ -37,16 +31,17 @@
   </script>
   <style>
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
     body {
-      margin: 0;
-      padding: 0;
       background-color: #000;
       color: #fff;
-      font-family: Inter, sans-serif;
+      font-family: 'Inter', sans-serif;
       height: 100vh;
       overflow: hidden;
+      position: relative;
     }
     #background-video {
       position: fixed;
@@ -56,9 +51,6 @@
       height: 100vh;
       object-fit: cover;
       z-index: -1;
-    }
-    #background-video::-webkit-media-controls {
-      display: none;
     }
     .intro-screen {
       position: fixed;
@@ -195,45 +187,25 @@
         transform: translateX(-50%) translateY(0);
       }
     }
-    .sparkle {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      background: white;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
-      animation: sparkleFade 1s ease-out forwards;
-    }
-    @keyframes sparkleFade {
-      0% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(0.5) translateY(-10px);
-      }
-    }
     .shooting-star {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('https://cdn.pixabay.com/photo/2014/12/20/10/22/shooting-star-576213_960_720.png') no-repeat center center;
-      animation: shootingStarGlow 5s linear infinite;
-      z-index: 2;
+      top: -100px;
+      left: 50%;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+      animation: shootStar 2s linear infinite;
     }
-    @keyframes shootingStarGlow {
+    @keyframes shootStar {
       0% {
-        opacity: 0;
-        transform: translateY(0);
+        transform: translate(-50%, 0);
+        opacity: 1;
       }
       100% {
-        opacity: 1;
-        transform: translateY(100vh);
+        transform: translate(-50%, 100vh);
+        opacity: 0;
       }
     }
   </style>
@@ -257,6 +229,17 @@
     <button id="pause-button">Pause ⏯</button>
   </div>
   <script>
+    // Create shooting stars dynamically
+    setInterval(() => {
+      const star = document.createElement('div');
+      star.className = 'shooting-star';
+      star.style.left = Math.random() * 100 + '%'; // Random horizontal position
+      document.body.appendChild(star);
+      setTimeout(() => {
+        star.remove();
+      }, 2000); // Remove the star after the animation ends
+    }, 200);
+
     document.addEventListener('mousemove', e => {
       const sparkle = document.createElement('div');
       sparkle.className = 'sparkle';
@@ -267,6 +250,7 @@
         sparkle.remove();
       }, 1000);
     });
+
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
     const pauseButton = document.getElementById('pause-button');
@@ -277,6 +261,7 @@
         console.error('Video playback failed:', error);
       });
     });
+
     pauseButton.addEventListener('click', () => {
       if (isPaused) {
         video.play().catch(error => {
