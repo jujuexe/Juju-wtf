@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" type="image/png" href="https://github.com/jujuexe/fr/blob/main/980195a4b420a62cfca4fa7450db7ab7.png?raw=true">
+  <meta property="og:url" content="https://JuJu.wtf/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="JuJu">
+  <meta property="og:description" content="haiii everyone :3">
+  <meta property="og:image" content="https://github.com/jujuexe/fr/blob/main/980195a4b420a62cfca4fa7450db7ab7.png?raw=true">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>♡ juju.wtf</title>
@@ -31,17 +37,16 @@
   </script>
   <style>
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
     body {
-      background-color: #000;
+      margin: 0;
+      padding: 0;
+      background-color: #0a0a0a;
       color: #fff;
-      font-family: 'Inter', sans-serif;
+      font-family: Inter, sans-serif;
       height: 100vh;
       overflow: hidden;
-      position: relative;
     }
     #background-video {
       position: fixed;
@@ -51,6 +56,9 @@
       height: 100vh;
       object-fit: cover;
       z-index: -1;
+    }
+    #background-video::-webkit-media-controls {
+      display: none;
     }
     .intro-screen {
       position: fixed;
@@ -187,25 +195,25 @@
         transform: translateX(-50%) translateY(0);
       }
     }
-    .shooting-star {
-      position: absolute;
-      top: -100px;
-      left: 50%;
-      width: 6px;
-      height: 6px;
-      background: #fff;
+    .sparkle {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: white;
       border-radius: 50%;
-      box-shadow: 0 0 20px #fff, 0 0 30px #ff69b4;
-      animation: shootStar 2s linear infinite;
+      pointer-events: none;
+      z-index: 9999;
+      box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      animation: sparkleFade 1s ease-out forwards;
     }
-    @keyframes shootStar {
+    @keyframes sparkleFade {
       0% {
-        transform: translate(-50%, 0);
         opacity: 1;
+        transform: scale(1);
       }
       100% {
-        transform: translate(-50%, 100vh);
         opacity: 0;
+        transform: scale(0.5) translateY(-10px);
       }
     }
   </style>
@@ -219,7 +227,7 @@
     <img src="https://pub-3bfa94b368d34d7e839934cc455b9712.r2.dev/ec8682c3a3959691f9506c79de83c2f0.png" alt="pfp" class="pfp">
     <div class="title">JuJu.wtf</div>
     <div class="discord-wrapper">
-      <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord" target="_blank">discord</a>
+      <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord">discord</a>
       <div class="discord-tooltip">Invite to JuJu Fanclub</div>
     </div>
   </div>
@@ -228,35 +236,26 @@
     <button id="pause-button">Pause ⏯</button>
   </div>
   <script>
+    document.addEventListener('mousemove', e => {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      document.body.appendChild(sparkle);
+      sparkle.style.left = `${e.clientX}px`;
+      sparkle.style.top = `${e.clientY}px`;
+      setTimeout(() => {
+        sparkle.remove();
+      }, 1000);
+    });
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
     const pauseButton = document.getElementById('pause-button');
     let isPaused = false;
-    let starsVisible = true;
-
-    // Create shooting stars dynamically
-    function createShootingStars() {
-      if (starsVisible) {
-        const star = document.createElement('div');
-        star.className = 'shooting-star';
-        star.style.left = Math.random() * 100 + '%'; // Random horizontal position
-        document.body.appendChild(star);
-        setTimeout(() => {
-          star.remove();
-        }, 2000); // Remove the star after the animation ends
-      }
-    }
-
-    setInterval(createShootingStars, 200); // Shooting stars every 200ms
-
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
       video.play().catch(error => {
         console.error('Video playback failed:', error);
       });
-      starsVisible = false; // Disable stars when video starts
     });
-
     pauseButton.addEventListener('click', () => {
       if (isPaused) {
         video.play().catch(error => {
