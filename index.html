@@ -164,6 +164,30 @@
         transform: translateX(-50%) translateY(0);
       }
     }
+
+    /* Sparkle styles */
+    .sparkle {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      animation: sparkleFade 1s ease-out forwards;
+    }
+
+    @keyframes sparkleFade {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.5) translateY(-10px);
+      }
+    }
   </style>
 </head>
 <body>
@@ -180,6 +204,22 @@
     <div id="song-title">Now Playing: Flxr</div>
     <button id="pause-button">Pause ⏯</button>
   </div>
+
+  <!-- Sparkle Script -->
+  <script>
+    document.addEventListener('mousemove', e => {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      document.body.appendChild(sparkle);
+      sparkle.style.left = `${e.clientX}px`;
+      sparkle.style.top = `${e.clientY}px`;
+
+      setTimeout(() => {
+        sparkle.remove();
+      }, 1000);
+    });
+  </script>
+
   <script>
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
