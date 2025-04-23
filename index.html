@@ -11,43 +11,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>♡ juju.wtf</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <script>
-    let titleText = "♡ JuJu.wtf ";
-    let index = 0;
-    setInterval(() => {
-      document.title = titleText.slice(index) + titleText.slice(0, index);
-      index = (index + 1) % titleText.length;
-    }, 200);
-
-    const messages = ["haiii :3", "JuJu.wtf"];
-    let msgIndex = 0;
-    setInterval(() => {
-      const titleElement = document.querySelector('.title');
-      titleElement.style.opacity = 0;
-      setTimeout(() => {
-        titleElement.textContent = messages[msgIndex];
-        titleElement.style.transform = 'translateY(-3px)';
-        titleElement.style.opacity = 1;
-        setTimeout(() => {
-          titleElement.style.transform = 'translateY(0)';
-        }, 150);
-        msgIndex = (msgIndex + 1) % messages.length;
-      }, 500);
-    }, 5000);
-  </script>
   <style>
+    /* CSS Reset */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
     * {
       box-sizing: border-box;
     }
+    
     body {
-      margin: 0;
-      padding: 0;
       background-color: #0a0a0a;
       color: #fff;
       font-family: Inter, sans-serif;
       height: 100vh;
       overflow: hidden;
     }
+    
     #background-video {
       position: fixed;
       top: 0;
@@ -56,16 +41,21 @@
       height: 100vh;
       object-fit: cover;
       z-index: -1;
+      display: block;
     }
+    
     #background-video::-webkit-media-controls {
       display: none;
     }
+    
     .intro-screen {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      right: 0;
+      bottom: 0;
+      width: 100vw;
+      height: 100vh;
       background: #000;
       color: #fff;
       display: flex;
@@ -76,14 +66,19 @@
       transition: opacity .5s ease;
       z-index: 100;
       text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+      margin: 0;
+      padding: 0;
     }
+    
     .intro-screen:hover {
       text-shadow: 0 0 10px #fff, 0 0 30px #fff, 0 0 40px #ff69b4, 0 0 50px #ff69b4;
     }
+    
     .hidden {
       opacity: 0;
       pointer-events: none;
     }
+    
     .container {
       position: absolute;
       top: 50%;
@@ -96,6 +91,7 @@
       align-items: center;
       justify-content: center;
     }
+    
     .pfp {
       width: 100px;
       height: 100px;
@@ -105,6 +101,7 @@
       box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       animation: pulseGlow 2s infinite ease-in-out;
     }
+    
     .title {
       font-size: 2rem;
       text-transform: lowercase;
@@ -114,6 +111,7 @@
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       animation: pulseGlow 2s infinite ease-in-out;
     }
+    
     @keyframes pulseGlow {
       0%, 100% {
         text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
@@ -122,11 +120,13 @@
         text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
       }
     }
+    
     .discord-wrapper {
       position: relative;
       display: inline-block;
       margin-top: 30px;
     }
+    
     .discord-tooltip {
       position: absolute;
       bottom: 125%;
@@ -143,9 +143,11 @@
       font-size: 0.7rem;
       text-shadow: 0 0 3px #fff, 0 0 10px #ff69b4;
     }
+    
     .discord-wrapper:hover .discord-tooltip {
       opacity: 1;
     }
+    
     .discord-logo {
       display: inline-block;
       width: 100px;
@@ -159,10 +161,12 @@
       transition: transform 0.3s ease;
       filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #ff69b4);
     }
+    
     .discord-logo:hover {
       transform: scale(1.05);
       filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #ff69b4);
     }
+    
     #audio-controls {
       position: absolute;
       bottom: 20px;
@@ -176,10 +180,12 @@
       animation: fadeIn 1s ease-out forwards;
       z-index: 10;
     }
+    
     #song-title {
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       animation: pulseGlow 2s infinite ease-in-out;
     }
+    
     #pause-button {
       background: none;
       border: none;
@@ -189,12 +195,14 @@
       text-transform: lowercase;
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
     }
+    
     @keyframes fadeIn {
       to {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
       }
     }
+    
     .sparkle {
       position: fixed;
       width: 8px;
@@ -206,6 +214,7 @@
       box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       animation: sparkleFade 1s ease-out forwards;
     }
+    
     @keyframes sparkleFade {
       0% {
         opacity: 1;
@@ -236,6 +245,29 @@
     <button id="pause-button">Pause ⏯</button>
   </div>
   <script>
+    let titleText = "♡ JuJu.wtf ";
+    let index = 0;
+    setInterval(() => {
+      document.title = titleText.slice(index) + titleText.slice(0, index);
+      index = (index + 1) % titleText.length;
+    }, 200);
+
+    const messages = ["haiii :3", "JuJu.wtf"];
+    let msgIndex = 0;
+    setInterval(() => {
+      const titleElement = document.querySelector('.title');
+      titleElement.style.opacity = 0;
+      setTimeout(() => {
+        titleElement.textContent = messages[msgIndex];
+        titleElement.style.transform = 'translateY(-3px)';
+        titleElement.style.opacity = 1;
+        setTimeout(() => {
+          titleElement.style.transform = 'translateY(0)';
+        }, 150);
+        msgIndex = (msgIndex + 1) % messages.length;
+      }, 500);
+    }, 5000);
+
     document.addEventListener('mousemove', e => {
       const sparkle = document.createElement('div');
       sparkle.className = 'sparkle';
@@ -246,16 +278,19 @@
         sparkle.remove();
       }, 1000);
     });
+    
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
     const pauseButton = document.getElementById('pause-button');
     let isPaused = false;
+    
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
       video.play().catch(error => {
         console.error('Video playback failed:', error);
       });
     });
+    
     pauseButton.addEventListener('click', () => {
       if (isPaused) {
         video.play().catch(error => {
