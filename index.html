@@ -166,7 +166,7 @@
   </div>
   <div id="audio-controls">
     <div id="song-title">Now Playing: Flxr</div>
-    <button id="pause-button">Pause ⏯️</button>
+    <button id="pause-button">Pause</button>
   </div>
   <script>
     const introScreen = document.getElementById('intro-screen');
@@ -184,7 +184,7 @@
         video.play().catch(error => {
           console.error('Video playback failed:', error);
         });
-        pauseButton.textContent = 'pause';
+        pauseButton.textContent = 'Pause ⏯️';
       } else {
         video.pause();
         pauseButton.textContent = 'Play ⏯️';
