@@ -121,6 +121,32 @@
         text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
       }
     }
+
+    .discord-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-top: 30px;
+    }
+    .discord-tooltip {
+      position: absolute;
+      bottom: 130%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      text-shadow: 0 0 5px #fff, 0 0 15px #ff69b4;
+      font-size: 0.9rem;
+    }
+    .discord-wrapper:hover .discord-tooltip {
+      opacity: 1;
+    }
+
     .discord-logo {
       display: inline-block;
       width: 100px;
@@ -132,11 +158,12 @@
       text-indent: -9999px;
       overflow: hidden;
       transition: transform 0.3s ease;
-      margin-top: 30px;
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
     }
     .discord-logo:hover {
       transform: scale(1.05);
     }
+
     #audio-controls {
       position: absolute;
       bottom: 20px;
@@ -150,6 +177,7 @@
       animation: fadeIn 1s ease-out forwards;
       z-index: 10;
     }
+
     #pause-button {
       background: none;
       border: none;
@@ -157,7 +185,9 @@
       cursor: pointer;
       margin-top: 5px;
       text-transform: lowercase;
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
     }
+
     @keyframes fadeIn {
       to {
         opacity: 1;
@@ -165,7 +195,6 @@
       }
     }
 
-    /* Sparkle styles */
     .sparkle {
       position: fixed;
       width: 8px;
@@ -198,14 +227,16 @@
   <div class="container">
     <img src="https://pub-3bfa94b368d34d7e839934cc455b9712.r2.dev/ec8682c3a3959691f9506c79de83c2f0.png" alt="pfp" class="pfp">
     <div class="title">JuJu.wtf</div>
-    <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord">discord</a>
+    <div class="discord-wrapper">
+      <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord">discord</a>
+      <div class="discord-tooltip">Invite to JuJu Fanclub</div>
+    </div>
   </div>
   <div id="audio-controls">
     <div id="song-title">Now Playing: Flxr</div>
     <button id="pause-button">Pause ⏯</button>
   </div>
 
-  <!-- Sparkle Script -->
   <script>
     document.addEventListener('mousemove', e => {
       const sparkle = document.createElement('div');
@@ -213,14 +244,11 @@
       document.body.appendChild(sparkle);
       sparkle.style.left = `${e.clientX}px`;
       sparkle.style.top = `${e.clientY}px`;
-
       setTimeout(() => {
         sparkle.remove();
       }, 1000);
     });
-  </script>
 
-  <script>
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
     const pauseButton = document.getElementById('pause-button');
