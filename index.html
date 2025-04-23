@@ -18,6 +18,7 @@
       document.title = titleText.slice(index) + titleText.slice(0, index);
       index = (index + 1) % titleText.length;
     }, 200);
+
     const messages = ["hai :3", "JuJu.wtf"];
     let msgIndex = 0;
     setInterval(() => {
@@ -74,9 +75,10 @@
       cursor: pointer;
       transition: opacity .5s ease;
       z-index: 100;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
     }
     .intro-screen:hover {
-      text-shadow: 0 0 10px #fff;
+      text-shadow: 0 0 10px #fff, 0 0 30px #fff, 0 0 40px #ff69b4, 0 0 50px #ff69b4;
     }
     .hidden {
       opacity: 0;
@@ -103,11 +105,21 @@
       border: 2px solid #fff;
     }
     .title {
-      font-size: 1.2rem;
+      font-size: 2rem;
       text-transform: lowercase;
       letter-spacing: .1rem;
       position: relative;
       transition: transform .3s ease, opacity .5s ease;
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    @keyframes pulseGlow {
+      0%, 100% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      }
+      50% {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
+      }
     }
     .discord-logo {
       display: inline-block;
