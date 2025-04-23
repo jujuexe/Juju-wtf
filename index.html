@@ -12,25 +12,6 @@
   <title>♡ juju.wtf</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* ONLY changed these two rules to fix the black screen */
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-    
-    .intro-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw; /* changed from 100% */
-      height: 100vh; /* changed from 100% */
-      margin: 0;
-    }
-    
-    /* EVERYTHING ELSE BELOW IS YOUR ORIGINAL CODE */
     * {
       box-sizing: border-box;
     }
@@ -56,6 +37,11 @@
       display: none;
     }
     .intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: #000;
       color: #fff;
       display: flex;
@@ -119,7 +105,7 @@
     }
     .discord-tooltip {
       position: absolute;
-      bottom: 125%;
+      bottom: 127%; /* Changed from 125% to 127% to lower by ~2px */
       left: 50%;
       transform: translateX(-50%);
       background: rgba(0, 0, 0, 0.75);
