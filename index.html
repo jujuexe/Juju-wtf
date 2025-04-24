@@ -11,6 +11,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>♡ juju.wtf</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <script>
+    let titleText = "♡ JuJu.wtf ";
+    let index = 0;
+    setInterval(() => {
+      document.title = titleText.slice(index) + titleText.slice(0, index);
+      index = (index + 1) % titleText.length;
+    }, 200);
+
+    const messages = ["hai :3", "JuJu.wtf"];
+    let msgIndex = 0;
+    setInterval(() => {
+      const titleElement = document.querySelector('.title');
+      titleElement.style.opacity = 0;
+      setTimeout(() => {
+        titleElement.textContent = messages[msgIndex];
+        titleElement.style.transform = 'translateY(-3px)';
+        titleElement.style.opacity = 1;
+        setTimeout(() => {
+          titleElement.style.transform = 'translateY(0)';
+        }, 150);
+        msgIndex = (msgIndex + 1) % messages.length;
+      }, 500);
+    }, 5000);
+  </script>
   <style>
     * {
       box-sizing: border-box;
@@ -45,7 +69,6 @@
       background: #000;
       color: #fff;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       font-size: 2rem;
@@ -53,31 +76,6 @@
       transition: opacity .5s ease;
       z-index: 100;
       text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
-      animation: introPulse 2s infinite ease-in-out;
-    }
-    .intro-screen img {
-      width: 60px;
-      height: 60px;
-      margin-bottom: 20px;
-      border-radius: 50%;
-      box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
-      animation: pulseGlow 2s infinite ease-in-out;
-    }
-    .intro-screen .sub-text {
-      font-size: 1rem;
-      margin-top: 10px;
-      text-shadow: 0 0 5px #fff, 0 0 10px #ff69b4;
-      animation: pulseGlow 2s infinite ease-in-out;
-    }
-    @keyframes introPulse {
-      0%, 100% {
-        transform: scale(1);
-        text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
-      }
-      50% {
-        transform: scale(1.05);
-        text-shadow: 0 0 15px #fff, 0 0 30px #ff69b4;
-      }
     }
     .intro-screen:hover {
       text-shadow: 0 0 10px #fff, 0 0 30px #fff, 0 0 40px #ff69b4, 0 0 50px #ff69b4;
@@ -104,8 +102,7 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 20px;
-      box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
-      animation: pulseGlow 2s infinite ease-in-out;
+      border: 2px solid #fff;
     }
     .title {
       font-size: 2rem;
@@ -119,62 +116,26 @@
     @keyframes pulseGlow {
       0%, 100% {
         text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
-        box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       }
       50% {
         text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
-        box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
       }
     }
-    .social-links {
-      display: flex;
-      gap: 20px;
-      margin-top: 30px;
-    }
-    .discord-wrapper, .x-wrapper {
-      position: relative;
-      display: inline-block;
-    }
-    .discord-tooltip, .x-tooltip {
-      position: absolute;
-      bottom: 35px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.75);
-      color: #fff;
-      padding: 4px 8px;
-      border-radius: 6px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      font-size: 0.7rem;
-      text-shadow: 0 0 3px #fff, 0 0 10px #ff69b4;
-    }
-    .discord-wrapper:hover .discord-tooltip, .x-wrapper:hover .x-tooltip {
-      opacity: 1;
-    }
-    .discord-logo, .x-logo {
+    .discord-logo {
       display: inline-block;
       width: 100px;
       height: 30px;
+      background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
       text-indent: -9999px;
       overflow: hidden;
       transition: transform 0.3s ease;
-      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #ff69b4);
+      margin-top: 30px;
     }
-    .discord-logo {
-      background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
-    }
-    .x-logo {
-      background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/57/X_logo_2023_%28white%29.png');
-    }
-    .discord-logo:hover, .x-logo:hover {
+    .discord-logo:hover {
       transform: scale(1.05);
-      filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #ff69b4);
     }
     #audio-controls {
       position: absolute;
@@ -189,10 +150,6 @@
       animation: fadeIn 1s ease-out forwards;
       z-index: 10;
     }
-    #song-title {
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
-      animation: pulseGlow 2s infinite ease-in-out;
-    }
     #pause-button {
       background: none;
       border: none;
@@ -200,7 +157,6 @@
       cursor: pointer;
       margin-top: 5px;
       text-transform: lowercase;
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
     }
     @keyframes fadeIn {
       to {
@@ -208,6 +164,8 @@
         transform: translateX(-50%) translateY(0);
       }
     }
+
+    /* Sparkle styles */
     .sparkle {
       position: fixed;
       width: 8px;
@@ -219,6 +177,7 @@
       box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       animation: sparkleFade 1s ease-out forwards;
     }
+
     @keyframes sparkleFade {
       0% {
         opacity: 1;
@@ -232,86 +191,37 @@
   </style>
 </head>
 <body>
-  <button class="intro-screen glow" id="intro-screen" aria-label="Enter site">
-    <img src="https://cdn-images.dzcdn.net/images/cover/c127e42a0ff01672f91a98094ba9bcc5/0x1900-000000-80-0-0.jpg" alt="logo">
-    <span class="main-text">click to enter</span>
-    <span class="sub-text">welcome to juju.wtf :3</span>
-  </button>
+  <button class="intro-screen glow" id="intro-screen" aria-label="Enter site">click to enter</button>
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/0422%20(1).mp4" type="video/mp4">
   </video>
   <div class="container">
     <img src="https://pub-3bfa94b368d34d7e839934cc455b9712.r2.dev/ec8682c3a3959691f9506c79de83c2f0.png" alt="pfp" class="pfp">
     <div class="title">JuJu.wtf</div>
-    <div class="social-links">
-      <div class="discord-wrapper">
-        <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord" target="_blank" rel="noopener noreferrer">discord</a>
-        <div class="discord-tooltip">Invite to JuJu Fanclub</div>
-      </div>
-      <div class="x-wrapper">
-        <a href="https://x.com/jujuwtfz" class="x-logo" aria-label="X" target="_blank" rel="noopener noreferrer">X</a>
-        <div class="x-tooltip">@jujuwtfz on X</div>
-      </div>
-    </div>
+    <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord">discord</a>
   </div>
   <div id="audio-controls">
     <div id="song-title">Now Playing: Flxr</div>
     <button id="pause-button">Pause ⏯</button>
   </div>
+
+  <!-- Sparkle Script -->
   <script>
-    let titleText = "♡ JuJu.wtf ";
-    let index = 0;
-    setInterval(() => {
-      document.title = titleText.slice(index) + titleText.slice(0, index);
-      index = (index + 1) % titleText.length;
-    }, 200);
-
-    const messages = ["haiii :3", "JuJu.wtf"];
-    let msgIndex = 0;
-    setInterval(() => {
-      const titleElement = document.querySelector('.title');
-      titleElement.style.opacity = 0;
-      setTimeout(() => {
-        titleElement.textContent = messages[msgIndex];
-        titleElement.style.transform = 'translateY(-3px)';
-        titleElement.style.opacity = 1;
-        setTimeout(() => {
-          titleElement.style.transform = 'translateY(0)';
-        }, 150);
-        msgIndex = (msgIndex + 1) % messages.length;
-      }, 500);
-    }, 5000);
-
     document.addEventListener('mousemove', e => {
       const sparkle = document.createElement('div');
       sparkle.className = 'sparkle';
       document.body.appendChild(sparkle);
       sparkle.style.left = `${e.clientX}px`;
       sparkle.style.top = `${e.clientY}px`;
+
       setTimeout(() => {
         sparkle.remove();
       }, 1000);
     });
+  </script>
 
+  <script>
     const introScreen = document.getElementById('intro-screen');
-    function addIntroSparkle() {
-      if (!introScreen.classList.contains('hidden')) {
-        for (let i = 0; i < 2; i++) {
-          const sparkle = document.createElement('div');
-          sparkle.className = 'sparkle';
-          document.body.appendChild(sparkle);
-          const x = Math.random() * window.innerWidth;
-          const y = Math.random() * window.innerHeight;
-          sparkle.style.left = `${x}px`;
-          sparkle.style.top = `${y}px`;
-          setTimeout(() => {
-            sparkle.remove();
-          }, 1000);
-        }
-      }
-    }
-    setInterval(addIntroSparkle, 150);
-
     const video = document.getElementById('background-video');
     const pauseButton = document.getElementById('pause-button');
     let isPaused = false;
