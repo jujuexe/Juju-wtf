@@ -33,9 +33,6 @@
       object-fit: cover;
       z-index: -1;
     }
-    #background-video::-webkit-media-controls {
-      display: none;
-    }
     .intro-screen {
       position: fixed;
       top: 0;
@@ -53,16 +50,16 @@
       transition: opacity .5s ease;
       z-index: 100;
       text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
     }
     .intro-screen img {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 10px;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 15px;
       border-radius: 50%;
-      box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
-    }
-    .intro-screen:hover {
-      text-shadow: 0 0 10px #fff, 0 0 30px #fff, 0 0 40px #ff69b4, 0 0 50px #ff69b4;
+      object-fit: cover;
+      box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
     }
     .hidden {
       opacity: 0;
@@ -95,7 +92,12 @@
       letter-spacing: .1rem;
       position: relative;
       transition: transform .3s ease, opacity .5s ease;
+      animation: pulseGlow 2s infinite ease-in-out;
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+    }
+    .discord-tooltip,
+    #pause-button,
+    #song-title {
       animation: pulseGlow 2s infinite ease-in-out;
     }
     @keyframes pulseGlow {
@@ -125,7 +127,6 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
       font-size: 0.7rem;
-      text-shadow: 0 0 3px #fff, 0 0 10px #ff69b4;
     }
     .discord-wrapper:hover .discord-tooltip {
       opacity: 1;
@@ -142,6 +143,7 @@
       overflow: hidden;
       transition: transform 0.3s ease;
       filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #ff69b4);
+      animation: pulseGlow 2s infinite ease-in-out;
     }
     .discord-logo:hover {
       transform: scale(1.05);
@@ -160,10 +162,6 @@
       animation: fadeIn 1s ease-out forwards;
       z-index: 10;
     }
-    #song-title {
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
-      animation: pulseGlow 2s infinite ease-in-out;
-    }
     #pause-button {
       background: none;
       border: none;
@@ -171,7 +169,6 @@
       cursor: pointer;
       margin-top: 5px;
       text-transform: lowercase;
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
     }
     @keyframes fadeIn {
       to {
@@ -204,12 +201,14 @@
 </head>
 <body>
   <div class="intro-screen glow" id="intro-screen" aria-label="Enter site">
-    <img src="https://i.scdn.co/image/ab67616d0000b273a05b07841da14f2602d4c05" alt="Logo">
+    <img src="https://images.genius.com/ebfbdc6b5715ef743b6beee1ac7cc9b3.1000x1000x1.jpg" alt="Logo">
     click to enter
   </div>
+
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/0422%20(1).mp4" type="video/mp4">
   </video>
+
   <div class="container">
     <img src="https://pub-3bfa94b368d34d7e839934cc455b9712.r2.dev/ec8682c3a3959691f9506c79de83c2f0.png" alt="pfp" class="pfp">
     <div class="title">JuJu.wtf</div>
@@ -218,6 +217,7 @@
       <div class="discord-tooltip">Invite to JuJu Fanclub</div>
     </div>
   </div>
+
   <div id="audio-controls">
     <div id="song-title">Now Playing: Flxr</div>
     <button id="pause-button">Pause ⏯</button>
@@ -277,18 +277,20 @@
       isPaused = !isPaused;
     });
 
-    // Add glowing dots to intro screen randomly
+    // Faster sparkle effect on intro screen
     setInterval(() => {
       const intro = document.getElementById('intro-screen');
       if (intro.classList.contains('hidden')) return;
 
-      const dot = document.createElement('div');
-      dot.className = 'intro-dot';
-      dot.style.left = Math.random() * window.innerWidth + 'px';
-      dot.style.top = Math.random() * window.innerHeight + 'px';
-      intro.appendChild(dot);
-      setTimeout(() => dot.remove(), 1000);
-    }, 200);
+      for (let i = 0; i < 4; i++) { // more sparkles at once
+        const dot = document.createElement('div');
+        dot.className = 'intro-dot';
+        dot.style.left = Math.random() * window.innerWidth + 'px';
+        dot.style.top = Math.random() * window.innerHeight + 'px';
+        intro.appendChild(dot);
+        setTimeout(() => dot.remove(), 800);
+      }
+    }, 120);
   </script>
 </body>
 </html>
