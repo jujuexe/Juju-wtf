@@ -96,6 +96,7 @@
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
     }
     .discord-tooltip,
+    .x-tooltip,
     #pause-button,
     #song-title {
       animation: pulseGlow 2s infinite ease-in-out;
@@ -110,14 +111,14 @@
     }
     .discord-wrapper {
       position: relative;
-      display: inline-block;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
       margin-top: 30px;
     }
-    .discord-tooltip {
+    .discord-tooltip, .x-tooltip {
       position: absolute;
       bottom: 35px;
-      left: 50%;
-      transform: translateX(-50%);
       background: rgba(0, 0, 0, 0.75);
       color: #fff;
       padding: 4px 8px;
@@ -127,15 +128,17 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
       font-size: 0.7rem;
+      left: 50%;
+      transform: translateX(-50%);
     }
-    .discord-wrapper:hover .discord-tooltip {
+    .discord-wrapper a:hover + .discord-tooltip,
+    .x-logo:hover + .x-tooltip {
       opacity: 1;
     }
-    .discord-logo {
+    .discord-logo, .x-logo {
       display: inline-block;
-      width: 100px;
+      width: 30px;
       height: 30px;
-      background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -145,7 +148,13 @@
       filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #ff69b4);
       animation: pulseGlow 2s infinite ease-in-out;
     }
-    .discord-logo:hover {
+    .discord-logo {
+      background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
+    }
+    .x-logo {
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023.svg');
+    }
+    .discord-logo:hover, .x-logo:hover {
       transform: scale(1.05);
       filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #ff69b4);
     }
@@ -215,6 +224,8 @@
     <div class="discord-wrapper">
       <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord" target="_blank" rel="noopener noreferrer">discord</a>
       <div class="discord-tooltip">Invite to JuJu Fanclub</div>
+      <a href="https://x.com/jujuwtfz" class="x-logo" aria-label="X" target="_blank" rel="noopener noreferrer">x</a>
+      <div class="x-tooltip">Follow @jujuwtfz on X</div>
     </div>
   </div>
 
@@ -277,12 +288,10 @@
       isPaused = !isPaused;
     });
 
-    // Faster sparkle effect on intro screen
     setInterval(() => {
       const intro = document.getElementById('intro-screen');
       if (intro.classList.contains('hidden')) return;
-
-      for (let i = 0; i < 4; i++) { // more sparkles at once
+      for (let i = 0; i < 4; i++) {
         const dot = document.createElement('div');
         dot.className = 'intro-dot';
         dot.style.left = Math.random() * window.innerWidth + 'px';
