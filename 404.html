@@ -6,22 +6,58 @@
   <meta http-equiv="refresh" content="1; url=https://juju.wtf"> <!-- Redirects after 1 second -->
   <title>Page Not Found</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       background-color: black;
       color: white;
       font-family: Arial, sans-serif;
       text-align: center;
       padding: 50px;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
     }
     img {
       width: 500px;
       height: auto;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #fff, 0 0 30px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
     }
     h1 {
       font-size: 36px;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
     }
     p {
       font-size: 18px;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+      transition: text-shadow 0.3s ease;
+    }
+    a:hover {
+      text-shadow: 0 0 15px #fff, 0 0 25px #ff69b4;
+    }
+    @keyframes pulseGlow {
+      0%, 100% {
+        text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      }
+      50% {
+        text-shadow: 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
+      }
     }
   </style>
 </head>
