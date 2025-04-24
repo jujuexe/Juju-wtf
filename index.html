@@ -50,8 +50,9 @@
       align-items: center;
       font-size: 2rem;
       cursor: pointer;
-      transition: opacity 0.5s ease;
+      transition: opacity .5s ease;
       z-index: 100;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
       animation: introPulse 2s infinite ease-in-out;
     }
     .intro-screen img {
@@ -62,20 +63,28 @@
       box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       animation: pulseGlow 2s infinite ease-in-out;
     }
+    .intro-screen .sub-text {
+      font-size: 1rem;
+      margin-top: 10px;
+      text-shadow: 0 0 5px #fff, 0 0 10px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
     @keyframes introPulse {
       0%, 100% {
         transform: scale(1);
+        text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
       }
       50% {
-        transform: scale(1.03);
+        transform: scale(1.05);
+        text-shadow: 0 0 15px #fff, 0 0 30px #ff69b4;
       }
     }
     .intro-screen:hover {
-      transform: scale(1.05);
+      text-shadow: 0 0 10px #fff, 0 0 30px #fff, 0 0 40px #ff69b4, 0 0 50px #ff69b4;
     }
     .hidden {
       opacity: 0;
-      display: none;
+      pointer-events: none;
     }
     .container {
       position: absolute;
@@ -104,18 +113,22 @@
       letter-spacing: .1rem;
       position: relative;
       transition: transform .3s ease, opacity .5s ease;
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
     }
     @keyframes pulseGlow {
       0%, 100% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
         box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       }
       50% {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
         box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
       }
     }
     .social-links {
       display: flex;
-      gap: 5px;
+      gap: 20px;
       margin-top: 30px;
     }
     .discord-wrapper, .x-wrapper {
@@ -124,7 +137,7 @@
     }
     .discord-tooltip, .x-tooltip {
       position: absolute;
-      bottom: 42px;
+      bottom: 35px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(0, 0, 0, 0.75);
@@ -136,14 +149,15 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
       font-size: 0.7rem;
+      text-shadow: 0 0 3px #fff, 0 0 10px #ff69b4;
     }
     .discord-wrapper:hover .discord-tooltip, .x-wrapper:hover .x-tooltip {
       opacity: 1;
     }
     .discord-logo, .x-logo {
       display: inline-block;
-      width: 120px;
-      height: 36px;
+      width: 100px;
+      height: 30px;
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -175,15 +189,18 @@
       animation: fadeIn 1s ease-out forwards;
       z-index: 10;
     }
-    #song-title, #pause-button {
-      color: #fff;
+    #song-title {
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
     }
     #pause-button {
       background: none;
       border: none;
+      color: #fff;
       cursor: pointer;
       margin-top: 5px;
       text-transform: lowercase;
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
     }
     @keyframes fadeIn {
       to {
@@ -218,6 +235,7 @@
   <button class="intro-screen glow" id="intro-screen" aria-label="Enter site">
     <img src="https://cdn-images.dzcdn.net/images/cover/c127e42a0ff01672f91a98094ba9bcc5/0x1900-000000-80-0-0.jpg" alt="logo">
     <span class="main-text">click to enter</span>
+    <span class="sub-text">welcome to juju.wtf :3</span>
   </button>
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/0422%20(1).mp4" type="video/mp4">
