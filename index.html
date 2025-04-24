@@ -135,7 +135,7 @@
     }
     .social-links {
       display: flex;
-      gap: 5px;
+      gap: 2px;
       margin-top: 30px;
     }
     .discord-wrapper, .x-wrapper {
@@ -303,16 +303,18 @@
     const introScreen = document.getElementById('intro-screen');
     function addIntroSparkle() {
       if (!introScreen.classList.contains('hidden')) {
-        const sparkle = document.createElement('div');
-        sparkle.className = 'sparkle';
-        document.body.appendChild(sparkle);
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-        sparkle.style.left = `${x}px`;
-        sparkle.style.top = `${y}px`;
-        setTimeout(() => {
-          sparkle.remove();
-        }, 1000);
+        for (let i = 0; i < 2; i++) {
+          const sparkle = document.createElement('div');
+          sparkle.className = 'sparkle';
+          document.body.appendChild(sparkle);
+          const x = Math.random() * window.innerWidth;
+          const y = Math.random() * window.innerHeight;
+          sparkle.style.left = `${x}px`;
+          sparkle.style.top = `${y}px`;
+          setTimeout(() => {
+            sparkle.remove();
+          }, 1000);
+        }
       }
     }
     setInterval(addIntroSparkle, 150);
