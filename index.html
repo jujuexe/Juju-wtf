@@ -52,7 +52,6 @@
       cursor: pointer;
       transition: opacity 0.5s ease;
       z-index: 100;
-      text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
       animation: introPulse 2s infinite ease-in-out;
     }
     .intro-screen img {
@@ -66,15 +65,13 @@
     @keyframes introPulse {
       0%, 100% {
         transform: scale(1);
-        text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
       }
       50% {
         transform: scale(1.03);
-        text-shadow: 0 0 12px #fff, 0 0 25px #ff69b4;
       }
     }
     .intro-screen:hover {
-      text-shadow: 0 0 10px #fff, 0 0 30px #fff, 0 0 40px #ff69b4, 0 0 50px #ff69b4;
+      transform: scale(1.05);
     }
     .hidden {
       opacity: 0;
@@ -101,13 +98,18 @@
       box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       animation: pulseGlow 2s infinite ease-in-out;
     }
+    .title {
+      font-size: 2rem;
+      text-transform: lowercase;
+      letter-spacing: .1rem;
+      position: relative;
+      transition: transform .3s ease, opacity .5s ease;
+    }
     @keyframes pulseGlow {
       0%, 100% {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
         box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       }
       50% {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
         box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
       }
     }
@@ -120,12 +122,9 @@
       position: relative;
       display: inline-block;
     }
-    .discord-wrapper {
-      margin-right: -5px;
-    }
     .discord-tooltip, .x-tooltip {
       position: absolute;
-      bottom: 32px;
+      bottom: 42px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(0, 0, 0, 0.75);
@@ -137,23 +136,17 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
       font-size: 0.7rem;
-      text-shadow: 0 0 3px #fff, 0 0 10px #ff69b4;
-      z-index: 20;
     }
     .discord-wrapper:hover .discord-tooltip, .x-wrapper:hover .x-tooltip {
       opacity: 1;
     }
     .discord-logo, .x-logo {
       display: inline-block;
-      width: 70px;
-      height: 22px;
+      width: 120px;
+      height: 36px;
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      background-clip: content-box;
-      padding: 0;
-      margin: 0;
-      box-sizing: content-box;
       text-indent: -9999px;
       overflow: hidden;
       transition: transform 0.3s ease;
@@ -182,18 +175,15 @@
       animation: fadeIn 1s ease-out forwards;
       z-index: 10;
     }
-    #song-title {
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
-      animation: pulseGlow 2s infinite ease-in-out;
+    #song-title, #pause-button {
+      color: #fff;
     }
     #pause-button {
       background: none;
       border: none;
-      color: #fff;
       cursor: pointer;
       margin-top: 5px;
       text-transform: lowercase;
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
     }
     @keyframes fadeIn {
       to {
@@ -234,6 +224,7 @@
   </video>
   <div class="container">
     <img src="https://pub-3bfa94b368d34d7e839934cc455b9712.r2.dev/ec8682c3a3959691f9506c79de83c2f0.png" alt="pfp" class="pfp">
+    <div class="title">JuJu.wtf</div>
     <div class="social-links">
       <div class="discord-wrapper">
         <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord" target="_blank" rel="noopener noreferrer">discord</a>
@@ -256,6 +247,22 @@
       document.title = titleText.slice(index) + titleText.slice(0, index);
       index = (index + 1) % titleText.length;
     }, 200);
+
+    const messages = ["haiii :3", "JuJu.wtf"];
+    let msgIndex = 0;
+    setInterval(() => {
+      const titleElement = document.querySelector('.title');
+      titleElement.style.opacity = 0;
+      setTimeout(() => {
+        titleElement.textContent = messages[msgIndex];
+        titleElement.style.transform = 'translateY(-3px)';
+        titleElement.style.opacity = 1;
+        setTimeout(() => {
+          titleElement.style.transform = 'translateY(0)';
+        }, 150);
+        msgIndex = (msgIndex + 1) % messages.length;
+      }, 500);
+    }, 5000);
 
     document.addEventListener('mousemove', e => {
       const sparkle = document.createElement('div');
