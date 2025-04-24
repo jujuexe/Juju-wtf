@@ -42,26 +42,18 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(45deg, #0a0a0a, #1a1a1a, #0a0a0a);
-      background-size: 200% 200%;
-      animation: gradientShift 10s ease infinite;
+      background: #000;
       color: #fff;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      font-size: 2rem;
       cursor: pointer;
       transition: opacity 0.5s ease;
       z-index: 100;
       text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
-    }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .intro-screen:hover {
-      text-shadow: 0 0 10px #fff, 0 0 30px #fff, 0 0 40px #ff69b4, 0 0 50px #ff69b4;
+      animation: introPulse 2s infinite ease-in-out;
     }
     .intro-screen img {
       width: 60px;
@@ -69,16 +61,6 @@
       margin-bottom: 20px;
       border-radius: 50%;
       box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
-      animation: pulseGlow 2s infinite ease-in-out;
-    }
-    .intro-screen .main-text {
-      font-size: 2rem;
-      animation: introPulse 2s infinite ease-in-out;
-    }
-    .intro-screen .sub-text {
-      font-size: 1rem;
-      margin-top: 10px;
-      text-shadow: 0 0 5px #fff, 0 0 10px #ff69b4;
       animation: pulseGlow 2s infinite ease-in-out;
     }
     @keyframes introPulse {
@@ -90,6 +72,9 @@
         transform: scale(1.03);
         text-shadow: 0 0 12px #fff, 0 0 25px #ff69b4;
       }
+    }
+    .intro-screen:hover {
+      text-shadow: 0 0 10px #fff, 0 0 30px #fff, 0 0 40px #ff69b4, 0 0 50px #ff69b4;
     }
     .hidden {
       opacity: 0;
@@ -144,34 +129,16 @@
       position: relative;
       display: inline-block;
     }
-    .discord-tooltip, .x-tooltip {
-      position: absolute;
-      bottom: 42px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.75);
-      color: #fff;
-      padding: 4px 8px;
-      border-radius: 6px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      font-size: 0.7rem;
-      text-shadow: 0 0 3px #fff, 0 0 10px #ff69b4;
-    }
-    .discord-wrapper:hover .discord-tooltip, .x-wrapper:hover .x-tooltip {
-      opacity: 1;
-    }
     .discord-logo, .x-logo {
       display: inline-block;
-      width: 100px;
-      height: 30px;
+      width: 80px;
+      height: 24px;
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
       background-clip: content-box;
       padding: 0;
+      margin: 0;
       box-sizing: content-box;
       text-indent: -9999px;
       overflow: hidden;
@@ -247,7 +214,6 @@
   <button class="intro-screen glow" id="intro-screen" aria-label="Enter site">
     <img src="https://cdn-images.dzcdn.net/images/cover/c127e42a0ff01672f91a98094ba9bcc5/0x1900-000000-80-0-0.jpg" alt="logo">
     <span class="main-text">click to enter</span>
-    <span class="sub-text">welcome to juju.wtf :3</span>
   </button>
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/0422%20(1).mp4" type="video/mp4">
@@ -258,11 +224,9 @@
     <div class="social-links">
       <div class="discord-wrapper">
         <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord" target="_blank" rel="noopener noreferrer">discord</a>
-        <div class="discord-tooltip">Invite to JuJu Fanclub</div>
       </div>
       <div class="x-wrapper">
         <a href="https://x.com/jujuwtfz" class="x-logo" aria-label="X" target="_blank" rel="noopener noreferrer">X</a>
-        <div class="x-tooltip">@jujuwtfz on X</div>
       </div>
     </div>
   </div>
