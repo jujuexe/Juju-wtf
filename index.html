@@ -45,6 +45,7 @@
       background: #000;
       color: #fff;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       font-size: 2rem;
@@ -52,6 +53,13 @@
       transition: opacity .5s ease;
       z-index: 100;
       text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+    }
+    .intro-screen img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
     }
     .intro-screen:hover {
       text-shadow: 0 0 10px #fff, 0 0 30px #fff, 0 0 40px #ff69b4, 0 0 50px #ff69b4;
@@ -171,7 +179,7 @@
         transform: translateX(-50%) translateY(0);
       }
     }
-    .sparkle {
+    .sparkle, .intro-dot {
       position: fixed;
       width: 8px;
       height: 8px;
@@ -195,7 +203,10 @@
   </style>
 </head>
 <body>
-  <button class="intro-screen glow" id="intro-screen" aria-label="Enter site">click to enter</button>
+  <div class="intro-screen glow" id="intro-screen" aria-label="Enter site">
+    <img src="https://i.scdn.co/image/ab67616d0000b273a05b07841da14f2602d4c05" alt="Logo">
+    click to enter
+  </div>
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/0422%20(1).mp4" type="video/mp4">
   </video>
@@ -211,6 +222,7 @@
     <div id="song-title">Now Playing: Flxr</div>
     <button id="pause-button">Pause ⏯</button>
   </div>
+
   <script>
     let titleText = "♡ JuJu.wtf ";
     let index = 0;
@@ -241,25 +253,22 @@
       document.body.appendChild(sparkle);
       sparkle.style.left = `${e.clientX}px`;
       sparkle.style.top = `${e.clientY}px`;
-      setTimeout(() => {
-        sparkle.remove();
-      }, 1000);
+      setTimeout(() => sparkle.remove(), 1000);
     });
+
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
     const pauseButton = document.getElementById('pause-button');
     let isPaused = false;
+
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
-      video.play().catch(error => {
-        console.error('Video playback failed:', error);
-      });
+      video.play().catch(error => console.error('Video playback failed:', error));
     });
+
     pauseButton.addEventListener('click', () => {
       if (isPaused) {
-        video.play().catch(error => {
-          console.error('Video playback failed:', error);
-        });
+        video.play().catch(error => console.error('Video playback failed:', error));
         pauseButton.textContent = 'Pause ⏯';
       } else {
         video.pause();
@@ -267,6 +276,19 @@
       }
       isPaused = !isPaused;
     });
+
+    // Add glowing dots to intro screen randomly
+    setInterval(() => {
+      const intro = document.getElementById('intro-screen');
+      if (intro.classList.contains('hidden')) return;
+
+      const dot = document.createElement('div');
+      dot.className = 'intro-dot';
+      dot.style.left = Math.random() * window.innerWidth + 'px';
+      dot.style.top = Math.random() * window.innerHeight + 'px';
+      intro.appendChild(dot);
+      setTimeout(() => dot.remove(), 1000);
+    }, 200);
   </script>
 </body>
 </html>
