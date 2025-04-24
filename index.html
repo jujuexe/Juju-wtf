@@ -101,15 +101,6 @@
       box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
       animation: pulseGlow 2s infinite ease-in-out;
     }
-    .title {
-      font-size: 2rem;
-      text-transform: lowercase;
-      letter-spacing: .1rem;
-      position: relative;
-      transition: transform .3s ease, opacity .5s ease;
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
-      animation: pulseGlow 2s infinite ease-in-out;
-    }
     @keyframes pulseGlow {
       0%, 100% {
         text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
@@ -129,10 +120,33 @@
       position: relative;
       display: inline-block;
     }
+    .discord-wrapper {
+      margin-right: -5px;
+    }
+    .discord-tooltip, .x-tooltip {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.7rem;
+      text-shadow: 0 0 3px #fff, 0 0 10px #ff69b4;
+      z-index: 20;
+    }
+    .discord-wrapper:hover .discord-tooltip, .x-wrapper:hover .x-tooltip {
+      opacity: 1;
+    }
     .discord-logo, .x-logo {
       display: inline-block;
-      width: 80px;
-      height: 24px;
+      width: 70px;
+      height: 22px;
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -220,13 +234,14 @@
   </video>
   <div class="container">
     <img src="https://pub-3bfa94b368d34d7e839934cc455b9712.r2.dev/ec8682c3a3959691f9506c79de83c2f0.png" alt="pfp" class="pfp">
-    <div class="title">JuJu.wtf</div>
     <div class="social-links">
       <div class="discord-wrapper">
         <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord" target="_blank" rel="noopener noreferrer">discord</a>
+        <div class="discord-tooltip">Invite to JuJu Fanclub</div>
       </div>
       <div class="x-wrapper">
         <a href="https://x.com/jujuwtfz" class="x-logo" aria-label="X" target="_blank" rel="noopener noreferrer">X</a>
+        <div class="x-tooltip">@jujuwtfz on X</div>
       </div>
     </div>
   </div>
@@ -241,22 +256,6 @@
       document.title = titleText.slice(index) + titleText.slice(0, index);
       index = (index + 1) % titleText.length;
     }, 200);
-
-    const messages = ["haiii :3", "JuJu.wtf"];
-    let msgIndex = 0;
-    setInterval(() => {
-      const titleElement = document.querySelector('.title');
-      titleElement.style.opacity = 0;
-      setTimeout(() => {
-        titleElement.textContent = messages[msgIndex];
-        titleElement.style.transform = 'translateY(-3px)';
-        titleElement.style.opacity = 1;
-        setTimeout(() => {
-          titleElement.style.transform = 'translateY(0)';
-        }, 150);
-        msgIndex = (msgIndex + 1) % messages.length;
-      }, 500);
-    }, 5000);
 
     document.addEventListener('mousemove', e => {
       const sparkle = document.createElement('div');
