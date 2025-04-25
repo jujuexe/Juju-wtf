@@ -1,3 +1,305 @@
-<!DOCTYPE html><html><head><script>
-(async()=>{const s=crypto.subtle,e=Uint8Array,t=n=>[...n].map(c=>c.charCodeAt()),u=a=>new TextDecoder().decode(a),v=b=>b.split('').map(a=>a.charCodeAt()),w=x=>String.fromCharCode(...x),h='cAAdRjEJU4FTb1Zte2GNYnpUV2M6YzE3NndvbzhuOE9EN3d5N3MyQ3BSZ0p2eUdCZmpOUm5aMEtKOWtvMmIzZGRNVTF3TTh3bGRsNXplMkJhTFRpUnp1VWtDdXdmd1NUS2hCVXdsTWpXTmF1akRNY2xaZlZpWjZvMXV0MWhiaEJ0TGNFbUxxODdzZDVNMzA1bUpTUk9YT1pGZDR6dkFzODJmOVFwNTJYd0N2eG9obVlPVlZoZ3RIZVF0VGxvcUN6RjVJczhUcWhuUlR1akdxNTd5bDJTcFVyR1RnPT0';const a=atob(h),r=new e(a.length);for(let i=0;i<a.length;i++)r[i]=a.charCodeAt(i);const k=r.slice(0,32),iv=r.slice(32,48),c=r.slice(48),j=await s.importKey("raw",k,{name:"AES-CBC"},!1,["decrypt"]),d=await s.decrypt({name:"AES-CBC",iv},j,c);document.write(u(d))})();
-</script></head><body></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="https://github.com/jujuexe/fr/blob/main/980195a4b420a62cfca4fa7450db7ab7.png?raw=true">
+  <meta property="og:url" content="https://JuJu.wtf/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="JuJu">
+  <meta property="og:description" content="haiii everyone :3">
+  <meta property="og:image" content="https://github.com/jujuexe/fr/blob/main/980195a4b420a62cfca4fa7450db7ab7.png?raw=true">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>♡ juju.wtf</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0a0a0a;
+      color: #fff;
+      font-family: Inter, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: opacity .5s ease;
+      z-index: 100;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    .intro-screen img {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 15px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .pfp {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+      box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    .title {
+      font-size: 2rem;
+      text-transform: lowercase;
+      letter-spacing: .1rem;
+      position: relative;
+      transition: transform .3s ease, opacity .5s ease;
+      animation: pulseGlow 2s infinite ease-in-out;
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+    }
+    .discord-tooltip,
+    .x-tooltip,
+    #pause-button,
+    #song-title {
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    @keyframes pulseGlow {
+      0%, 100% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      }
+      50% {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
+      }
+    }
+    .discord-wrapper {
+      position: relative;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .discord-tooltip, .x-tooltip {
+      position: absolute;
+      bottom: 35px;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.7rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .discord-wrapper a:hover + .discord-tooltip,
+    .x-logo:hover + .x-tooltip {
+      opacity: 1;
+    }
+    .discord-logo, .x-logo {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      text-indent: -9999px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #ff69b4);
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    .discord-logo {
+      background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
+    }
+    .x-logo {
+      background-image: url('https://github.com/jujuexe/Juju-wtf/blob/main/whitex.png?raw=true');
+    }
+    .discord-logo:hover, .x-logo:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #ff69b4);
+    }
+    #audio-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, .7);
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+      z-index: 10;
+    }
+    #pause-button {
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 5px;
+      text-transform: lowercase;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+    .sparkle, .intro-dot {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      box-shadow: 0 0 10px #fff, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+      animation: sparkleFade 1s ease-out forwards;
+    }
+    @keyframes sparkleFade {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.5) translateY(-10px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="intro-screen glow" id="intro-screen" aria-label="Enter site">
+    <img src="https://images.genius.com/9304b31c82b7474e4ee9c5188637fcf8.500x500x1.jpg" alt="Logo">
+    click to enter <3
+  </div>
+
+  <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
+    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Freestyle.mp4" type="video/mp4">
+  </video>
+
+  <div class="container">
+    <img src="https://r2.guns.lol/147cf449-399d-4408-b008-f07f093c5448.webp" alt="pfp" class="pfp">
+    <div class="title">JuJu.wtf</div>
+    <div class="discord-wrapper">
+      <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord" target="_blank" rel="noopener noreferrer">discord</a>
+      <div class="discord-tooltip">Invite to JuJu Fanclub</div>
+      <a href="https://x.com/jujuwtfz" class="x-logo" aria-label="X" target="_blank" rel="noopener noreferrer">x</a>
+      <div class="x-tooltip">Follow @jujuwtfz on X</div>
+    </div>
+  </div>
+
+  <div id="audio-controls">
+    <div id="song-title">Now Playing: Freestyle</div>
+    <button id="pause-button">Pause ⏯</button>
+  </div>
+
+  <script>
+    let titleText = "♡ JuJu.wtf ";
+    let index = 0;
+    setInterval(() => {
+      document.title = titleText.slice(index) + titleText.slice(0, index);
+      index = (index + 1) % titleText.length;
+    }, 200);
+
+    const messages = ["haiii :3", "JuJu.wtf"];
+    let msgIndex = 0;
+    setInterval(() => {
+      const titleElement = document.querySelector('.title');
+      titleElement.style.opacity = 0;
+      setTimeout(() => {
+        titleElement.textContent = messages[msgIndex];
+        titleElement.style.transform = 'translateY(-3px)';
+        titleElement.style.opacity = 1;
+        setTimeout(() => {
+          titleElement.style.transform = 'translateY(0)';
+        }, 150);
+        msgIndex = (msgIndex + 1) % messages.length;
+      }, 500);
+    }, 5000);
+
+    document.addEventListener('mousemove', e => {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      document.body.appendChild(sparkle);
+      sparkle.style.left = `${e.clientX}px`;
+      sparkle.style.top = `${e.clientY}px`;
+      setTimeout(() => sparkle.remove(), 1000);
+    });
+
+    const introScreen = document.getElementById('intro-screen');
+    const video = document.getElementById('background-video');
+    const pauseButton = document.getElementById('pause-button');
+    let isPaused = false;
+
+    introScreen.addEventListener('click', function () {
+      this.classList.add('hidden');
+      video.play().catch(error => console.error('Video playback failed:', error));
+    });
+
+    pauseButton.addEventListener('click', () => {
+      if (isPaused) {
+        video.play().catch(error => console.error('Video playback failed:', error));
+        pauseButton.textContent = 'Pause ⏯';
+      } else {
+        video.pause();
+        pauseButton.textContent = 'Play ⏯';
+      }
+      isPaused = !isPaused;
+    });
+
+    setInterval(() => {
+      const intro = document.getElementById('intro-screen');
+      if (intro.classList.contains('hidden')) return;
+      for (let i = 0; i < 4; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'intro-dot';
+        dot.style.left = Math.random() * window.innerWidth + 'px';
+        dot.style.top = Math.random() * window.innerHeight + 'px';
+        intro.appendChild(dot);
+        setTimeout(() => dot.remove(), 800);
+      }
+    }, 120);
+  </script>
+</body>
+</html>
