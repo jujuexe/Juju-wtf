@@ -138,8 +138,9 @@
       text-indent: -9999px;
       overflow: hidden;
       transition: transform 0.3s ease;
-      box-shadow: 0 0 5px #fff, 0 0 10px #ff0000;
+      filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 6px #ff0000);
       animation: pulseGlow 2s infinite ease-in-out;
+      will-change: filter, transform;
     }
     .discord-logo {
       background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
@@ -149,12 +150,7 @@
     }
     .discord-logo:hover, .x-logo:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 10px #fff, 0 0 20px #ff0000;
-    }
-    @media (max-width: 600px) {
-      .discord-logo, .x-logo {
-        box-shadow: 0 0 4px #fff, 0 0 8px #ff0000;
-      }
+      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 12px #ff0000);
     }
     #audio-controls {
       position: absolute;
@@ -207,30 +203,24 @@
   </style>
 </head>
 <body>
-  <div class="intro-screen glow" id="intro-screen" aria-label="Enter site">
-    click to enter <3
-  </div>
-
+  <div class="intro-screen" id="intro-screen">click to enter <3</div>
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Ken%20Carson%20-%20LiveLeak%20(Audio)%20-%20Trim.mp4" type="video/mp4">
   </video>
-
   <div class="container">
     <img src="https://github.com/jujuexe/Juju-wtf/blob/main/meondcrn.png?raw=true" alt="pfp" class="pfp">
     <div class="title">JuJu.wtf</div>
     <div class="discord-wrapper">
-      <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" aria-label="discord" target="_blank" rel="noopener noreferrer">discord</a>
+      <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" target="_blank" rel="noopener noreferrer">discord</a>
       <div class="discord-tooltip">Invite to JuJu Fanclub</div>
-      <a href="https://x.com/jujuwtfz" class="x-logo" aria-label="X" target="_blank" rel="noopener noreferrer">x</a>
+      <a href="https://x.com/jujuwtfz" class="x-logo" target="_blank" rel="noopener noreferrer">x</a>
       <div class="x-tooltip">Follow @jujuwtfz on X</div>
     </div>
   </div>
-
   <div id="audio-controls">
     <div id="song-title">Now Playing: LiveLeak</div>
     <button id="pause-button">Pause ⏯</button>
   </div>
-
   <script>
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
@@ -276,7 +266,6 @@
       }
     }, 120);
 
-    // Only called after intro is clicked
     function startAnimations() {
       let titleText = "⛧ JuJu.wtf ";
       let index = 0;
