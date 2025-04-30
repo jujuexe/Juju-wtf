@@ -190,6 +190,29 @@
         transform: translateX(-50%) translateY(0);
       }
     }
+    .pentagram {
+      position: fixed;
+      color: red;
+      font-size: 1.5rem;
+      text-shadow: 0 0 6px #ff0000, 0 0 12px #ff0000;
+      animation: fadeAndFloat 2.5s ease-out forwards;
+      pointer-events: none;
+      z-index: 1;
+    }
+    @keyframes fadeAndFloat {
+      0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(0);
+      }
+      20% {
+        opacity: 1;
+        transform: scale(1.2) translateY(-5px);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1) translateY(-50px);
+      }
+    }
   </style>
 </head>
 <body>
@@ -278,6 +301,22 @@
 
       requestAnimationFrame(animateLoop);
     }
+
+    function spawnPentagram() {
+      const pentagram = document.createElement('div');
+      pentagram.className = 'pentagram';
+      pentagram.textContent = '⛧';
+      pentagram.style.left = Math.random() * window.innerWidth + 'px';
+      pentagram.style.top = Math.random() * window.innerHeight + 'px';
+      document.body.appendChild(pentagram);
+      setTimeout(() => pentagram.remove(), 2500);
+    }
+
+    setInterval(() => {
+      for (let i = 0; i < 3; i++) {
+        spawnPentagram();
+      }
+    }, 300);
   </script>
 </body>
 </html>
