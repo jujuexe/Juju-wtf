@@ -42,13 +42,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 3rem;
+      font-size: 2rem;
       cursor: pointer;
       transition: opacity .5s ease;
       z-index: 100;
       white-space: nowrap;
       animation: pulseGlow 1.2s infinite ease-in-out;
-      text-shadow: 0 0 12px #ff0000, 0 0 25px #ff0000, 0 0 48px #ff0000, 0 0 72px #ff0000;
+      text-shadow: 0 0 12px #ff0000, 0 0 25px #ff0000;
+      padding: 0 10px;
+      text-align: center;
     }
     .hidden {
       opacity: 0;
@@ -89,34 +91,13 @@
       animation: glitch-out 0.4s ease-in-out infinite;
     }
     @keyframes glitch-out {
-      0% {
-        transform: scale(1) skewX(0deg);
-        opacity: 1;
-      }
-      10% {
-        transform: scale(1.1) skewX(10deg);
-        opacity: 0.4;
-      }
-      20% {
-        transform: scale(1) skewX(-5deg);
-        opacity: 1;
-      }
-      30% {
-        transform: scale(1.1) skewX(15deg);
-        opacity: 0.6;
-      }
-      40% {
-        transform: scale(1) skewX(-10deg);
-        opacity: 1;
-      }
-      50% {
-        transform: scale(1.05) skewX(20deg);
-        opacity: 0.4;
-      }
-      100% {
-        transform: scale(1) skewX(0deg);
-        opacity: 1;
-      }
+      0% { transform: scale(1) skewX(0deg); opacity: 1; }
+      10% { transform: scale(1.1) skewX(10deg); opacity: 0.4; }
+      20% { transform: scale(1) skewX(-5deg); opacity: 1; }
+      30% { transform: scale(1.1) skewX(15deg); opacity: 0.6; }
+      40% { transform: scale(1) skewX(-10deg); opacity: 1; }
+      50% { transform: scale(1.05) skewX(20deg); opacity: 0.4; }
+      100% { transform: scale(1) skewX(0deg); opacity: 1; }
     }
     @keyframes pulseGlow {
       0%, 100% {
@@ -219,14 +200,8 @@
       animation: sparkleFade 0.6s ease-out forwards;
     }
     @keyframes sparkleFade {
-      0% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(0.5) translateY(-10px);
-      }
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.5) translateY(-10px); }
     }
   </style>
 </head>
@@ -311,7 +286,7 @@
           titleElement.classList.remove('glitch');
           msgIndex = (msgIndex + 1) % messages.length;
         }, 200);
-      }, 4000); 
+      }, 4000);
     }
   </script>
 </body>
