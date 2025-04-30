@@ -45,11 +45,21 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      font-size: 1.2rem; /* smaller font */
+      font-size: 2rem;
       cursor: pointer;
       transition: opacity .5s ease;
       z-index: 100;
       text-shadow: 0 0 10px #fff, 0 0 20px #ff0000;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    .intro-screen span {
+      font-size: 2rem;
+      display: inline-block;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    .intro-screen .pentagram {
+      font-size: 2rem;
+      margin-left: 10px;
       animation: pulseGlow 2s infinite ease-in-out;
     }
     .hidden {
@@ -203,7 +213,9 @@
   </style>
 </head>
 <body>
-  <div class="intro-screen" id="intro-screen">click ⛧ anywhere</div>
+  <div class="intro-screen" id="intro-screen">
+    <span>click </span><span class="pentagram">⛧</span><span> anywhere</span>
+  </div>
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Ken%20Carson%20-%20LiveLeak%20(Audio)%20-%20Trim.mp4" type="video/mp4">
   </video>
@@ -277,9 +289,16 @@
       const messages = ["ジュジュ", "JuJu.wtf"];
       let msgIndex = 0;
       setInterval(() => {
-        document.querySelector(".title").textContent = messages[msgIndex];
-        msgIndex = (msgIndex + 1) % messages.length;
-      }, 3000);
+        const titleElement = document.querySelector('.title');
+        titleElement.style.opacity = 0;
+        titleElement.style.transform = 'translateY(-20px)';
+        setTimeout(() => {
+          titleElement.textContent = messages[msgIndex];
+          titleElement.style.transform = 'translateY(0)';
+          titleElement.style.opacity = 1;
+          msgIndex = (msgIndex + 1) % messages.length;
+        }, 500);
+      }, 5000);
     }
   </script>
 </body>
