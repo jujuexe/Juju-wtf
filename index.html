@@ -9,6 +9,7 @@
   <meta property="og:image" content="https://github.com/jujuexe/fr/blob/main/anarchy.png?raw=true">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0a">
   <title>⛧ juju.wtf</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -31,6 +32,7 @@
       height: 100vh;
       object-fit: cover;
       z-index: -1;
+      will-change: transform, opacity;
     }
     .intro-screen {
       position: fixed;
@@ -52,6 +54,7 @@
       text-shadow: 0 0 12px #ff0000, 0 0 25px #ff0000;
       padding: 0 10px;
       text-align: center;
+      will-change: opacity;
     }
     .hidden {
       opacity: 0;
@@ -77,6 +80,7 @@
       margin-bottom: 20px;
       box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
       animation: pulseGlow 1.2s infinite ease-in-out;
+      will-change: transform, filter;
     }
     .title {
       font-size: 2.2rem;
@@ -87,6 +91,7 @@
       position: relative;
       animation: pulseGlow 1.2s infinite ease-in-out;
       text-shadow: 0 0 12px #ff0000, 0 0 24px #ff0000, 0 0 48px #ff0000, 0 0 80px #ff0000;
+      will-change: text-shadow, transform;
     }
     .glitch {
       animation: glitch-out 0.4s ease-in-out infinite;
@@ -146,6 +151,7 @@
       transition: transform 0.3s ease;
       filter: drop-shadow(0 0 3px #ff0000) drop-shadow(0 0 6px #ff0000);
       animation: pulseGlow 1.2s infinite ease-in-out;
+      will-change: transform, filter;
     }
     .discord-logo {
       background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
@@ -188,6 +194,21 @@
         opacity: 1;
         transform: translateX(-50%) translateY(0);
       }
+    }
+    .intro-dot {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+      animation: sparkleFade 0.6s ease-out forwards;
+    }
+    @keyframes sparkleFade {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.5) translateY(-10px); }
     }
   </style>
 </head>
@@ -233,6 +254,18 @@
       }
       isPaused = !isPaused;
     });
+
+    setInterval(() => {
+      if (introScreen.classList.contains('hidden')) return;
+      for (let i = 0; i < 4; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'intro-dot';
+        dot.style.left = Math.random() * window.innerWidth + 'px';
+        dot.style.top = Math.random() * window.innerHeight + 'px';
+        introScreen.appendChild(dot);
+        setTimeout(() => dot.remove(), 800);
+      }
+    }, 120);
 
     function startAnimations() {
       let titleText = "⛧ JuJu.wtf ";
