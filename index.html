@@ -83,18 +83,34 @@
       width: 100%;
       position: relative;
       animation: pulseGlow 1.2s infinite ease-in-out;
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #ff0000, 0 0 60px #ff0000;
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 48px #ff0000, 0 0 72px #ff0000;
     }
     .glitch {
-      animation: glitch-out 0.4s ease-in-out;
+      animation: glitch-out 0.4s ease-in-out infinite;
     }
     @keyframes glitch-out {
       0% {
         transform: scale(1) skewX(0deg);
         opacity: 1;
       }
+      10% {
+        transform: scale(1.1) skewX(10deg);
+        opacity: 0.4;
+      }
+      20% {
+        transform: scale(1) skewX(-5deg);
+        opacity: 1;
+      }
+      30% {
+        transform: scale(1.1) skewX(15deg);
+        opacity: 0.6;
+      }
+      40% {
+        transform: scale(1) skewX(-10deg);
+        opacity: 1;
+      }
       50% {
-        transform: scale(1.1) skewX(5deg);
+        transform: scale(1.05) skewX(20deg);
         opacity: 0.4;
       }
       100% {
@@ -104,10 +120,10 @@
     }
     @keyframes pulseGlow {
       0%, 100% {
-        text-shadow: 0 0 8px #fff, 0 0 16px #fff, 0 0 28px #ff0000, 0 0 50px #ff0000;
+        text-shadow: 0 0 12px #fff, 0 0 24px #fff, 0 0 48px #ff0000, 0 0 80px #ff0000;
       }
       50% {
-        text-shadow: 0 0 12px #fff, 0 0 24px #fff, 0 0 48px #ff0000, 0 0 60px #ff0000;
+        text-shadow: 0 0 16px #fff, 0 0 32px #fff, 0 0 56px #ff0000, 0 0 100px #ff0000;
       }
     }
     .discord-wrapper {
@@ -174,7 +190,7 @@
     }
     #song-title {
       animation: pulseGlow 1.2s infinite ease-in-out;
-      text-shadow: 0 0 8px #fff, 0 0 16px #fff, 0 0 28px #ff0000, 0 0 40px #ff0000;
+      text-shadow: 0 0 12px #fff, 0 0 24px #fff, 0 0 48px #ff0000, 0 0 80px #ff0000;
     }
     #pause-button {
       background: none;
