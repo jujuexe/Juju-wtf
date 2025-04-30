@@ -225,7 +225,7 @@
   </video>
   <div class="container">
     <img src="https://github.com/jujuexe/Juju-wtf/blob/main/meondcrn.png?raw=true" alt="pfp" class="pfp">
-    <div class="title">JuJu.wtf</div>
+    <div class="title" id="title">JuJu.wtf</div>
     <div class="discord-wrapper">
       <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" target="_blank" rel="noopener noreferrer">discord</a>
       <div class="discord-tooltip">Invite to JuJu Fanclub</div>
@@ -241,19 +241,15 @@
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
     const pauseButton = document.getElementById('pause-button');
-    const titleElement = document.querySelector('.title');
+    const titleElement = document.getElementById('title');
     let isPaused = false;
-    let lastTitleUpdate = performance.now();
-    let titleIndex = 0;
-    let titleText = "⛧ JuJu.wtf ";
-    let msgIndex = 0;
-    const messages = ["ジュジュ", "JuJu.wtf"];
-    let lastGlitchUpdate = performance.now();
+    let titleChanged = false;
 
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
       video.play().catch(error => console.error('Video playback failed:', error));
       requestAnimationFrame(animateLoop);
+      titleChanged = true; // Start title change only after the click
     });
 
     pauseButton.addEventListener('click', () => {
@@ -287,22 +283,23 @@
     }, 150);
 
     function animateLoop(timestamp) {
-      if (timestamp - lastTitleUpdate > 200) {
-        document.title = titleText.slice(titleIndex) + titleText.slice(0, titleIndex);
-        titleIndex = (titleIndex + 1) % titleText.length;
-        lastTitleUpdate = timestamp;
-      }
+      if (titleChanged) {
+        if (timestamp - lastTitleUpdate > 200) {
+          document.title = "⛧ JuJu.wtf".slice(titleIndex) + "⛧ JuJu.wtf".slice(0, titleIndex);
+          titleIndex = (titleIndex + 1) % "⛧ JuJu.wtf".length;
+          lastTitleUpdate = timestamp;
+        }
 
-      if (timestamp - lastGlitchUpdate > 4000) {
-        titleElement.classList.add('glitch');
-        setTimeout(() => {
-          titleElement.textContent = messages[msgIndex];
-          titleElement.classList.remove('glitch');
-          msgIndex = (msgIndex + 1) % messages.length;
-        }, 200);
-        lastGlitchUpdate = timestamp;
+        if (timestamp - lastGlitchUpdate > 4000) {
+          titleElement.classList.add('glitch');
+          setTimeout(() => {
+            titleElement.textContent = messages[msgIndex];
+            titleElement.classList.remove('glitch');
+            msgIndex = (msgIndex + 1) % messages.length;
+          }, 200);
+          lastGlitchUpdate = timestamp;
+        }
       }
-
       requestAnimationFrame(animateLoop);
     }
   </script>
