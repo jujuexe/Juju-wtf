@@ -50,7 +50,7 @@
       transition: opacity .5s ease;
       z-index: 100;
       text-shadow: 0 0 10px #fff, 0 0 20px #ff0000;
-      animation: pulseGlow 4s infinite ease-in-out;
+      animation: pulseGlow 6s infinite ease-in-out; /* Extended to 6 seconds for smoother transition */
     }
     .hidden {
       opacity: 0;
@@ -75,7 +75,7 @@
       object-fit: cover;
       margin-bottom: 20px;
       box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
-      animation: pulseGlow 4s infinite ease-in-out;
+      animation: pulseGlow 6s infinite ease-in-out; /* Extended to 6 seconds for smoother transition */
     }
     .title {
       font-size: 2rem;
@@ -83,24 +83,21 @@
       letter-spacing: .1rem;
       position: relative;
       transition: transform .3s ease, opacity .5s ease;
-      animation: pulseGlow 4s infinite ease-in-out;
+      animation: pulseGlow 6s infinite ease-in-out; /* Extended to 6 seconds for smoother transition */
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
     }
     .discord-tooltip,
     .x-tooltip,
     #pause-button,
     #song-title {
-      animation: pulseGlow 4s infinite ease-in-out;
+      animation: pulseGlow 6s infinite ease-in-out; /* Extended to 6 seconds for smoother transition */
     }
     @keyframes pulseGlow {
-      0% {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
-      }
-      62.5% {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
-      }
-      100% {
+      0%, 83.33% { /* 83.33% of the total time will be white glow (5s/6s) */
         text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ffffff, 0 0 30px #ffffff;
+      }
+      100% { /* 16.67% of the time will be red glow (1s/6s) */
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
       }
     }
     .discord-wrapper {
@@ -140,7 +137,7 @@
       overflow: hidden;
       transition: transform 0.3s ease;
       filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #ff0000);
-      animation: pulseGlow 4s infinite ease-in-out;
+      animation: pulseGlow 6s infinite ease-in-out; /* Extended to 6 seconds for smoother transition */
     }
     .discord-logo {
       background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
@@ -223,7 +220,7 @@
   </div>
 
   <div id="audio-controls">
-    <div id="song-title">Now Playing: LiveLeak</div>
+    <div id="song-title">Now Playing: Wok</div>
     <button id="pause-button">Pause ⏯</button>
   </div>
 
