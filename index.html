@@ -38,8 +38,6 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: auto;
-      height: auto;
       background: #000;
       color: #fff;
       font-size: 2rem;
@@ -96,12 +94,6 @@
       height: 2.4rem;
       line-height: 2.4rem;
     }
-    .discord-tooltip,
-    .x-tooltip,
-    #pause-button,
-    #song-title {
-      animation: pulseGlow 2s infinite ease-in-out;
-    }
     @keyframes pulseGlow {
       0%, 100% {
         text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
@@ -109,6 +101,12 @@
       50% {
         text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff0000, 0 0 40px #ff0000;
       }
+    }
+    .discord-tooltip,
+    .x-tooltip,
+    #pause-button,
+    #song-title {
+      animation: pulseGlow 2s infinite ease-in-out;
     }
     .discord-wrapper {
       position: relative;
@@ -148,7 +146,6 @@
       transition: transform 0.3s ease;
       filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 6px #ff0000);
       animation: pulseGlow 2s infinite ease-in-out;
-      will-change: filter, transform;
     }
     .discord-logo {
       background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
@@ -196,7 +193,7 @@
       pointer-events: none;
       z-index: 9999;
       box-shadow: 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
-      animation: sparkleFade 0.8s ease-out forwards;
+      animation: sparkleFade 0.6s ease-out forwards;
     }
     @keyframes sparkleFade {
       0% {
@@ -260,7 +257,7 @@
       document.body.appendChild(sparkle);
       sparkle.style.left = `${e.clientX}px`;
       sparkle.style.top = `${e.clientY}px`;
-      setTimeout(() => sparkle.remove(), 800);
+      setTimeout(() => sparkle.remove(), 600);
     });
 
     setInterval(() => {
@@ -272,7 +269,7 @@
         dot.style.left = Math.random() * window.innerWidth + 'px';
         dot.style.top = Math.random() * window.innerHeight + 'px';
         intro.appendChild(dot);
-        setTimeout(() => dot.remove(), 800);
+        setTimeout(() => dot.remove(), 600);
       }
     }, 120);
 
