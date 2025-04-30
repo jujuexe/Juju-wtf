@@ -49,8 +49,8 @@
       cursor: pointer;
       transition: opacity .5s ease;
       z-index: 100;
-      text-shadow: 0 0 10px #fff, 0 0 20px #00bfff;
-      animation: pulseGlow 2s infinite ease-in-out;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff0000;
+      animation: pulseGlow 4s infinite ease-in-out;
     }
     .hidden {
       opacity: 0;
@@ -74,8 +74,8 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 20px;
-      box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #00bfff, 0 0 30px #00bfff;
-      animation: pulseGlow 2s infinite ease-in-out;
+      box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
+      animation: pulseGlow 4s infinite ease-in-out;
     }
     .title {
       font-size: 2rem;
@@ -83,21 +83,24 @@
       letter-spacing: .1rem;
       position: relative;
       transition: transform .3s ease, opacity .5s ease;
-      animation: pulseGlow 2s infinite ease-in-out;
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #00bfff, 0 0 30px #00bfff;
+      animation: pulseGlow 4s infinite ease-in-out;
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
     }
     .discord-tooltip,
     .x-tooltip,
     #pause-button,
     #song-title {
-      animation: pulseGlow 2s infinite ease-in-out;
+      animation: pulseGlow 4s infinite ease-in-out;
     }
     @keyframes pulseGlow {
-      0%, 100% {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #00bfff, 0 0 30px #00bfff;
+      0% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
       }
-      50% {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #00bfff, 0 0 40px #00bfff;
+      62.5% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
+      }
+      100% {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ffffff, 0 0 30px #ffffff;
       }
     }
     .discord-wrapper {
@@ -136,8 +139,8 @@
       text-indent: -9999px;
       overflow: hidden;
       transition: transform 0.3s ease;
-      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #00bfff);
-      animation: pulseGlow 2s infinite ease-in-out;
+      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #ff0000);
+      animation: pulseGlow 4s infinite ease-in-out;
     }
     .discord-logo {
       background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
@@ -147,7 +150,7 @@
     }
     .discord-logo:hover, .x-logo:hover {
       transform: scale(1.05);
-      filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #00bfff);
+      filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #ff0000);
     }
     #audio-controls {
       position: absolute;
@@ -184,7 +187,7 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      box-shadow: 0 0 10px #fff, 0 0 20px #00bfff, 0 0 30px #00bfff;
+      box-shadow: 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
       animation: sparkleFade 1s ease-out forwards;
     }
     @keyframes sparkleFade {
