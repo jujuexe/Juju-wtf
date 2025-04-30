@@ -219,7 +219,7 @@
   </div>
   <div id="audio-controls">
     <div id="song-title">Now Playing: LiveLeak</div>
-    <button id="pause-button">Pause ⏯</button>
+    <button id="pause-button">Pause</button>
   </div>
   <script>
     const introScreen = document.getElementById('intro-screen');
@@ -236,10 +236,10 @@
     pauseButton.addEventListener('click', () => {
       if (isPaused) {
         video.play().catch(error => console.error('Video playback failed:', error));
-        pauseButton.textContent = 'Pause ⏯';
+        pauseButton.textContent = 'Pause';
       } else {
         video.pause();
-        pauseButton.textContent = 'Play ⏯';
+        pauseButton.textContent = 'Play';
       }
       isPaused = !isPaused;
     });
