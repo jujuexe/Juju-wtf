@@ -21,7 +21,7 @@
       font-family: Inter, sans-serif;
       height: 100vh;
       overflow: hidden;
-      cursor: url('https://cdn.jsdelivr.net/gh/jujuexe/fr@main/anarchy.png'), auto;
+      cursor: url('https://github.com/jujuexe/fr/blob/main/anarchy.png?raw=true'), auto;
     }
     #background-video {
       position: fixed;
@@ -189,21 +189,6 @@
         transform: translateX(-50%) translateY(0);
       }
     }
-    .sparkle, .intro-dot {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      background: white;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
-      animation: sparkleFade 0.6s ease-out forwards;
-    }
-    @keyframes sparkleFade {
-      0% { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(0.5) translateY(-10px); }
-    }
   </style>
 </head>
 <body>
@@ -248,18 +233,6 @@
       }
       isPaused = !isPaused;
     });
-
-    setInterval(() => {
-      if (introScreen.classList.contains('hidden')) return;
-      for (let i = 0; i < 4; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'intro-dot';
-        dot.style.left = Math.random() * window.innerWidth + 'px';
-        dot.style.top = Math.random() * window.innerHeight + 'px';
-        introScreen.appendChild(dot);
-        setTimeout(() => dot.remove(), 800);
-      }
-    }, 120);
 
     function startAnimations() {
       let titleText = "⛧ JuJu.wtf ";
