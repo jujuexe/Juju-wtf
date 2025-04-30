@@ -49,7 +49,7 @@
       cursor: pointer;
       transition: opacity .5s ease;
       z-index: 100;
-      text-shadow: 0 0 10px #fff, 0 0 20px #ff0000; /* Changed to red */
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff0000;
       animation: pulseGlow 2s infinite ease-in-out;
     }
     .hidden {
@@ -74,7 +74,7 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 20px;
-      box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000; /* Changed to red */
+      box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
       animation: pulseGlow 2s infinite ease-in-out;
     }
     .title {
@@ -84,7 +84,7 @@
       position: relative;
       transition: transform .3s ease, opacity .5s ease;
       animation: pulseGlow 2s infinite ease-in-out;
-      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000; /* Changed to red */
+      text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
     }
     .discord-tooltip,
     .x-tooltip,
@@ -94,10 +94,10 @@
     }
     @keyframes pulseGlow {
       0%, 100% {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000; /* Changed to red */
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
       }
       50% {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff0000, 0 0 40px #ff0000; /* Changed to red */
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff0000, 0 0 40px #ff0000;
       }
     }
     .discord-wrapper {
@@ -136,7 +136,7 @@
       text-indent: -9999px;
       overflow: hidden;
       transition: transform 0.3s ease;
-      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #ff0000); /* Changed to red */
+      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #ff0000);
       animation: pulseGlow 2s infinite ease-in-out;
     }
     .discord-logo {
@@ -147,7 +147,7 @@
     }
     .discord-logo:hover, .x-logo:hover {
       transform: scale(1.05);
-      filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #ff0000); /* Changed to red */
+      filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #ff0000);
     }
     #audio-controls {
       position: absolute;
@@ -184,7 +184,7 @@
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      box-shadow: 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000; /* Changed to red */
+      box-shadow: 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
       animation: sparkleFade 1s ease-out forwards;
     }
     @keyframes sparkleFade {
@@ -225,14 +225,14 @@
   </div>
 
   <script>
-    let titleText = "♡ JuJu.wtf ";
+    let titleText = "⛧ JuJu.wtf ";
     let index = 0;
     setInterval(() => {
       document.title = titleText.slice(index) + titleText.slice(0, index);
       index = (index + 1) % titleText.length;
     }, 200);
 
-    const messages = ["haiii :3", "JuJu.wtf"];
+    const messages = ["ジュジュ", "JuJu.wtf"];
     let msgIndex = 0;
     setInterval(() => {
       const titleElement = document.querySelector('.title');
