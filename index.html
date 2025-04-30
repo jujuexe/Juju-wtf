@@ -45,7 +45,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      font-size: 2rem;
+      font-size: 1.2rem; /* smaller font */
       cursor: pointer;
       transition: opacity .5s ease;
       z-index: 100;
@@ -203,7 +203,7 @@
   </style>
 </head>
 <body>
-  <div class="intro-screen" id="intro-screen">click to enter ⛧</div>
+  <div class="intro-screen" id="intro-screen">click ⛧ anywhere</div>
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Ken%20Carson%20-%20LiveLeak%20(Audio)%20-%20Trim.mp4" type="video/mp4">
   </video>
@@ -277,15 +277,9 @@
       const messages = ["ジュジュ", "JuJu.wtf"];
       let msgIndex = 0;
       setInterval(() => {
-        const titleElement = document.querySelector('.title');
-        titleElement.style.opacity = 0;
-        setTimeout(() => {
-          titleElement.textContent = messages[msgIndex];
-          titleElement.style.transform = 'translateY(0)';
-          titleElement.style.opacity = 1;
-          msgIndex = (msgIndex + 1) % messages.length;
-        }, 500);
-      }, 5000);
+        document.querySelector(".title").textContent = messages[msgIndex];
+        msgIndex = (msgIndex + 1) % messages.length;
+      }, 3000);
     }
   </script>
 </body>
