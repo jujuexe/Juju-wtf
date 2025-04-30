@@ -22,7 +22,7 @@
       font-family: Inter, sans-serif;
       height: 100vh;
       overflow: hidden;
-      cursor: url('https://github.com/jujuexe/fr/blob/main/anarchy.png?raw=true'), auto;
+      cursor: pointer;
     }
     #background-video {
       position: fixed;
@@ -54,7 +54,6 @@
       text-shadow: 0 0 12px #ff0000, 0 0 25px #ff0000;
       padding: 0 10px;
       text-align: center;
-      will-change: opacity;
     }
     .hidden {
       opacity: 0;
@@ -80,7 +79,6 @@
       margin-bottom: 20px;
       box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
       animation: pulseGlow 1.2s infinite ease-in-out;
-      will-change: transform, filter;
     }
     .title {
       font-size: 2.2rem;
@@ -91,7 +89,6 @@
       position: relative;
       animation: pulseGlow 1.2s infinite ease-in-out;
       text-shadow: 0 0 12px #ff0000, 0 0 24px #ff0000, 0 0 48px #ff0000, 0 0 80px #ff0000;
-      will-change: text-shadow, transform;
     }
     .glitch {
       animation: glitch-out 0.4s ease-in-out infinite;
@@ -123,7 +120,7 @@
     .discord-tooltip, .x-tooltip {
       position: absolute;
       bottom: 35px;
-      background: rgba(0, 0, 0, 0.75);
+      background: #ff0000;
       color: #fff;
       padding: 4px 8px;
       border-radius: 6px;
@@ -134,6 +131,7 @@
       font-size: 0.7rem;
       left: 50%;
       transform: translateX(-50%);
+      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
     }
     .discord-wrapper a:hover + .discord-tooltip,
     .x-logo:hover + .x-tooltip {
@@ -151,7 +149,6 @@
       transition: transform 0.3s ease;
       filter: drop-shadow(0 0 3px #ff0000) drop-shadow(0 0 6px #ff0000);
       animation: pulseGlow 1.2s infinite ease-in-out;
-      will-change: transform, filter;
     }
     .discord-logo {
       background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
@@ -197,13 +194,13 @@
     }
     .intro-dot {
       position: fixed;
-      width: 8px;
-      height: 8px;
-      background: white;
+      width: 15px;
+      height: 15px;
+      background: #ff0000;
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
-      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
       animation: sparkleFade 0.6s ease-out forwards;
     }
     @keyframes sparkleFade {
