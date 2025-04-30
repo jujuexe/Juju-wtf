@@ -200,21 +200,10 @@
       z-index: 200;
     }
     @keyframes flashPentagram {
-      0% {
-        opacity: 0;
-        transform: scale(0.5) rotate(0deg);
-      }
-      20% {
-        opacity: 1;
-        transform: scale(1.5) rotate(30deg);
-      }
-      40% {
-        transform: scale(1) rotate(-30deg);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(1.2) rotate(0deg);
-      }
+      0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+      20% { opacity: 1; transform: scale(1.5) rotate(30deg); }
+      40% { transform: scale(1) rotate(-30deg); }
+      100% { opacity: 0; transform: scale(2) rotate(60deg); }
     }
   </style>
 </head>
@@ -243,13 +232,21 @@
     const pauseButton = document.getElementById('pause-button');
     const titleElement = document.getElementById('title');
     let isPaused = false;
+    let titleIndex = 0;
+    let msgIndex = 0;
+    const titleText = "⛧ JuJu.wtf ";
+    const messages = ["ジュジュ", "JuJu.wtf"];
+    let lastTitleUpdate = 0;
+    let lastGlitchUpdate = 0;
     let titleChanged = false;
 
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
       video.play().catch(error => console.error('Video playback failed:', error));
+      lastTitleUpdate = performance.now();
+      lastGlitchUpdate = performance.now();
+      titleChanged = true;
       requestAnimationFrame(animateLoop);
-      titleChanged = true; // Start title change only after the click
     });
 
     pauseButton.addEventListener('click', () => {
@@ -285,8 +282,8 @@
     function animateLoop(timestamp) {
       if (titleChanged) {
         if (timestamp - lastTitleUpdate > 200) {
-          document.title = "⛧ JuJu.wtf".slice(titleIndex) + "⛧ JuJu.wtf".slice(0, titleIndex);
-          titleIndex = (titleIndex + 1) % "⛧ JuJu.wtf".length;
+          document.title = titleText.slice(titleIndex) + titleText.slice(0, titleIndex);
+          titleIndex = (titleIndex + 1) % titleText.length;
           lastTitleUpdate = timestamp;
         }
 
