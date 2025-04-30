@@ -9,6 +9,7 @@
   <meta property="og:image" content="https://github.com/jujuexe/fr/blob/main/anarchy.png?raw=true">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0a">
   <title>⛧ juju.wtf</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -21,6 +22,7 @@
       font-family: Inter, sans-serif;
       height: 100vh;
       overflow: hidden;
+      cursor: url('https://github.com/jujuexe/fr/blob/main/anarchy.png?raw=true'), auto;
     }
     #background-video {
       position: fixed;
@@ -30,6 +32,7 @@
       height: 100vh;
       object-fit: cover;
       z-index: -1;
+      will-change: transform, opacity;
     }
     .intro-screen {
       position: fixed;
@@ -51,6 +54,7 @@
       text-shadow: 0 0 12px #ff0000, 0 0 25px #ff0000;
       padding: 0 10px;
       text-align: center;
+      will-change: opacity;
     }
     .hidden {
       opacity: 0;
@@ -76,6 +80,7 @@
       margin-bottom: 20px;
       box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
       animation: pulseGlow 1.2s infinite ease-in-out;
+      will-change: transform, filter;
     }
     .title {
       font-size: 2.2rem;
@@ -86,6 +91,7 @@
       position: relative;
       animation: pulseGlow 1.2s infinite ease-in-out;
       text-shadow: 0 0 12px #ff0000, 0 0 24px #ff0000, 0 0 48px #ff0000, 0 0 80px #ff0000;
+      will-change: text-shadow, transform;
     }
     .glitch {
       animation: glitch-out 0.4s ease-in-out infinite;
@@ -145,6 +151,7 @@
       transition: transform 0.3s ease;
       filter: drop-shadow(0 0 3px #ff0000) drop-shadow(0 0 6px #ff0000);
       animation: pulseGlow 1.2s infinite ease-in-out;
+      will-change: transform, filter;
     }
     .discord-logo {
       background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
@@ -188,7 +195,7 @@
         transform: translateX(-50%) translateY(0);
       }
     }
-    .sparkle, .intro-dot {
+    .intro-dot {
       position: fixed;
       width: 8px;
       height: 8px;
@@ -246,15 +253,6 @@
         pauseButton.textContent = 'Play';
       }
       isPaused = !isPaused;
-    });
-
-    document.addEventListener('mousemove', e => {
-      const sparkle = document.createElement('div');
-      sparkle.className = 'sparkle';
-      document.body.appendChild(sparkle);
-      sparkle.style.left = `${e.clientX}px`;
-      sparkle.style.top = `${e.clientY}px`;
-      setTimeout(() => sparkle.remove(), 1000);
     });
 
     setInterval(() => {
