@@ -217,11 +217,17 @@
     const pauseButton = document.getElementById('pause-button');
     const titleElement = document.querySelector('.title');
     let isPaused = false;
+    let lastTitleUpdate = performance.now();
+    let titleIndex = 0;
+    let titleText = "⛧ JuJu.wtf ";
+    let msgIndex = 0;
+    const messages = ["ジュジュ", "JuJu.wtf"];
+    let lastGlitchUpdate = performance.now();
 
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
       video.play().catch(error => console.error('Video playback failed:', error));
-      startAnimations();
+      requestAnimationFrame(animateLoop);
     });
 
     pauseButton.addEventListener('click', () => {
@@ -233,6 +239,12 @@
         pauseButton.textContent = 'Play';
       }
       isPaused = !isPaused;
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && !isPaused) {
+        video.play().catch(() => {});
+      }
     });
 
     setInterval(() => {
@@ -247,24 +259,24 @@
       }
     }, 120);
 
-    function startAnimations() {
-      let titleText = "⛧ JuJu.wtf ";
-      let index = 0;
-      setInterval(() => {
-        document.title = titleText.slice(index) + titleText.slice(0, index);
-        index = (index + 1) % titleText.length;
-      }, 200);
+    function animateLoop(timestamp) {
+      if (timestamp - lastTitleUpdate > 200) {
+        document.title = titleText.slice(titleIndex) + titleText.slice(0, titleIndex);
+        titleIndex = (titleIndex + 1) % titleText.length;
+        lastTitleUpdate = timestamp;
+      }
 
-      const messages = ["ジュジュ", "JuJu.wtf"];
-      let msgIndex = 0;
-      setInterval(() => {
+      if (timestamp - lastGlitchUpdate > 4000) {
         titleElement.classList.add('glitch');
         setTimeout(() => {
           titleElement.textContent = messages[msgIndex];
           titleElement.classList.remove('glitch');
           msgIndex = (msgIndex + 1) % messages.length;
         }, 200);
-      }, 4000);
+        lastGlitchUpdate = timestamp;
+      }
+
+      requestAnimationFrame(animateLoop);
     }
   </script>
 </body>
