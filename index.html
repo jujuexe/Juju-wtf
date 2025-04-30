@@ -85,6 +85,8 @@
       transition: transform .3s ease, opacity .5s ease;
       animation: pulseGlow 2s infinite ease-in-out;
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
+      height: 2.4rem;
+      line-height: 2.4rem;
     }
     .discord-tooltip,
     .x-tooltip,
@@ -136,7 +138,7 @@
       text-indent: -9999px;
       overflow: hidden;
       transition: transform 0.3s ease;
-      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #ff0000);
+      box-shadow: 0 0 5px #fff, 0 0 10px #ff0000;
       animation: pulseGlow 2s infinite ease-in-out;
     }
     .discord-logo {
@@ -147,7 +149,12 @@
     }
     .discord-logo:hover, .x-logo:hover {
       transform: scale(1.05);
-      filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #ff0000);
+      box-shadow: 0 0 10px #fff, 0 0 20px #ff0000;
+    }
+    @media (max-width: 600px) {
+      .discord-logo, .x-logo {
+        box-shadow: 0 0 4px #fff, 0 0 8px #ff0000;
+      }
     }
     #audio-controls {
       position: absolute;
@@ -225,38 +232,6 @@
   </div>
 
   <script>
-    let titleText = "⛧ JuJu.wtf ";
-    let index = 0;
-    setInterval(() => {
-      document.title = titleText.slice(index) + titleText.slice(0, index);
-      index = (index + 1) % titleText.length;
-    }, 200);
-
-    const messages = ["ジュジュ", "JuJu.wtf"];
-    let msgIndex = 0;
-    setInterval(() => {
-      const titleElement = document.querySelector('.title');
-      titleElement.style.opacity = 0;
-      setTimeout(() => {
-        titleElement.textContent = messages[msgIndex];
-        titleElement.style.transform = 'translateY(-3px)';
-        titleElement.style.opacity = 1;
-        setTimeout(() => {
-          titleElement.style.transform = 'translateY(0)';
-        }, 150);
-        msgIndex = (msgIndex + 1) % messages.length;
-      }, 500);
-    }, 5000);
-
-    document.addEventListener('mousemove', e => {
-      const sparkle = document.createElement('div');
-      sparkle.className = 'sparkle';
-      document.body.appendChild(sparkle);
-      sparkle.style.left = `${e.clientX}px`;
-      sparkle.style.top = `${e.clientY}px`;
-      setTimeout(() => sparkle.remove(), 1000);
-    });
-
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
     const pauseButton = document.getElementById('pause-button');
@@ -265,6 +240,7 @@
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
       video.play().catch(error => console.error('Video playback failed:', error));
+      startAnimations();
     });
 
     pauseButton.addEventListener('click', () => {
@@ -276,6 +252,15 @@
         pauseButton.textContent = 'Play ⏯';
       }
       isPaused = !isPaused;
+    });
+
+    document.addEventListener('mousemove', e => {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      document.body.appendChild(sparkle);
+      sparkle.style.left = `${e.clientX}px`;
+      sparkle.style.top = `${e.clientY}px`;
+      setTimeout(() => sparkle.remove(), 1000);
     });
 
     setInterval(() => {
@@ -290,6 +275,29 @@
         setTimeout(() => dot.remove(), 800);
       }
     }, 120);
+
+    // Only called after intro is clicked
+    function startAnimations() {
+      let titleText = "⛧ JuJu.wtf ";
+      let index = 0;
+      setInterval(() => {
+        document.title = titleText.slice(index) + titleText.slice(0, index);
+        index = (index + 1) % titleText.length;
+      }, 200);
+
+      const messages = ["ジュジュ", "JuJu.wtf"];
+      let msgIndex = 0;
+      setInterval(() => {
+        const titleElement = document.querySelector('.title');
+        titleElement.style.opacity = 0;
+        setTimeout(() => {
+          titleElement.textContent = messages[msgIndex];
+          titleElement.style.transform = 'translateY(0)';
+          titleElement.style.opacity = 1;
+          msgIndex = (msgIndex + 1) % messages.length;
+        }, 500);
+      }, 5000);
+    }
   </script>
 </body>
 </html>
