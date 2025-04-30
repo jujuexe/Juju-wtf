@@ -35,28 +35,22 @@
     }
     .intro-screen {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: #000;
       color: #fff;
-      font-size: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.5rem;
       cursor: pointer;
       transition: opacity .5s ease;
       z-index: 100;
-      text-shadow: 0 0 10px #fff, 0 0 20px #ff0000;
-      animation: pulseGlow 2s infinite ease-in-out;
+      text-shadow: 0 0 12px #fff, 0 0 25px #ff0000;
+      animation: pulseGlow 1.6s infinite ease-in-out;
       white-space: nowrap;
-    }
-    .intro-screen span {
-      font-size: 2rem;
-      display: inline-block;
-      animation: pulseGlow 2s infinite ease-in-out;
-    }
-    .intro-screen .pentagram {
-      font-size: 2rem;
-      margin-left: 10px;
-      animation: pulseGlow 2s infinite ease-in-out;
     }
     .hidden {
       opacity: 0;
@@ -81,7 +75,7 @@
       object-fit: cover;
       margin-bottom: 20px;
       box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
-      animation: pulseGlow 2s infinite ease-in-out;
+      animation: pulseGlow 1.6s infinite ease-in-out;
     }
     .title {
       font-size: 2rem;
@@ -89,24 +83,18 @@
       letter-spacing: .1rem;
       position: relative;
       transition: transform .3s ease, opacity .5s ease;
-      animation: pulseGlow 2s infinite ease-in-out;
+      animation: pulseGlow 1.6s infinite ease-in-out;
       text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
       height: 2.4rem;
       line-height: 2.4rem;
     }
     @keyframes pulseGlow {
       0%, 100% {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0000, 0 0 30px #ff0000;
+        text-shadow: 0 0 8px #fff, 0 0 16px #fff, 0 0 28px #ff0000, 0 0 40px #ff0000;
       }
       50% {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff0000, 0 0 40px #ff0000;
+        text-shadow: 0 0 14px #fff, 0 0 28px #fff, 0 0 40px #ff0000, 0 0 50px #ff0000;
       }
-    }
-    .discord-tooltip,
-    .x-tooltip,
-    #pause-button,
-    #song-title {
-      animation: pulseGlow 2s infinite ease-in-out;
     }
     .discord-wrapper {
       position: relative;
@@ -145,7 +133,7 @@
       overflow: hidden;
       transition: transform 0.3s ease;
       filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 6px #ff0000);
-      animation: pulseGlow 2s infinite ease-in-out;
+      animation: pulseGlow 1.6s infinite ease-in-out;
     }
     .discord-logo {
       background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
@@ -208,9 +196,7 @@
   </style>
 </head>
 <body>
-  <div class="intro-screen" id="intro-screen">
-    <span>click anywhere ⛧</span>
-  </div>
+  <div class="intro-screen" id="intro-screen">click ⛧ anywhere</div>
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Ken%20Carson%20-%20LiveLeak%20(Audio)%20-%20Trim.mp4" type="video/mp4">
   </video>
@@ -257,7 +243,7 @@
       document.body.appendChild(sparkle);
       sparkle.style.left = `${e.clientX}px`;
       sparkle.style.top = `${e.clientY}px`;
-      setTimeout(() => sparkle.remove(), 600);
+      setTimeout(() => sparkle.remove(), 1000);
     });
 
     setInterval(() => {
@@ -269,7 +255,7 @@
         dot.style.left = Math.random() * window.innerWidth + 'px';
         dot.style.top = Math.random() * window.innerHeight + 'px';
         intro.appendChild(dot);
-        setTimeout(() => dot.remove(), 600);
+        setTimeout(() => dot.remove(), 800);
       }
     }, 120);
 
@@ -286,13 +272,11 @@
       setInterval(() => {
         const titleElement = document.querySelector('.title');
         titleElement.style.opacity = 0;
-        titleElement.style.transform = 'translateY(-20px)';
         setTimeout(() => {
           titleElement.textContent = messages[msgIndex];
-          titleElement.style.transform = 'translateY(0)';
           titleElement.style.opacity = 1;
           msgIndex = (msgIndex + 1) % messages.length;
-        }, 500);
+        }, 300);
       }, 5000);
     }
   </script>
