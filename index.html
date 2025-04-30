@@ -48,7 +48,7 @@
       z-index: 100;
       white-space: nowrap;
       animation: pulseGlow 1.2s infinite ease-in-out;
-      text-shadow: 0 0 8px #fff, 0 0 16px #fff, 0 0 28px #ff0000, 0 0 50px #ff0000;
+      text-shadow: 0 0 12px #fff, 0 0 25px #ff0000;
     }
     .hidden {
       opacity: 0;
@@ -79,10 +79,28 @@
       font-size: 2.2rem;
       text-transform: lowercase;
       letter-spacing: .1rem;
+      height: 2.6rem;
+      width: 100%;
       position: relative;
       animation: pulseGlow 1.2s infinite ease-in-out;
       text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #ff0000, 0 0 60px #ff0000;
-      transition: transform .25s ease, opacity .25s ease;
+    }
+    .glitch {
+      animation: glitch-out 0.4s ease-in-out;
+    }
+    @keyframes glitch-out {
+      0% {
+        transform: scale(1) skewX(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.1) skewX(5deg);
+        opacity: 0.4;
+      }
+      100% {
+        transform: scale(1) skewX(0deg);
+        opacity: 1;
+      }
     }
     @keyframes pulseGlow {
       0%, 100% {
@@ -128,8 +146,8 @@
       text-indent: -9999px;
       overflow: hidden;
       transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 6px #ff0000);
       animation: pulseGlow 1.2s infinite ease-in-out;
-      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 12px #ff0000);
     }
     .discord-logo {
       background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
@@ -139,7 +157,7 @@
     }
     .discord-logo:hover, .x-logo:hover {
       transform: scale(1.05);
-      filter: drop-shadow(0 0 8px #fff) drop-shadow(0 0 20px #ff0000);
+      filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 12px #ff0000);
     }
     #audio-controls {
       position: absolute;
@@ -153,7 +171,10 @@
       opacity: 0;
       animation: fadeIn 1s ease-out forwards;
       z-index: 10;
-      box-shadow: 0 0 12px #fff, 0 0 30px #ff0000;
+    }
+    #song-title {
+      animation: pulseGlow 1.2s infinite ease-in-out;
+      text-shadow: 0 0 8px #fff, 0 0 16px #fff, 0 0 28px #ff0000, 0 0 40px #ff0000;
     }
     #pause-button {
       background: none;
@@ -162,7 +183,6 @@
       cursor: pointer;
       margin-top: 5px;
       text-transform: lowercase;
-      font-size: 1rem;
       animation: pulseGlow 1.2s infinite ease-in-out;
     }
     @keyframes fadeIn {
@@ -192,14 +212,6 @@
         transform: scale(0.5) translateY(-10px);
       }
     }
-    .glitch-out {
-      animation: glitchOut 0.3s ease forwards;
-    }
-    @keyframes glitchOut {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.4) skewX(10deg); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
   </style>
 </head>
 <body>
@@ -225,17 +237,18 @@
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
     const pauseButton = document.getElementById('pause-button');
+    const titleElement = document.querySelector('.title');
     let isPaused = false;
 
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
-      video.play().catch(console.error);
+      video.play().catch(error => console.error('Video playback failed:', error));
       startAnimations();
     });
 
     pauseButton.addEventListener('click', () => {
       if (isPaused) {
-        video.play().catch(console.error);
+        video.play().catch(error => console.error('Video playback failed:', error));
         pauseButton.textContent = 'Pause';
       } else {
         video.pause();
@@ -254,14 +267,13 @@
     });
 
     setInterval(() => {
-      const intro = document.getElementById('intro-screen');
-      if (intro.classList.contains('hidden')) return;
+      if (introScreen.classList.contains('hidden')) return;
       for (let i = 0; i < 4; i++) {
         const dot = document.createElement('div');
         dot.className = 'intro-dot';
         dot.style.left = Math.random() * window.innerWidth + 'px';
         dot.style.top = Math.random() * window.innerHeight + 'px';
-        intro.appendChild(dot);
+        introScreen.appendChild(dot);
         setTimeout(() => dot.remove(), 800);
       }
     }, 120);
@@ -276,14 +288,13 @@
 
       const messages = ["ジュジュ", "JuJu.wtf"];
       let msgIndex = 0;
-      const titleElement = document.querySelector('.title');
       setInterval(() => {
-        titleElement.classList.add('glitch-out');
+        titleElement.classList.add('glitch');
         setTimeout(() => {
           titleElement.textContent = messages[msgIndex];
+          titleElement.classList.remove('glitch');
           msgIndex = (msgIndex + 1) % messages.length;
-        }, 150);
-        setTimeout(() => titleElement.classList.remove('glitch-out'), 300);
+        }, 200);
       }, 5000);
     }
   </script>
