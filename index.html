@@ -39,29 +39,19 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.95);
+      background: #000;
       color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 2rem;
       transition: opacity .5s ease;
-      z-index: 200;
+      z-index: 100;
       white-space: nowrap;
       animation: pulseGlow 1.2s infinite ease-in-out;
       text-shadow: 0 0 12px #ff0000, 0 0 25px #ff0000;
       padding: 0 10px;
       text-align: center;
-    }
-    .intro-screen::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(255, 0, 0, 0.2);
-      z-index: -1;
     }
     .hidden {
       opacity: 0;
@@ -200,12 +190,27 @@
         transform: translateX(-50%) translateY(0);
       }
     }
+    .intro-dot {
+      position: absolute;
+      font-size: 1.2rem;
+      color: red;
+      pointer-events: none;
+      animation: flashPentagram 0.6s ease-out forwards;
+      text-shadow: 0 0 4px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000;
+      z-index: 200;
+    }
+    @keyframes flashPentagram {
+      0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+      20% { opacity: 1; transform: scale(1.5) rotate(30deg); }
+      40% { transform: scale(1) rotate(-30deg); }
+      100% { opacity: 0; transform: scale(2) rotate(60deg); }
+    }
   </style>
 </head>
 <body>
   <div class="intro-screen" id="intro-screen">click ⛧ anywhere</div>
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
-    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/OsamaSon%20-%20Ref%20%5BOfficial%20Music%20Video%5D%20-%20Trim.mp4" type="video/mp4">
+    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Ken%20Carson%20-%20LiveLeak%20(Audio)%20-%20Trim.mp4" type="video/mp4">
   </video>
   <div class="container">
     <img src="https://github.com/jujuexe/Juju-wtf/blob/main/meondcrn.png?raw=true" alt="pfp" class="pfp">
@@ -218,7 +223,7 @@
     </div>
   </div>
   <div id="audio-controls">
-    <div id="song-title">Now Playing: Ref</div>
+    <div id="song-title">Now Playing: LiveLeak</div>
     <button id="pause-button">Pause</button>
   </div>
   <script>
@@ -237,7 +242,6 @@
 
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
-      this.style.opacity = '0';
       video.play().catch(error => console.error('Video playback failed:', error));
       lastTitleUpdate = performance.now();
       lastGlitchUpdate = performance.now();
@@ -261,6 +265,19 @@
         video.play().catch(() => {});
       }
     });
+
+    setInterval(() => {
+      if (introScreen.classList.contains('hidden')) return;
+      for (let i = 0; i < 6; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'intro-dot';
+        dot.textContent = '⛧';
+        dot.style.left = Math.random() * window.innerWidth + 'px';
+        dot.style.top = Math.random() * window.innerHeight + 'px';
+        introScreen.appendChild(dot);
+        setTimeout(() => dot.remove(), 600);
+      }
+    }, 150);
 
     function animateLoop(timestamp) {
       if (titleChanged) {
