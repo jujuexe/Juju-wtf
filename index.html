@@ -17,23 +17,12 @@
     body {
       margin: 0;
       padding: 0;
-      background: radial-gradient(circle at center, #1a0000 0%, #000000 100%);
-      background-size: 200% 200%;
-      animation: backgroundPulse 8s ease-in-out infinite;
-      font-family: Inter, sans-serif;
-      overflow: hidden;
+      background-color: #0a0a0a;
       color: #fff;
+      font-family: Inter, sans-serif;
+      height: 100vh;
+      overflow: hidden;
     }
-
-    @keyframes backgroundPulse {
-      0%, 100% {
-        background: radial-gradient(circle at center, #1a0000 0%, #000000 100%);
-      }
-      50% {
-        background: radial-gradient(circle at center, #330000 0%, #000000 100%);
-      }
-    }
-
     #background-video {
       position: fixed;
       top: 0;
@@ -42,33 +31,32 @@
       height: 100vh;
       object-fit: cover;
       z-index: -1;
+      will-change: transform, opacity;
     }
-
     .intro-screen {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: transparent;
+      background: #000;
       color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 2rem;
+      transition: opacity .5s ease;
       z-index: 100;
       white-space: nowrap;
-      text-shadow: 0 0 12px #ff0000, 0 0 25px #ff0000;
       animation: pulseGlow 1.2s infinite ease-in-out;
-      transition: opacity 0.5s ease;
-      cursor: pointer;
+      text-shadow: 0 0 12px #ff0000, 0 0 25px #ff0000;
+      padding: 0 10px;
+      text-align: center;
     }
-
     .hidden {
       opacity: 0;
       pointer-events: none;
     }
-
     .container {
       position: absolute;
       top: 50%;
@@ -76,51 +64,42 @@
       transform: translate(-50%, -50%);
       text-align: center;
       z-index: 10;
-      display: none; /* hidden initially */
+      display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
     }
-
-    .container.visible {
-      display: flex;
-    }
-
     .pfp {
       width: 100px;
       height: 100px;
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 20px;
-      animation: pfpPulse 3s ease-in-out infinite;
-      box-shadow:
-        0 0 15px rgba(255, 0, 0, 0.6),
-        0 0 30px rgba(255, 0, 0, 0.4),
-        0 0 45px rgba(255, 0, 0, 0.3);
+      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
+      animation: pulseGlow 1.2s infinite ease-in-out;
     }
-
-    @keyframes pfpPulse {
-      0%, 100% {
-        box-shadow:
-          0 0 15px rgba(255, 0, 0, 0.6),
-          0 0 30px rgba(255, 0, 0, 0.4),
-          0 0 45px rgba(255, 0, 0, 0.3);
-      }
-      50% {
-        box-shadow:
-          0 0 30px rgba(255, 0, 0, 0.7),
-          0 0 60px rgba(255, 0, 0, 0.5),
-          0 0 90px rgba(255, 0, 0, 0.4);
-      }
-    }
-
     .title {
       font-size: 2.2rem;
       text-transform: lowercase;
+      letter-spacing: .1rem;
+      height: 2.6rem;
+      width: 100%;
+      position: relative;
       animation: pulseGlow 1.2s infinite ease-in-out;
       text-shadow: 0 0 12px #ff0000, 0 0 24px #ff0000, 0 0 48px #ff0000, 0 0 80px #ff0000;
     }
-
+    .glitch {
+      animation: glitch-out 0.4s ease-in-out infinite;
+    }
+    @keyframes glitch-out {
+      0% { transform: scale(1) skewX(0deg); opacity: 1; }
+      10% { transform: scale(1.1) skewX(10deg); opacity: 0.4; }
+      20% { transform: scale(1) skewX(-5deg); opacity: 1; }
+      30% { transform: scale(1.1) skewX(15deg); opacity: 0.6; }
+      40% { transform: scale(1) skewX(-10deg); opacity: 1; }
+      50% { transform: scale(1.05) skewX(20deg); opacity: 0.4; }
+      100% { transform: scale(1) skewX(0deg); opacity: 1; }
+    }
     @keyframes pulseGlow {
       0%, 100% {
         text-shadow: 0 0 12px #ff0000, 0 0 24px #ff0000, 0 0 48px #ff0000, 0 0 80px #ff0000;
@@ -129,14 +108,33 @@
         text-shadow: 0 0 16px #ff0000, 0 0 32px #ff0000, 0 0 56px #ff0000, 0 0 100px #ff0000;
       }
     }
-
     .discord-wrapper {
+      position: relative;
       display: flex;
       gap: 15px;
       justify-content: center;
       margin-top: 30px;
     }
-
+    .discord-tooltip, .x-tooltip {
+      position: absolute;
+      bottom: 35px;
+      background: #ff0000;
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.7rem;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+    }
+    .discord-wrapper a:hover + .discord-tooltip,
+    .x-logo:hover + .x-tooltip {
+      opacity: 1;
+    }
     .discord-logo, .x-logo {
       display: inline-block;
       width: 30px;
@@ -145,18 +143,21 @@
       background-repeat: no-repeat;
       background-position: center;
       text-indent: -9999px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
       filter: drop-shadow(0 0 3px #ff0000) drop-shadow(0 0 6px #ff0000);
       animation: pulseGlow 1.2s infinite ease-in-out;
     }
-
     .discord-logo {
       background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
     }
-
     .x-logo {
       background-image: url('https://github.com/jujuexe/Juju-wtf/blob/main/whitex.png?raw=true');
     }
-
+    .discord-logo:hover, .x-logo:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 5px #ff0000) drop-shadow(0 0 12px #ff0000);
+    }
     #audio-controls {
       position: absolute;
       bottom: 20px;
@@ -166,14 +167,14 @@
       padding: 10px 20px;
       border-radius: 10px;
       text-align: center;
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
       z-index: 10;
-      opacity: 1;
     }
-
     #song-title {
       animation: pulseGlow 1.2s infinite ease-in-out;
+      text-shadow: 0 0 12px #ff0000, 0 0 24px #ff0000, 0 0 48px #ff0000, 0 0 80px #ff0000;
     }
-
     #pause-button {
       background: none;
       border: none;
@@ -183,36 +184,53 @@
       text-transform: lowercase;
       animation: pulseGlow 1.2s infinite ease-in-out;
     }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+    .intro-dot {
+      position: absolute;
+      font-size: 1.2rem;
+      color: red;
+      pointer-events: none;
+      animation: flashPentagram 0.6s ease-out forwards;
+      text-shadow: 0 0 4px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000;
+      z-index: 200;
+    }
+    @keyframes flashPentagram {
+      0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+      20% { opacity: 1; transform: scale(1.5) rotate(30deg); }
+      40% { transform: scale(1) rotate(-30deg); }
+      100% { opacity: 0; transform: scale(2) rotate(60deg); }
+    }
   </style>
 </head>
 <body>
   <div class="intro-screen" id="intro-screen">click ⛧ anywhere</div>
-
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
-    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/OsamaSon%20-%20Ref%20%5BOfficial%20Music%20Video%5D%20-%20Trim.mp4" type="video/mp4">
+    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Ken%20Carson%20-%20LiveLeak%20(Audio)%20-%20Trim.mp4" type="video/mp4">
   </video>
-
-  <div class="container" id="main-content">
+  <div class="container">
     <img src="https://github.com/jujuexe/Juju-wtf/blob/main/meondcrn.png?raw=true" alt="pfp" class="pfp">
     <div class="title" id="title">JuJu.wtf</div>
     <div class="discord-wrapper">
-      <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" target="_blank">discord</a>
-      <a href="https://x.com/jujuwtfz" class="x-logo" target="_blank">x</a>
+      <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" target="_blank" rel="noopener noreferrer">discord</a>
+      <div class="discord-tooltip">Invite to JuJu Fanclub</div>
+      <a href="https://x.com/jujuwtfz" class="x-logo" target="_blank" rel="noopener noreferrer">x</a>
+      <div class="x-tooltip">Follow @jujuwtfz on X</div>
     </div>
   </div>
-
   <div id="audio-controls">
-    <div id="song-title">Now Playing: Ref</div>
+    <div id="song-title">Now Playing: LiveLeak</div>
     <button id="pause-button">Pause</button>
   </div>
-
   <script>
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
-    const mainContent = document.getElementById('main-content');
     const pauseButton = document.getElementById('pause-button');
     const titleElement = document.getElementById('title');
-
     let isPaused = false;
     let titleIndex = 0;
     let msgIndex = 0;
@@ -220,13 +238,14 @@
     const messages = ["ジュジュ", "JuJu.wtf"];
     let lastTitleUpdate = 0;
     let lastGlitchUpdate = 0;
+    let titleChanged = false;
 
     introScreen.addEventListener('click', function () {
       this.classList.add('hidden');
-      mainContent.classList.add('visible');
       video.play().catch(error => console.error('Video playback failed:', error));
       lastTitleUpdate = performance.now();
       lastGlitchUpdate = performance.now();
+      titleChanged = true;
       requestAnimationFrame(animateLoop);
     });
 
@@ -247,23 +266,37 @@
       }
     });
 
+    setInterval(() => {
+      if (introScreen.classList.contains('hidden')) return;
+      for (let i = 0; i < 6; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'intro-dot';
+        dot.textContent = '⛧';
+        dot.style.left = Math.random() * window.innerWidth + 'px';
+        dot.style.top = Math.random() * window.innerHeight + 'px';
+        introScreen.appendChild(dot);
+        setTimeout(() => dot.remove(), 600);
+      }
+    }, 150);
+
     function animateLoop(timestamp) {
-      if (timestamp - lastTitleUpdate > 200) {
-        document.title = titleText.slice(titleIndex) + titleText.slice(0, titleIndex);
-        titleIndex = (titleIndex + 1) % titleText.length;
-        lastTitleUpdate = timestamp;
-      }
+      if (titleChanged) {
+        if (timestamp - lastTitleUpdate > 200) {
+          document.title = titleText.slice(titleIndex) + titleText.slice(0, titleIndex);
+          titleIndex = (titleIndex + 1) % titleText.length;
+          lastTitleUpdate = timestamp;
+        }
 
-      if (timestamp - lastGlitchUpdate > 4000) {
-        titleElement.classList.add('glitch');
-        setTimeout(() => {
-          titleElement.textContent = messages[msgIndex];
-          titleElement.classList.remove('glitch');
-          msgIndex = (msgIndex + 1) % messages.length;
-        }, 200);
-        lastGlitchUpdate = timestamp;
+        if (timestamp - lastGlitchUpdate > 4000) {
+          titleElement.classList.add('glitch');
+          setTimeout(() => {
+            titleElement.textContent = messages[msgIndex];
+            titleElement.classList.remove('glitch');
+            msgIndex = (msgIndex + 1) % messages.length;
+          }, 200);
+          lastGlitchUpdate = timestamp;
+        }
       }
-
       requestAnimationFrame(animateLoop);
     }
   </script>
