@@ -1,77 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="https://github.com/jujuexe/fr/blob/main/anarchy.png?raw=true" type="image/png">
+  <meta property="og:url" content="https://JuJu.wtf/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="JuJu">
+  <meta property="og:description" content="made by @JuJu.wtf">
+  <meta property="og:image" content="https://github.com/jujuexe/fr/blob/main/anarchy.png?raw=true">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="1.8; url=https://juju.wtf">
-  <title>Page Not Found</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>⛧ juju.wtf</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
-      background-color: black;
-      color: #ff0000;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
       margin: 0;
+      padding: 0;
+      background-color: #0a0a0a;
+      color: #fff;
+      font-family: Inter, sans-serif;
       height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       overflow: hidden;
     }
-    img {
-      width: 200px;
-      height: auto;
-      margin-top: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
-      animation: pulseGlow 2s infinite ease-in-out;
+    #background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      will-change: transform, opacity;
     }
-    h1 {
-      font-size: 36px;
-      text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
-      animation: pulseGlow 2s infinite ease-in-out;
+    .intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 1);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      z-index: 200;
+      text-align: center;
+      white-space: nowrap;
+      transition: opacity .5s ease;
+      text-shadow: 0 0 12px #ff0000, 0 0 25px #ff0000;
+      padding: 0 10px;
     }
-    p {
-      font-size: 18px;
-      text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-      animation: pulseGlow 2s infinite ease-in-out;
+    .intro-screen::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 0, 0, 0.2);
+      z-index: -1;
     }
-    a {
-      color: #ff0000;
-      text-decoration: none;
-      font-weight: bold;
-      text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-      transition: text-shadow 0.3s ease;
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
     }
-    a:hover {
-      text-shadow: 0 0 15px #ff0000, 0 0 25px #ff0000;
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
-    .pentagram {
-      font-size: 60px;
-      color: #ff0000;
-      text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
-      animation: pulseGlow 2s infinite ease-in-out;
+    .pfp {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
       margin-bottom: 20px;
+      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
+      animation: pulseGlow 1.2s infinite ease-in-out;
+    }
+    .title {
+      font-size: 2.2rem;
+      text-transform: lowercase;
+      letter-spacing: .1rem;
+      height: 2.6rem;
+      width: 100%;
+      position: relative;
+      animation: pulseGlow 1.2s infinite ease-in-out;
+      text-shadow: 0 0 12px #ff0000, 0 0 24px #ff0000, 0 0 48px #ff0000, 0 0 80px #ff0000;
+    }
+    .glitch {
+      animation: glitch-out 0.4s ease-in-out infinite;
+    }
+    @keyframes glitch-out {
+      0% { transform: scale(1) skewX(0deg); opacity: 1; }
+      10% { transform: scale(1.1) skewX(10deg); opacity: 0.4; }
+      20% { transform: scale(1) skewX(-5deg); opacity: 1; }
+      30% { transform: scale(1.1) skewX(15deg); opacity: 0.6; }
+      40% { transform: scale(1) skewX(-10deg); opacity: 1; }
+      50% { transform: scale(1.05) skewX(20deg); opacity: 0.4; }
+      100% { transform: scale(1) skewX(0deg); opacity: 1; }
     }
     @keyframes pulseGlow {
       0%, 100% {
-        text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+        text-shadow: 0 0 12px #ff0000, 0 0 24px #ff0000, 0 0 48px #ff0000, 0 0 80px #ff0000;
       }
       50% {
-        text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000;
+        text-shadow: 0 0 16px #ff0000, 0 0 32px #ff0000, 0 0 56px #ff0000, 0 0 100px #ff0000;
+      }
+    }
+    .discord-wrapper {
+      position: relative;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .discord-tooltip, .x-tooltip {
+      position: absolute;
+      bottom: 35px;
+      background: #ff0000;
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-size: 0.7rem;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+    }
+    .discord-wrapper a:hover + .discord-tooltip,
+    .x-logo:hover + .x-tooltip {
+      opacity: 1;
+    }
+    .discord-logo, .x-logo {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      text-indent: -9999px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 3px #ff0000) drop-shadow(0 0 6px #ff0000);
+      animation: pulseGlow 1.2s infinite ease-in-out;
+    }
+    .discord-logo {
+      background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
+    }
+    .x-logo {
+      background-image: url('https://github.com/jujuexe/Juju-wtf/blob/main/whitex.png?raw=true');
+    }
+    .discord-logo:hover, .x-logo:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 5px #ff0000) drop-shadow(0 0 12px #ff0000);
+    }
+    #audio-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, .7);
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+      z-index: 10;
+    }
+    #song-title {
+      animation: pulseGlow 1.2s infinite ease-in-out;
+      text-shadow: 0 0 12px #ff0000, 0 0 24px #ff0000, 0 0 48px #ff0000, 0 0 80px #ff0000;
+    }
+    #pause-button {
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 5px;
+      text-transform: lowercase;
+      animation: pulseGlow 1.2s infinite ease-in-out;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
       }
     }
   </style>
 </head>
 <body>
-  <div class="pentagram">⛧</div>
-  <h1>Page Not Found</h1>
-  <img src="https://github.com/jujuexe/fr/blob/main/anarchy.png?raw=true" alt="Anarchy Logo">
-  <p>Redirecting to <a href="https://juju.wtf">juju.wtf</a></p>
+  <div class="intro-screen" id="intro-screen">click ⛧ anywhere</div>
+  <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
+    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/OsamaSon%20-%20Ref%20%5BOfficial%20Music%20Video%5D%20-%20Trim.mp4" type="video/mp4">
+  </video>
+  <div class="container">
+    <img src="https://github.com/jujuexe/Juju-wtf/blob/main/meondcrn.png?raw=true" alt="pfp" class="pfp">
+    <div class="title" id="title">JuJu.wtf</div>
+    <div class="discord-wrapper">
+      <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" target="_blank" rel="noopener noreferrer">discord</a>
+      <div class="discord-tooltip">Invite to JuJu Fanclub</div>
+      <a href="https://x.com/jujuwtfz" class="x-logo" target="_blank" rel="noopener noreferrer">x</a>
+      <div class="x-tooltip">Follow @jujuwtfz on X</div>
+    </div>
+  </div>
+  <div id="audio-controls">
+    <div id="song-title">Now Playing: Ref</div>
+    <button id="pause-button">Pause</button>
+  </div>
+  <script>
+    document.getElementById('intro-screen').addEventListener('click', function() {
+      this.classList.add('hidden');
+    });
+  </script>
 </body>
 </html>
