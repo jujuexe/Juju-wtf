@@ -190,27 +190,12 @@
         transform: translateX(-50%) translateY(0);
       }
     }
-    .intro-dot {
-      position: absolute;
-      font-size: 1.2rem;
-      color: red;
-      pointer-events: none;
-      animation: flashPentagram 0.6s ease-out forwards;
-      text-shadow: 0 0 4px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000;
-      z-index: 200;
-    }
-    @keyframes flashPentagram {
-      0% { opacity: 0; transform: scale(0.5) rotate(0deg); }
-      20% { opacity: 1; transform: scale(1.5) rotate(30deg); }
-      40% { transform: scale(1) rotate(-30deg); }
-      100% { opacity: 0; transform: scale(2) rotate(60deg); }
-    }
   </style>
 </head>
 <body>
   <div class="intro-screen" id="intro-screen">click ⛧ anywhere</div>
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
-    <source src="hhttps://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Osamasonrefshorter.mp4" type="video/mp4">
+    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Osamasonrefshorter.mp4" type="video/mp4">
   </video>
   <div class="container">
     <img src="https://github.com/jujuexe/Juju-wtf/blob/main/meondcrn.png?raw=true" alt="pfp" class="pfp">
@@ -265,19 +250,6 @@
         video.play().catch(() => {});
       }
     });
-
-    setInterval(() => {
-      if (introScreen.classList.contains('hidden')) return;
-      for (let i = 0; i < 6; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'intro-dot';
-        dot.textContent = '⛧';
-        dot.style.left = Math.random() * window.innerWidth + 'px';
-        dot.style.top = Math.random() * window.innerHeight + 'px';
-        introScreen.appendChild(dot);
-        setTimeout(() => dot.remove(), 600);
-      }
-    }, 150);
 
     function animateLoop(timestamp) {
       if (titleChanged) {
