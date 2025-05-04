@@ -31,7 +31,6 @@
       height: 100vh;
       object-fit: cover;
       z-index: -1;
-      will-change: transform, opacity;
     }
     .intro-screen {
       position: fixed;
@@ -49,7 +48,7 @@
       z-index: 100;
       white-space: nowrap;
       animation: pulseGlow 1.2s infinite ease-in-out;
-      text-shadow: 0 0 12px #ff0000, 0 0 25px #ff0000;
+      text-shadow: 0 0 12px #ffffff, 0 0 25px #ffffff;
       padding: 0 10px;
       text-align: center;
     }
@@ -75,7 +74,7 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 20px;
-      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000;
+      box-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 40px #ffffff, 0 0 60px #ffffff;
       animation: pulseGlow 1.2s infinite ease-in-out;
     }
     .title {
@@ -86,7 +85,7 @@
       width: 100%;
       position: relative;
       animation: pulseGlow 1.2s infinite ease-in-out;
-      text-shadow: 0 0 12px #ff0000, 0 0 24px #ff0000, 0 0 48px #ff0000, 0 0 80px #ff0000;
+      text-shadow: 0 0 12px #ffffff, 0 0 24px #ffffff, 0 0 48px #ffffff, 0 0 80px #ffffff;
     }
     .glitch {
       animation: glitch-out 0.4s ease-in-out infinite;
@@ -102,92 +101,10 @@
     }
     @keyframes pulseGlow {
       0%, 100% {
-        text-shadow: 0 0 12px #ff0000, 0 0 24px #ff0000, 0 0 48px #ff0000, 0 0 80px #ff0000;
+        text-shadow: 0 0 12px #ffffff, 0 0 24px #ffffff, 0 0 48px #ffffff, 0 0 80px #ffffff;
       }
       50% {
-        text-shadow: 0 0 16px #ff0000, 0 0 32px #ff0000, 0 0 56px #ff0000, 0 0 100px #ff0000;
-      }
-    }
-    .discord-wrapper {
-      position: relative;
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      margin-top: 30px;
-    }
-    .discord-tooltip, .x-tooltip {
-      position: absolute;
-      bottom: 35px;
-      background: #ff0000;
-      color: #fff;
-      padding: 4px 8px;
-      border-radius: 6px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      font-size: 0.7rem;
-      left: 50%;
-      transform: translateX(-50%);
-      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-    }
-    .discord-wrapper a:hover + .discord-tooltip,
-    .x-logo:hover + .x-tooltip {
-      opacity: 1;
-    }
-    .discord-logo, .x-logo {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      text-indent: -9999px;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-      filter: drop-shadow(0 0 3px #ff0000) drop-shadow(0 0 6px #ff0000);
-      animation: pulseGlow 1.2s infinite ease-in-out;
-    }
-    .discord-logo {
-      background-image: url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true');
-    }
-    .x-logo {
-      background-image: url('https://github.com/jujuexe/Juju-wtf/blob/main/whitex.png?raw=true');
-    }
-    .discord-logo:hover, .x-logo:hover {
-      transform: scale(1.05);
-      filter: drop-shadow(0 0 5px #ff0000) drop-shadow(0 0 12px #ff0000);
-    }
-    #audio-controls {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, .7);
-      padding: 10px 20px;
-      border-radius: 10px;
-      text-align: center;
-      opacity: 0;
-      animation: fadeIn 1s ease-out forwards;
-      z-index: 10;
-    }
-    #song-title {
-      animation: pulseGlow 1.2s infinite ease-in-out;
-      text-shadow: 0 0 12px #ff0000, 0 0 24px #ff0000, 0 0 48px #ff0000, 0 0 80px #ff0000;
-    }
-    #pause-button {
-      background: none;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-      margin-top: 5px;
-      text-transform: lowercase;
-      animation: pulseGlow 1.2s infinite ease-in-out;
-    }
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
+        text-shadow: 0 0 16px #ffffff, 0 0 32px #ffffff, 0 0 56px #ffffff, 0 0 100px #ffffff;
       }
     }
   </style>
@@ -195,28 +112,16 @@
 <body>
   <div class="intro-screen" id="intro-screen">click ⛧ anywhere</div>
   <video id="background-video" playsinline webkit-playsinline loop preload="metadata">
-    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Osamasonrefshorter.mp4" type="video/mp4">
+    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/president.mp4" type="video/mp4">
   </video>
   <div class="container">
     <img src="https://github.com/jujuexe/Juju-wtf/blob/main/meondcrn.png?raw=true" alt="pfp" class="pfp">
     <div class="title" id="title">JuJu.wtf</div>
-    <div class="discord-wrapper">
-      <a href="https://discord.gg/UfVueQFRcD" class="discord-logo" target="_blank" rel="noopener noreferrer">discord</a>
-      <div class="discord-tooltip">Invite to JuJu Fanclub</div>
-      <a href="https://x.com/jujuwtfz" class="x-logo" target="_blank" rel="noopener noreferrer">x</a>
-      <div class="x-tooltip">Follow @jujuwtfz on X</div>
-    </div>
-  </div>
-  <div id="audio-controls">
-    <div id="song-title">Now Playing: Ref</div>
-    <button id="pause-button">Pause</button>
   </div>
   <script>
     const introScreen = document.getElementById('intro-screen');
     const video = document.getElementById('background-video');
-    const pauseButton = document.getElementById('pause-button');
     const titleElement = document.getElementById('title');
-    let isPaused = false;
     let titleIndex = 0;
     let msgIndex = 0;
     const titleText = "⛧ JuJu.wtf ";
@@ -234,19 +139,8 @@
       requestAnimationFrame(animateLoop);
     });
 
-    pauseButton.addEventListener('click', () => {
-      if (isPaused) {
-        video.play().catch(error => console.error('Video playback failed:', error));
-        pauseButton.textContent = 'Pause';
-      } else {
-        video.pause();
-        pauseButton.textContent = 'Play';
-      }
-      isPaused = !isPaused;
-    });
-
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible' && !isPaused) {
+      if (document.visibilityState === 'visible') {
         video.play().catch(() => {});
       }
     });
