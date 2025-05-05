@@ -140,7 +140,7 @@
     });
 
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') {
+      if (document.visibilityState === 'visible' && introScreen.classList.contains('hidden')) {
         video.play().catch(() => {});
       }
     });
