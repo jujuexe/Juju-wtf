@@ -14,15 +14,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root { --b: #f5e9d3 }
-    * { box-sizing: border-box }
+    * { box-sizing: border-box; margin: 0; padding: 0 }
     body {
-      margin: 0;
       background: #0a0a0a;
       color: var(--b);
       font-family: 'Inter', sans-serif;
       height: 100vh;
       overflow: hidden;
     }
+
     #v {
       position: fixed;
       top: 0;
@@ -32,6 +32,7 @@
       object-fit: cover;
       z-index: -1;
     }
+
     .i {
       position: fixed;
       top: 0;
@@ -43,35 +44,18 @@
       justify-content: center;
       align-items: center;
       font-size: 2rem;
-      z-index: 100;
-      transition: opacity 0.5s ease;
-      text-align: center;
-      padding: 0 10px;
       color: var(--b);
       text-shadow: 0 0 10px var(--b), 0 0 20px var(--b);
+      z-index: 100;
+      transition: opacity 0.5s ease;
+      cursor: pointer;
     }
-    .h {
-      opacity: 0;
-      pointer-events: none;
+
+    .i span {
+      animation: glow 1.2s infinite ease-in-out;
     }
-    .c {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      z-index: 10;
-    }
-    .p {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 20px;
-      box-shadow: 0 0 10px var(--b), 0 0 20px var(--b);
-      animation: pg 1.2s infinite ease-in-out;
-    }
-    @keyframes pg {
+
+    @keyframes glow {
       0%, 100% {
         text-shadow: 0 0 12px var(--b), 0 0 24px var(--b), 0 0 48px var(--b);
       }
@@ -79,29 +63,20 @@
         text-shadow: 0 0 16px var(--b), 0 0 32px var(--b), 0 0 56px var(--b);
       }
     }
-    @keyframes gE {
-      0% { transform: scale(1) skewX(0deg); opacity: 1; }
-      10% { transform: scale(1.05) skewX(10deg); opacity: .6; }
-      20% { transform: scale(1) skewX(-5deg); opacity: 1; }
-      30% { transform: scale(1.05) skewX(15deg); opacity: .7; }
-      40% { transform: scale(1) skewX(-10deg); opacity: 1; }
-      100% { transform: scale(1) skewX(0deg); opacity: 1; }
-    }
-    .g {
-      animation: gE 0.4s ease-in-out;
+
+    .h {
+      opacity: 0;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
-  <div class="i" id="i">click anywhere</div>
 
-  <video id="v" playsinline webkit-playsinline loop preload="metadata">
+  <div class="i" id="i"><span>click anywhere</span></div>
+
+  <video id="v" playsinline preload="auto" loop>
     <source src="https://github.com/jujuexe/Juju-wtf/raw/main/tiedn.mp4" type="video/mp4">
   </video>
-
-  <div class="c">
-    <img src="https://github.com/jujuexe/Juju-wtf/blob/main/e2f1885490d77b56201ef3ceb5220328.jpg?raw=true" alt="pfp" class="p">
-  </div>
 
   <script>
     const i = document.getElementById("i");
@@ -109,8 +84,7 @@
 
     i.addEventListener("click", () => {
       i.classList.add("h");
-      i.classList.add("g");
-      v.play().catch(e => {});
+      v.play().catch(e => console.error("Video play error:", e));
     });
 
     document.addEventListener("visibilitychange", () => {
@@ -119,5 +93,6 @@
       }
     });
   </script>
+
 </body>
 </html>
