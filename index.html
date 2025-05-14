@@ -2,16 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YouTube Background Autoplay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Site</title>
+  <link rel="icon" href="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp" type="image/webp" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    html, body {
+    :root {
+      --b: #f5e9d3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
       margin: 0;
-      height: 100%;
-      background: black;
-      overflow: hidden;
+      background: #0a0a0a;
+      color: var(--b);
       font-family: 'Inter', sans-serif;
-      color: #f5e9d3;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #v {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
     }
 
     .overlay {
@@ -25,9 +45,10 @@
       justify-content: center;
       align-items: center;
       font-size: 2rem;
+      color: var(--b);
+      text-shadow: 0 0 10px var(--b), 0 0 20px var(--b);
       z-index: 10;
       transition: opacity 1s ease;
-      text-shadow: 0 0 10px #f5e9d3, 0 0 20px #f5e9d3;
       cursor: pointer;
     }
 
@@ -36,61 +57,42 @@
       pointer-events: none;
     }
 
-    #player {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none; /* Prevent clicks */
-      z-index: -1;
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 0 12px var(--b), 0 0 24px var(--b), 0 0 48px var(--b);
+      }
+      50% {
+        text-shadow: 0 0 16px var(--b), 0 0 32px var(--b), 0 0 56px var(--b);
+      }
+    }
+
+    .overlay span {
+      animation: glow 1.2s infinite ease-in-out;
     }
   </style>
 </head>
 <body>
 
-  <div class="overlay" id="overlay">click anywhere</div>
-  <div id="player"></div>
+  <div class="overlay" id="overlay"><span>click anywhere</span></div>
+
+  <video id="v" playsinline muted loop preload="auto">
+    <source src="https://github.com/jujuexe/Juju-wtf/raw/main/tiedn.mp4" type="video/mp4" />
+  </video>
 
   <script>
-    let player;
+    const overlay = document.getElementById("overlay");
+    const video = document.getElementById("v");
 
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        videoId: 'w_15GlsMU3Y',
-        playerVars: {
-          autoplay: 1,
-          controls: 0,
-          showinfo: 0,
-          modestbranding: 1,
-          loop: 1,
-          playlist: 'w_15GlsMU3Y',
-          mute: 1,
-          rel: 0,
-          fs: 0
-        },
-        events: {
-          onReady: (event) => {
-            event.target.mute();
-            event.target.playVideo();
-            event.target.setPlaybackQuality('hd1080');
-          }
-        }
-      });
-    }
-
-    document.getElementById('overlay').addEventListener('click', () => {
-      document.getElementById('overlay').classList.add('fade-out');
-      if (player) {
-        player.playVideo();
-        player.setPlaybackQuality('hd1080');
-      }
+    overlay.addEventListener("click", () => {
+      overlay.classList.add("fade-out");
+      video.play().catch(() => {});
     });
 
-    // Load YouTube API
-    const tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    document.head.appendChild(tag);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible" && overlay.classList.contains("fade-out")) {
+        video.play().catch(() => {});
+      }
+    });
   </script>
 
 </body>
