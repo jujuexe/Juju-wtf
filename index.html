@@ -11,14 +11,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0a0a0a">
   <title>Juju.wtf</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root { --b: #f5e9d3 }
     * { box-sizing: border-box; margin: 0; padding: 0 }
     body {
       background: #0a0a0a;
       color: var(--b);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       height: 100vh;
       overflow: hidden;
     }
@@ -54,16 +54,26 @@
     }
 
     .intro span {
-      color: red;
-      font-size: 2.5rem;
-      font-weight: bold;
-      text-shadow: 0 0 10px red, 0 0 20px red, 0 0 40px red;
+      color: #ff3333;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-shadow: 0 0 5px #ff3333, 0 0 10px #ff3333;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid #ff3333;
+      border-radius: 4px;
+      transition: transform 0.2s ease;
+    }
+
+    .intro:hover span {
+      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
 
-  <div class="intro" id="intro"><span>click to enter</span></div>
+  <div class="intro" id="intro"><span>enter</span></div>
 
   <video id="v" loop playsinline preload="auto">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4">
