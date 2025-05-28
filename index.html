@@ -28,7 +28,6 @@
       height: 100vh;
       overflow: hidden;
     }
-
     #v {
       position: fixed;
       top: 0;
@@ -38,7 +37,6 @@
       object-fit: cover;
       z-index: -1;
     }
-
     .intro {
       position: fixed;
       top: 0;
@@ -53,12 +51,10 @@
       transition: opacity 0.5s ease;
       cursor: default;
     }
-
     .intro.hidden {
       opacity: 0;
       pointer-events: none;
     }
-
     .intro span {
       color: #ff3333;
       font-size: 1.2rem;
@@ -74,12 +70,9 @@
       user-select: none;
       display: inline-block;
     }
-
     .intro span:hover {
       transform: scale(1.05);
     }
-
-   
     #fullscreenOverlay {
       display: none;
       position: fixed;
@@ -105,33 +98,26 @@
   <div class="intro" id="intro">
     <span id="enterBtn">enter</span>
   </div>
-
   <video id="v" loop playsinline preload="auto" muted>
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4" />
   </video>
-
   <div id="fullscreenOverlay">JuJu</div>
-
   <script>
     const intro = document.getElementById("intro");
     const enterBtn = document.getElementById("enterBtn");
     const video = document.getElementById("v");
     const fullscreenOverlay = document.getElementById("fullscreenOverlay");
-
     enterBtn.addEventListener("click", () => {
       intro.classList.add("hidden");
       video.muted = false;
-      video.play().catch((e) => console.error("Video play error:", e));
+      video.play().catch(() => {});
     });
-
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
         video.play().catch(() => {});
       }
     });
-
     video.addEventListener("ended", async () => {
-    
       try {
         if (document.documentElement.requestFullscreen) {
           await document.documentElement.requestFullscreen();
@@ -140,10 +126,7 @@
         } else if (document.documentElement.msRequestFullscreen) {
           await document.documentElement.msRequestFullscreen();
         }
-      } catch (err) {
-        console.warn("Fullscreen request failed:", err);
-      }
-      
+      } catch {}
       fullscreenOverlay.style.display = "flex";
     });
   </script>
