@@ -22,7 +22,6 @@
       height: 100vh;
       overflow: hidden;
     }
-
     #v {
       position: fixed;
       top: 0;
@@ -32,7 +31,6 @@
       object-fit: cover;
       z-index: -1;
     }
-
     .intro {
       position: fixed;
       top: 0;
@@ -45,15 +43,12 @@
       align-items: center;
       z-index: 100;
       transition: opacity 0.5s ease;
-      cursor: pointer;
     }
-
     .intro.hidden {
       opacity: 0;
       pointer-events: none;
     }
-
-    .intro span {
+    .intro button {
       color: #ff3333;
       font-size: 1.2rem;
       font-weight: 700;
@@ -63,38 +58,38 @@
       padding: 0.75rem 1.25rem;
       border: 1px solid #ff3333;
       border-radius: 4px;
+      background: transparent;
+      cursor: pointer;
       transition: transform 0.2s ease;
     }
-
-    .intro:hover span {
+    .intro button:hover {
       transform: scale(1.05);
     }
   </style>
 </head>
 <body>
-
-  <div class="intro" id="intro"><span>enter</span></div>
-
-  <video id="v" loop playsinline preload="auto">
+  <div class="intro" id="intro"><button>ENTER</button></div>
+  <video id="v" loop playsinline preload="auto" muted>
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4">
   </video>
-
   <script>
     const intro = document.getElementById("intro");
     const video = document.getElementById("v");
-
-    intro.addEventListener("click", () => {
+    const button = intro.querySelector("button");
+    let isIntroVisible = true;
+    button.addEventListener("click", () => {
+      isIntroVisible = false;
       intro.classList.add("hidden");
       video.muted = false;
       video.play().catch(e => console.error("Video play error:", e));
     });
-
     document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") {
+      if (document.visibilityState === "visible" && !isIntroVisible) {
         video.play().catch(() => {});
+      } else {
+        video.pause();
       }
     });
   </script>
-
 </body>
 </html>
