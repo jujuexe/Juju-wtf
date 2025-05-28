@@ -32,18 +32,56 @@
       object-fit: cover;
       z-index: -1;
     }
+
+    .enter {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/a.png") center center / cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      cursor: pointer;
+      transition: opacity 0.5s ease;
+    }
+
+    .enter.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .enter span {
+      color: red;
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px red, 0 0 20px red, 0 0 40px red;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
 
-  <video id="v" autoplay muted loop playsinline preload="auto">
+  <div class="enter" id="enter"><span>click to enter</span></div>
+
+  <video id="v" loop playsinline preload="auto">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4">
   </video>
 
   <script>
     const v = document.getElementById("v");
+    const enter = document.getElementById("enter");
 
-    // Play video on visibility restore
+    enter.addEventListener("click", () => {
+      enter.classList.add("hidden");
+      v.muted = false;
+      v.play().catch(err => console.error("Video play error:", err));
+    });
+
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
         v.play().catch(() => {});
