@@ -33,58 +33,55 @@
       z-index: -1;
     }
 
-    .enter {
+    .intro {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: url("https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/a.png") center center / cover no-repeat;
+      background: black;
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
-      cursor: pointer;
+      z-index: 100;
       transition: opacity 0.5s ease;
+      cursor: pointer;
     }
 
-    .enter.hidden {
+    .intro.hidden {
       opacity: 0;
       pointer-events: none;
     }
 
-    .enter span {
+    .intro span {
       color: red;
       font-size: 2.5rem;
       font-weight: bold;
       text-shadow: 0 0 10px red, 0 0 20px red, 0 0 40px red;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 1rem 2rem;
-      border-radius: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div class="enter" id="enter"><span>click to enter</span></div>
+  <div class="intro" id="intro"><span>click to enter</span></div>
 
   <video id="v" loop playsinline preload="auto">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4">
   </video>
 
   <script>
-    const v = document.getElementById("v");
-    const enter = document.getElementById("enter");
+    const intro = document.getElementById("intro");
+    const video = document.getElementById("v");
 
-    enter.addEventListener("click", () => {
-      enter.classList.add("hidden");
-      v.muted = false;
-      v.play().catch(err => console.error("Video play error:", err));
+    intro.addEventListener("click", () => {
+      intro.classList.add("hidden");
+      video.muted = false;
+      video.play().catch(e => console.error("Video play error:", e));
     });
 
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
-        v.play().catch(() => {});
+        video.play().catch(() => {});
       }
     });
   </script>
