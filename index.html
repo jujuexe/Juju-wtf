@@ -59,6 +59,24 @@
       opacity: 0;
       pointer-events: none;
     }
+
+    .chaos-img {
+      position: fixed;
+      max-width: 120px;
+      max-height: 120px;
+      z-index: 9999;
+      pointer-events: none;
+      animation: flashIn 0.2s ease, flashOut 0.3s ease 1.5s forwards;
+    }
+
+    @keyframes flashIn {
+      from { opacity: 0; transform: scale(0.5) rotate(10deg); }
+      to { opacity: 1; transform: scale(1) rotate(0); }
+    }
+
+    @keyframes flashOut {
+      to { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+    }
   </style>
 </head>
 <body>
@@ -66,7 +84,7 @@
   <div class="i" id="i"><span>click anywhere</span></div>
 
   <video id="v" playsinline preload="auto" loop>
-    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Popstar.mp4" type="video/mp4">
+    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4">
   </video>
 
   <script>
@@ -83,6 +101,47 @@
         v.play().catch(() => {});
       }
     });
+  </script>
+
+  <script>
+    const allImages = [
+      "https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/DH2rfUMW0AE1aIZ.jpg",
+      "https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Fx4jnE2vvSIe.jpg",
+      "https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Peter%27s_Cross.svg",
+      "https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/a.png",
+      "https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/download.png",
+      "https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/image-removebg-preview%20(2).png",
+      "https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/images.jiff",
+      "https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/scarywebcore.jiff",
+      "https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/sickmentally.jiff",
+      "https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/sweet-dreams_3701.webp"
+    ];
+
+    let pool = [...allImages];
+
+    function getTwoUnique() {
+      if (pool.length < 2) pool = [...allImages];
+      const shuffled = pool.sort(() => 0.5 - Math.random());
+      const selected = shuffled.slice(0, 2);
+      pool = pool.filter(img => !selected.includes(img));
+      return selected;
+    }
+
+    function showImageChaos(url) {
+      const img = document.createElement("img");
+      img.src = url;
+      img.className = "chaos-img";
+      img.style.top = Math.random() * 80 + "vh";
+      img.style.left = Math.random() * 80 + "vw";
+      document.body.appendChild(img);
+      setTimeout(() => img.remove(), 1800);
+    }
+
+    setInterval(() => {
+      const [img1, img2] = getTwoUnique();
+      showImageChaos(img1);
+      showImageChaos(img2);
+    }, 3000);
   </script>
 
 </body>
