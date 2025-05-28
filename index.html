@@ -7,18 +7,24 @@
   <meta property="og:title" content="Juju.wtf">
   <meta property="og:description" content="Made by @JuJu.wtf">
   <meta property="og:image" content="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0a0a0a">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a0a0a" />
   <title>Juju.wtf</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    :root { --b: #f5e9d3 }
-    * { box-sizing: border-box; margin: 0; padding: 0 }
+    :root {
+      --b: #f5e9d3;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     body {
       background: #0a0a0a;
       color: var(--b);
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: "Space Grotesk", sans-serif;
       height: 100vh;
       overflow: hidden;
     }
@@ -45,7 +51,7 @@
       align-items: center;
       z-index: 100;
       transition: opacity 0.5s ease;
-      cursor: pointer;
+      cursor: default;
     }
 
     .intro.hidden {
@@ -53,40 +59,74 @@
       pointer-events: none;
     }
 
-    .intro span {
+    .intro button {
+      background: none;
+      border: 1px solid #ff3333;
+      border-radius: 4px;
       color: #ff3333;
       font-size: 1.2rem;
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
-      text-shadow: 0 0 5px #ff3333, 0 0 10px #ff3333;
       padding: 0.75rem 1.25rem;
-      border: 1px solid #ff3333;
-      border-radius: 4px;
+      text-shadow: 0 0 5px #ff3333, 0 0 10px #ff3333;
+      cursor: pointer;
       transition: transform 0.2s ease;
+      user-select: none;
     }
 
-    .intro:hover span {
+    .intro button:hover {
       transform: scale(1.05);
+    }
+
+  
+    #fullscreenOverlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      color: #ff3333;
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333;
+      font-size: 5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      user-select: none;
     }
   </style>
 </head>
 <body>
+  <div class="intro" id="intro">
+    <button id="enterBtn" type="button">enter</button>
+  </div>
 
-  <div class="intro" id="intro"><span>enter</span></div>
-
-  <video id="v" loop playsinline preload="auto">
-    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4">
+  <video id="v" loop playsinline preload="auto" muted>
+    <source
+      src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4"
+      type="video/mp4"
+    />
   </video>
+
+  <div id="fullscreenOverlay">JuJu</div>
 
   <script>
     const intro = document.getElementById("intro");
+    const enterBtn = document.getElementById("enterBtn");
     const video = document.getElementById("v");
+    const fullscreenOverlay = document.getElementById("fullscreenOverlay");
 
-    intro.addEventListener("click", () => {
+    enterBtn.addEventListener("click", () => {
       intro.classList.add("hidden");
       video.muted = false;
-      video.play().catch(e => console.error("Video play error:", e));
+      video.play().catch((e) => console.error("Video play error:", e));
     });
 
     document.addEventListener("visibilitychange", () => {
@@ -94,7 +134,24 @@
         video.play().catch(() => {});
       }
     });
-  </script>
 
+    video.addEventListener("ended", async () => {
+     
+      fullscreenOverlay.style.display = "flex";
+
+     
+      try {
+        if (document.documentElement.requestFullscreen) {
+          await document.documentElement.requestFullscreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          await document.documentElement.webkitRequestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+          await document.documentElement.msRequestFullscreen();
+        }
+      } catch (err) {
+        console.warn("Fullscreen request failed:", err);
+      }
+    });
+  </script>
 </body>
 </html>
