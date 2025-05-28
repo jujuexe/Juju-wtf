@@ -59,42 +59,40 @@
       pointer-events: none;
     }
 
-    .intro button {
-      background: none;
-      border: 1px solid #ff3333;
-      border-radius: 4px;
+    .intro span {
       color: #ff3333;
       font-size: 1.2rem;
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
-      padding: 0.75rem 1.25rem;
       text-shadow: 0 0 5px #ff3333, 0 0 10px #ff3333;
-      cursor: pointer;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid #ff3333;
+      border-radius: 4px;
       transition: transform 0.2s ease;
+      cursor: pointer;
       user-select: none;
+      display: inline-block;
     }
 
-    .intro button:hover {
+    .intro span:hover {
       transform: scale(1.05);
     }
 
-  
+   
     #fullscreenOverlay {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
       background: black;
       color: #ff3333;
       font-family: "Space Grotesk", sans-serif;
       font-weight: 700;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333;
-      font-size: 5rem;
+      text-shadow: 0 0 5px #ff3333, 0 0 10px #ff3333;
+      font-size: 6rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -105,14 +103,11 @@
 </head>
 <body>
   <div class="intro" id="intro">
-    <button id="enterBtn" type="button">enter</button>
+    <span id="enterBtn">enter</span>
   </div>
 
   <video id="v" loop playsinline preload="auto" muted>
-    <source
-      src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4"
-      type="video/mp4"
-    />
+    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4" />
   </video>
 
   <div id="fullscreenOverlay">JuJu</div>
@@ -136,10 +131,7 @@
     });
 
     video.addEventListener("ended", async () => {
-     
-      fullscreenOverlay.style.display = "flex";
-
-     
+    
       try {
         if (document.documentElement.requestFullscreen) {
           await document.documentElement.requestFullscreen();
@@ -151,6 +143,8 @@
       } catch (err) {
         console.warn("Fullscreen request failed:", err);
       }
+      
+      fullscreenOverlay.style.display = "flex";
     });
   </script>
 </body>
