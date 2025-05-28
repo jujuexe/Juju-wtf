@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp" type="image/webp">
-  <meta property="og:url" content="https://juju.wtf/">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Juju.wtf">
-  <meta property="og:description" content="Made by @JuJu.wtf">
-  <meta property="og:image" content="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp">
+  <link rel="icon" href="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp" type="image/webp" />
+  <meta property="og:url" content="https://juju.wtf/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Juju.wtf" />
+  <meta property="og:description" content="Made by @JuJu.wtf" />
+  <meta property="og:image" content="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0a0a0a" />
@@ -98,25 +98,31 @@
   <div class="intro" id="intro">
     <span id="enterBtn">enter</span>
   </div>
+
   <video id="v" loop playsinline preload="auto" muted>
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4" />
   </video>
+
   <div id="fullscreenOverlay">JuJu</div>
+
   <script>
     const intro = document.getElementById("intro");
     const enterBtn = document.getElementById("enterBtn");
     const video = document.getElementById("v");
     const fullscreenOverlay = document.getElementById("fullscreenOverlay");
+
     enterBtn.addEventListener("click", () => {
       intro.classList.add("hidden");
       video.muted = false;
       video.play().catch(() => {});
     });
+
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
         video.play().catch(() => {});
       }
     });
+
     video.addEventListener("ended", async () => {
       try {
         if (document.documentElement.requestFullscreen) {
@@ -127,6 +133,7 @@
           await document.documentElement.msRequestFullscreen();
         }
       } catch {}
+
       fullscreenOverlay.style.display = "flex";
     });
   </script>
