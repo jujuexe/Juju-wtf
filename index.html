@@ -45,7 +45,7 @@
       align-items: center;
       z-index: 100;
       transition: opacity 0.5s ease;
-      cursor: default; /* not pointer for the entire area */
+      cursor: pointer;
     }
 
     .intro.hidden {
@@ -54,7 +54,6 @@
     }
 
     .intro span {
-      cursor: pointer;
       color: #ff3333;
       font-size: 1.2rem;
       font-weight: 700;
@@ -65,94 +64,35 @@
       border: 1px solid #ff3333;
       border-radius: 4px;
       transition: transform 0.2s ease;
-      display: inline-block;
     }
 
-    .intro span:hover {
+    .intro:hover span {
       transform: scale(1.05);
-    }
-
-    /* Fullscreen overlay after video ends */
-    #fullscreen-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      background: black;
-      color: #ff3333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      text-transform: uppercase;
-      text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333;
-      font-size: 6rem;
-      z-index: 9999;
-      visibility: hidden;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      user-select: none;
-    }
-    #fullscreen-overlay.visible {
-      visibility: visible;
-      opacity: 1;
     }
   </style>
 </head>
 <body>
 
-  <div class="intro" id="intro"><span id="enter-btn">enter</span></div>
+  <div class="intro" id="intro"><span>enter</span></div>
 
-  <video id="v" loop playsinline preload="auto" muted>
+  <video id="v" loop playsinline preload="auto">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4">
   </video>
 
-  <div id="fullscreen-overlay">JuJu</div>
-
   <script>
     const intro = document.getElementById("intro");
-    const enterBtn = document.getElementById("enter-btn");
     const video = document.getElementById("v");
-    const fullscreenOverlay = document.getElementById("fullscreen-overlay");
 
-    // Only clicking the button triggers video start
-    enterBtn.addEventListener("click", () => {
+    intro.addEventListener("click", () => {
       intro.classList.add("hidden");
       video.muted = false;
       video.play().catch(e => console.error("Video play error:", e));
     });
 
-    // Play video when tab becomes visible again
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
         video.play().catch(() => {});
       }
-    });
-
-    // When video ends, request fullscreen and show overlay
-    video.addEventListener("ended", async () => {
-      try {
-        // Request fullscreen on documentElement (the whole page)
-        if (document.documentElement.requestFullscreen) {
-          await document.documentElement.requestFullscreen();
-        } else if (document.documentElement.webkitRequestFullscreen) { /* Safari */
-          await document.documentElement.webkitRequestFullscreen();
-        } else if (document.documentElement.msRequestFullscreen) { /* IE11 */
-          await document.documentElement.msRequestFullscreen();
-        }
-      } catch (err) {
-        console.warn("Fullscreen request failed:", err);
-      }
-
-      // Show the overlay after fullscreen
-      fullscreenOverlay.classList.add("visible");
-    });
-
-    // Optional: exit fullscreen on overlay click
-    fullscreenOverlay.addEventListener("click", () => {
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-      }
-      fullscreenOverlay.classList.remove("visible");
     });
   </script>
 
