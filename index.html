@@ -1,33 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp" type="image/webp" />
-  <meta property="og:url" content="https://juju.wtf/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Juju.wtf" />
-  <meta property="og:description" content="Made by @JuJu.wtf" />
-  <meta property="og:image" content="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp" />
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="icon" href="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp" type="image/webp">
+  <meta property="og:url" content="https://juju.wtf/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Juju.wtf">
+  <meta property="og:description" content="Made by @JuJu.wtf">
+  <meta property="og:image" content="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a0a0a">
   <title>Juju.wtf</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --b: #f5e9d3;
-    }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    :root { --b: #f5e9d3 }
+    * { box-sizing: border-box; margin: 0; padding: 0 }
     body {
       background: #0a0a0a;
       color: var(--b);
-      font-family: "Space Grotesk", sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       height: 100vh;
       overflow: hidden;
     }
+
     #v {
       position: fixed;
       top: 0;
@@ -37,6 +32,7 @@
       object-fit: cover;
       z-index: -1;
     }
+
     .intro {
       position: fixed;
       top: 0;
@@ -49,13 +45,16 @@
       align-items: center;
       z-index: 100;
       transition: opacity 0.5s ease;
-      cursor: default;
+      cursor: default; /* not pointer for the entire area */
     }
+
     .intro.hidden {
       opacity: 0;
       pointer-events: none;
     }
+
     .intro span {
+      cursor: pointer;
       color: #ff3333;
       font-size: 1.2rem;
       font-weight: 700;
@@ -66,76 +65,96 @@
       border: 1px solid #ff3333;
       border-radius: 4px;
       transition: transform 0.2s ease;
-      cursor: pointer;
-      user-select: none;
       display: inline-block;
     }
+
     .intro span:hover {
       transform: scale(1.05);
     }
-    #fullscreenOverlay {
-      display: none;
+
+    /* Fullscreen overlay after video ends */
+    #fullscreen-overlay {
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      top: 0; left: 0; width: 100vw; height: 100vh;
       background: black;
       color: #ff3333;
-      font-family: "Space Grotesk", sans-serif;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      text-shadow: 0 0 5px #ff3333, 0 0 10px #ff3333;
-      font-size: 6rem;
       display: flex;
       justify-content: center;
       align-items: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333;
+      font-size: 6rem;
       z-index: 9999;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
       user-select: none;
+    }
+    #fullscreen-overlay.visible {
+      visibility: visible;
+      opacity: 1;
     }
   </style>
 </head>
 <body>
-  <div class="intro" id="intro">
-    <span id="enterBtn">enter</span>
-  </div>
+
+  <div class="intro" id="intro"><span id="enter-btn">enter</span></div>
 
   <video id="v" loop playsinline preload="auto" muted>
-    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4" />
+    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4">
   </video>
 
-  <div id="fullscreenOverlay">JuJu</div>
+  <div id="fullscreen-overlay">JuJu</div>
 
   <script>
     const intro = document.getElementById("intro");
-    const enterBtn = document.getElementById("enterBtn");
+    const enterBtn = document.getElementById("enter-btn");
     const video = document.getElementById("v");
-    const fullscreenOverlay = document.getElementById("fullscreenOverlay");
+    const fullscreenOverlay = document.getElementById("fullscreen-overlay");
 
+    // Only clicking the button triggers video start
     enterBtn.addEventListener("click", () => {
       intro.classList.add("hidden");
       video.muted = false;
-      video.play().catch(() => {});
+      video.play().catch(e => console.error("Video play error:", e));
     });
 
+    // Play video when tab becomes visible again
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
         video.play().catch(() => {});
       }
     });
 
+    // When video ends, request fullscreen and show overlay
     video.addEventListener("ended", async () => {
       try {
+        // Request fullscreen on documentElement (the whole page)
         if (document.documentElement.requestFullscreen) {
           await document.documentElement.requestFullscreen();
-        } else if (document.documentElement.webkitRequestFullscreen) {
+        } else if (document.documentElement.webkitRequestFullscreen) { /* Safari */
           await document.documentElement.webkitRequestFullscreen();
-        } else if (document.documentElement.msRequestFullscreen) {
+        } else if (document.documentElement.msRequestFullscreen) { /* IE11 */
           await document.documentElement.msRequestFullscreen();
         }
-      } catch {}
+      } catch (err) {
+        console.warn("Fullscreen request failed:", err);
+      }
 
-      fullscreenOverlay.style.display = "flex";
+      // Show the overlay after fullscreen
+      fullscreenOverlay.classList.add("visible");
+    });
+
+    // Optional: exit fullscreen on overlay click
+    fullscreenOverlay.addEventListener("click", () => {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+      fullscreenOverlay.classList.remove("visible");
     });
   </script>
+
 </body>
 </html>
