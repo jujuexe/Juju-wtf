@@ -70,14 +70,16 @@
     }
     @media (max-width: 600px) {
       #v {
-        object-fit: contain;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
       }
     }
   </style>
 </head>
 <body>
   <div class="intro" id="intro"><button>ENTER</button></div>
-  <video id="v" loop playsinline preload="auto" muted>
+  <video id="v" loop playsinline autoplay muted preload="auto">
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4">
   </video>
   <script>
@@ -88,8 +90,10 @@
     const playVideo = () => {
       isIntroVisible = false;
       intro.classList.add("hidden");
-      video.muted = false;
-      video.play().catch(e => console.error("Video play error:", e));
+      video.play().then(() => {
+        video.muted = false;
+        video.play();
+      }).catch(e => console.error("Video play error:", e));
     };
     button.addEventListener("click", playVideo);
     button.addEventListener("touchstart", playVideo, { passive: true });
