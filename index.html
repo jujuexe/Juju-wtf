@@ -88,19 +88,15 @@
     const button = intro.querySelector("button");
     let isIntroVisible = true;
 
-    const playVideo = () => {
+    const playWithSound = () => {
       isIntroVisible = false;
       intro.classList.add("hidden");
-      video.play().catch(() => {});
+      video.muted = false;
+      video.play().catch(err => console.error("Play failed:", err));
     };
 
-    button.addEventListener("click", () => {
-      playVideo();
-    });
-
-    button.addEventListener("touchstart", () => {
-      playVideo();
-    }, { passive: true });
+    button.addEventListener("click", playWithSound);
+    button.addEventListener("touchstart", playWithSound, { passive: true });
 
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible" && !isIntroVisible) {
