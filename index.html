@@ -8,7 +8,7 @@
   <meta property="og:description" content="Made by @JuJu.wtf">
   <meta property="og:image" content="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#0a0a0a">
   <title>Juju.wtf</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
@@ -21,6 +21,8 @@
       font-family: 'Space Grotesk', sans-serif;
       height: 100vh;
       overflow: hidden;
+      margin: 0;
+      -webkit-tap-highlight-color: transparent;
     }
     #v {
       position: fixed;
@@ -50,20 +52,26 @@
     }
     .intro button {
       color: #ff3333;
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 5vw, 1.2rem);
       font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
       text-shadow: 0 0 5px #ff3333, 0 0 10px #ff3333;
-      padding: 0.75rem 1.25rem;
+      padding: clamp(0.5rem, 4vw, 0.75rem) clamp(1rem, 5vw, 1.25rem);
       border: 1px solid #ff3333;
       border-radius: 4px;
       background: transparent;
       cursor: pointer;
       transition: transform 0.2s ease;
+      touch-action: manipulation;
     }
-    .intro button:hover {
+    .intro button:hover, .intro button:active {
       transform: scale(1.05);
+    }
+    @media (max-width: 600px) {
+      #v {
+        object-fit: contain;
+      }
     }
   </style>
 </head>
@@ -77,12 +85,14 @@
     const video = document.getElementById("v");
     const button = intro.querySelector("button");
     let isIntroVisible = true;
-    button.addEventListener("click", () => {
+    const playVideo = () => {
       isIntroVisible = false;
       intro.classList.add("hidden");
       video.muted = false;
       video.play().catch(e => console.error("Video play error:", e));
-    });
+    };
+    button.addEventListener("click", playVideo);
+    button.addEventListener("touchstart", playVideo, { passive: true });
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible" && !isIntroVisible) {
         video.play().catch(() => {});
