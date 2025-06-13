@@ -3,9 +3,9 @@
 <head>
   <link rel="icon" href="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp" type="image/webp">
   <meta property="og:url" content="https://juju.wtf/">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Juju.wtf">
-  <meta property="og:description" content="Made by @JuJu.wtf">
+  <meta property="og:type" content="psykotic">
+  <meta property="og:title" content="JuJu">
+  <meta property="og:description" content="psykotic @jujuvzx on dc">
   <meta property="og:image" content="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,7 +21,6 @@
       font-family: 'Space Grotesk', sans-serif;
       height: 100vh;
       overflow: hidden;
-      margin: 0;
       -webkit-tap-highlight-color: transparent;
     }
     #v {
@@ -50,23 +49,37 @@
       opacity: 0;
       pointer-events: none;
     }
-    .intro button {
-      color: #ff3333;
-      font-size: clamp(1rem, 5vw, 1.2rem);
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      text-shadow: 0 0 5px #ff3333, 0 0 10px #ff3333;
-      padding: clamp(0.5rem, 4vw, 0.75rem) clamp(1rem, 5vw, 1.25rem);
-      border: 1px solid #ff3333;
-      border-radius: 4px;
+    .play-button {
+      width: 80px;
+      height: 80px;
+      border: 3px solid #ff3333;
+      border-radius: 50%;
       background: transparent;
       cursor: pointer;
-      transition: transform 0.2s ease;
-      touch-action: manipulation;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s ease;
+      animation: glow 1.5s infinite alternate;
     }
-    .intro button:hover, .intro button:active {
-      transform: scale(1.05);
+    .play-button:hover {
+      transform: scale(1.1);
+    }
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-left: 24px solid #ff3333;
+      border-top: 14px solid transparent;
+      border-bottom: 14px solid transparent;
+      margin-left: 5px;
+    }
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 10px #ff3333;
+      }
+      to {
+        box-shadow: 0 0 20px #ff3333, 0 0 30px #ff3333;
+      }
     }
     @media (max-width: 600px) {
       #v {
@@ -78,25 +91,32 @@
   </style>
 </head>
 <body>
-  <div class="intro" id="intro"><button>ENTER</button></div>
-  <video id="v" loop playsinline muted preload="auto">
-    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/liveleak.mp4" type="video/mp4">
+  <div class="intro" id="intro">
+    <div class="play-button" id="playBtn">
+      <div class="play-icon"></div>
+    </div>
+  </div>
+
+  <video id="v" loop playsinline preload="auto">
+    <source src="https://github.com/jujuexe/fr/raw/refs/heads/main/Osamason%20-%20PSYKOTIC%20Album%20Trailer%20-%20O%20(720p,%20h264).mp4" type="video/mp4">
   </video>
+
   <script>
     const intro = document.getElementById("intro");
     const video = document.getElementById("v");
-    const button = intro.querySelector("button");
+    const playBtn = document.getElementById("playBtn");
     let isIntroVisible = true;
 
     const playWithSound = () => {
       isIntroVisible = false;
       intro.classList.add("hidden");
       video.muted = false;
-      video.play().catch(err => console.error("Play failed:", err));
+      video.play().catch(err => console.error("Playback failed:", err));
     };
 
-    button.addEventListener("click", playWithSound);
-    button.addEventListener("touchstart", playWithSound, { passive: true });
+    ["click", "touchstart"].forEach(evt => {
+      playBtn.addEventListener(evt, playWithSound, { passive: true });
+    });
 
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible" && !isIntroVisible) {
