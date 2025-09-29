@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp" type="image/webp">
+  <link rel="icon" href="https://github.com/jujuexe/Juju-wtf/blob/main/download%20(1).png?raw=true" type="image/png">
   <meta property="og:url" content="https://juju.wtf/">
-  <meta property="og:type" content="psykotic">
+  <meta property="og:type" content="website">
   <meta property="og:title" content="JuJu">
-  <meta property="og:description" content="psykotic @jujuvzx on dc">
-  <meta property="og:image" content="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/85758dbf3bbbcfed7a542c1173164873.webp">
+  <meta property="og:description" content="@fudboss on Telegram">
+  <meta property="og:image" content="https://github.com/jujuexe/Juju-wtf/blob/main/download%20(1).png?raw=true">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#0a0a0a">
+  <meta name="description" content="@fudboss on Telegram">
   <title>Juju.wtf</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -81,25 +82,49 @@
         box-shadow: 0 0 20px #ff3333, 0 0 30px #ff3333;
       }
     }
+    .glow-text {
+      position: absolute;
+      bottom: 40px;
+      width: 100%;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: black;
+      animation: pulse 2s infinite;
+      text-shadow: 0 0 10px white, 0 0 20px white;
+      pointer-events: none;
+    }
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
+    }
     @media (max-width: 600px) {
       #v {
         object-fit: cover;
         width: 100%;
         height: 100%;
       }
+      .glow-text {
+        font-size: 1.4rem;
+        bottom: 20px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="intro" id="intro">
-    <div class="play-button" id="playBtn">
+    <div class="play-button" id="playBtn" aria-label="Play video">
       <div class="play-icon"></div>
     </div>
   </div>
 
   <video id="v" loop playsinline preload="auto">
-    <source src="https://github.com/jujuexe/fr/raw/refs/heads/main/Osamason%20-%20PSYKOTIC%20Album%20Trailer%20-%20O%20(720p,%20h264).mp4" type="video/mp4">
+    <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/ssvid.net--JAS-39-Gripen-Amazing-Spiral-with-Flares-4K_1080p.mp4" type="video/mp4">
+    Your browser does not support the video tag.
   </video>
+
+  <div class="glow-text">JuJu loves Israel</div>
 
   <script>
     const intro = document.getElementById("intro");
