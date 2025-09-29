@@ -37,114 +37,87 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       background: black;
       display: flex;
       justify-content: center;
       align-items: center;
       z-index: 100;
-      transition: opacity 0.5s ease;
+      transition: opacity 1s ease;
     }
     .intro.hidden {
       opacity: 0;
       pointer-events: none;
     }
-    .play-button {
-      width: 80px;
-      height: 80px;
-      border: 3px solid #ff3333;
-      border-radius: 50%;
-      background: transparent;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: transform 0.3s ease;
-      animation: glow 1.5s infinite alternate;
-    }
-    .play-button:hover {
-      transform: scale(1.1);
-    }
-    .play-icon {
-      width: 0;
-      height: 0;
-      border-left: 24px solid #ff3333;
-      border-top: 14px solid transparent;
-      border-bottom: 14px solid transparent;
-      margin-left: 5px;
-    }
-    @keyframes glow {
-      from {
-        box-shadow: 0 0 10px #ff3333;
-      }
-      to {
-        box-shadow: 0 0 20px #ff3333, 0 0 30px #ff3333;
-      }
+    .intro img {
+      max-width: 60%;
+      max-height: 60%;
     }
     .glow-text {
       position: absolute;
       bottom: 40px;
       width: 100%;
       text-align: center;
-      font-size: 2rem;
+      font-size: 4rem;
       font-weight: bold;
-      color: black;
+      color: white;
       animation: pulse 2s infinite;
-      text-shadow: 0 0 10px white, 0 0 20px white;
+      text-shadow:
+        0 0 10px white,
+        0 0 20px white,
+        0 0 40px white,
+        0 0 80px white;
       pointer-events: none;
     }
     @keyframes pulse {
       0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(1.05); }
+      50% { opacity: 0.8; transform: scale(1.05); }
       100% { opacity: 1; transform: scale(1); }
     }
     @media (max-width: 600px) {
-      #v {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-      }
       .glow-text {
-        font-size: 1.4rem;
+        font-size: 2rem;
         bottom: 20px;
+      }
+      .intro img {
+        max-width: 80%;
+        max-height: 80%;
       }
     }
   </style>
 </head>
 <body>
+  <!-- INTRO IMAGE OVERLAY -->
   <div class="intro" id="intro">
-    <div class="play-button" id="playBtn" aria-label="Play video">
-      <div class="play-icon"></div>
-    </div>
+    <img src="https://github.com/jujuexe/Juju-wtf/blob/main/download%20(1).png?raw=true" alt="JuJu Logo">
   </div>
 
-  <video id="v" loop playsinline preload="auto">
+  <!-- BACKGROUND VIDEO -->
+  <video id="v" loop playsinline preload="auto" muted>
     <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/ssvid.net--JAS-39-Gripen-Amazing-Spiral-with-Flares-4K_1080p.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 
+  <!-- PULSING TEXT -->
   <div class="glow-text">JuJu loves Israel</div>
 
   <script>
     const intro = document.getElementById("intro");
     const video = document.getElementById("v");
-    const playBtn = document.getElementById("playBtn");
-    let isIntroVisible = true;
 
-    const playWithSound = () => {
-      isIntroVisible = false;
-      intro.classList.add("hidden");
-      video.muted = false;
-      video.play().catch(err => console.error("Playback failed:", err));
-    };
-
-    ["click", "touchstart"].forEach(evt => {
-      playBtn.addEventListener(evt, playWithSound, { passive: true });
+    // Start playback once DOM is loaded
+    window.addEventListener("load", () => {
+      video.play().catch(err => console.error("Autoplay failed:", err));
+      setTimeout(() => {
+        intro.classList.add("hidden");
+        video.muted = false;
+        video.play().catch(err => console.error("Playback failed:", err));
+      }, 1000); // 1 second delay
     });
 
     document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible" && !isIntroVisible) {
+      if (document.visibilityState === "visible") {
         video.play().catch(() => {});
       } else {
         video.pause();
