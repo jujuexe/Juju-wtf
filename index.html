@@ -12,18 +12,22 @@
 :root{--b:#4da3ff;--bs:#7fbaff;--bg:#05070c}
 body{margin:0;background:var(--bg);color:#fff;font-family:Inter,sans-serif;height:100vh;overflow:hidden}
 #background-video{position:fixed;inset:0;width:100vw;height:100vh;object-fit:cover;z-index:-1}
-.intro-screen{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:1rem;cursor:pointer;z-index:100}
-.intro-screen img{width:120px;height:120px;border-radius:50%;margin-bottom:15px;box-shadow:0 0 25px var(--b)}
+.intro-screen{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:1.2rem;cursor:pointer;z-index:200}
+.intro-screen *{pointer-events:none}
+.intro-screen img{width:120px;height:120px;border-radius:50%;margin-bottom:18px;box-shadow:0 0 30px var(--b)}
 .hidden{opacity:0;pointer-events:none}
 .container{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;display:flex;flex-direction:column;align-items:center}
-.pfp{width:100px;height:100px;border-radius:50%;margin-bottom:20px;box-shadow:0 0 25px var(--b)}
-.title,.bounce{font-size:1rem;animation:bounce 2s ease-in-out infinite;text-shadow:0 0 10px var(--b),0 0 25px var(--b)}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-.discord-wrapper{margin-top:25px}
-.discord-logo{width:28px;height:28px;background:url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true') center/contain no-repeat;filter:drop-shadow(0 0 12px var(--b))}
-#audio-controls{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);padding:8px 14px;border-radius:10px;box-shadow:0 0 20px var(--b)}
-#pause-button{background:none;border:none;color:#fff;font-family:inherit;font-size:1rem;cursor:pointer}
-.shoot{position:fixed;width:1px;height:20px;background:linear-gradient(to top,transparent,var(--b));pointer-events:none;filter:drop-shadow(0 0 6px var(--b));animation:shoot .6s linear forwards}
+.pfp{width:110px;height:110px;border-radius:50%;margin-bottom:22px;box-shadow:0 0 35px var(--b)}
+.bounce{animation:bounce 2s ease-in-out infinite;text-shadow:0 0 12px var(--b),0 0 30px var(--b)}
+.title{font-size:2.1rem;letter-spacing:.12rem}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.discord-wrapper{margin-top:30px}
+.discord-logo{width:32px;height:32px;background:url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true') center/contain no-repeat;filter:drop-shadow(0 0 18px var(--b))}
+#audio-controls{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.65);padding:12px 18px;border-radius:14px;box-shadow:0 0 35px var(--b);display:flex;flex-direction:column;align-items:center;gap:8px}
+#audio-controls .bounce{font-size:1rem}
+#pause-button{background:rgba(77,163,255,.15);border:1px solid rgba(77,163,255,.5);color:#fff;font-family:inherit;font-size:1rem;padding:6px 14px;border-radius:8px;cursor:pointer;box-shadow:0 0 18px var(--b);animation:bounce 2s ease-in-out infinite}
+#pause-button:hover{background:rgba(77,163,255,.3)}
+.shoot{position:fixed;width:1px;height:18px;background:linear-gradient(to top,transparent,var(--b));pointer-events:none;filter:drop-shadow(0 0 6px var(--b));animation:shoot .5s linear forwards;z-index:9999}
 @keyframes shoot{to{opacity:0;transform:translate(var(--dx),var(--dy))}}
 </style>
 </head>
@@ -37,7 +41,7 @@ body{margin:0;background:var(--bg);color:#fff;font-family:Inter,sans-serif;heigh
 </video>
 <div class="container">
 <img class="pfp" src="https://github.com/jujuexe/Juju-wtf/blob/main/cat%20pfp%20blue.png?raw=true">
-<div class="bounce">JuJu.wtf</div>
+<div class="title bounce">JuJu.wtf</div>
 <div class="discord-wrapper">
 <a class="discord-logo" href="https://discordapp.com/users/151014356476362752" target="_blank" rel="noopener"></a>
 </div>
@@ -58,10 +62,10 @@ const d=document.createElement('div')
 d.className='shoot'
 d.style.left=e.clientX+'px'
 d.style.top=e.clientY+'px'
-d.style.setProperty('--dx',(Math.random()*80-40)+'px')
-d.style.setProperty('--dy',(-Math.random()*120)+'px')
+d.style.setProperty('--dx',(Math.random()*60-30)+'px')
+d.style.setProperty('--dy',(-Math.random()*90)+'px')
 document.body.appendChild(d)
-setTimeout(()=>d.remove(),600)
+setTimeout(()=>d.remove(),500)
 })
 </script>
 </body>
