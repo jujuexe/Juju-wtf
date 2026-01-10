@@ -22,8 +22,12 @@ body.playing .container{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .bounce{animation:bounce 2s ease-in-out infinite;text-shadow:0 0 12px var(--b),0 0 30px var(--b)}
 .title{font-size:2.1rem;letter-spacing:.12rem}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.discord-wrapper{margin-top:30px}
-.discord-logo{width:32px;height:32px;background:url('https://github.com/jujuexe/fr/blob/main/image.png?raw=true') center/contain no-repeat;filter:drop-shadow(0 0 18px var(--b))}
+.discord-wrapper{margin-top:28px;position:relative}
+.discord-box{width:56px;height:56px;border-radius:14px;background:rgba(0,0,0,.65);box-shadow:0 0 30px var(--b);display:flex;align-items:center;justify-content:center}
+.discord-icon img{width:32px;height:32px;cursor:pointer;filter:drop-shadow(0 0 8px rgba(77,163,255,.9)) drop-shadow(0 0 18px rgba(77,163,255,.7));transition:transform .2s ease,filter .2s ease}
+.discord-icon:hover img{transform:scale(1.1);filter:drop-shadow(0 0 12px rgba(120,190,255,1)) drop-shadow(0 0 28px rgba(120,190,255,.9))}
+.discord-tooltip{position:absolute;bottom:-34px;background:rgba(0,0,0,.9);color:#9ecbff;font-size:12px;padding:6px 10px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transform:translateY(-4px);transition:opacity .2s ease,transform .2s ease}
+.discord-wrapper:hover .discord-tooltip{opacity:1;transform:translateY(0)}
 #audio-controls{position:absolute;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(0,0,0,.65);padding:12px 18px;border-radius:14px;box-shadow:0 0 35px var(--b);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;transition:opacity 1.2s ease,transform 1.2s ease}
 body.playing #audio-controls{opacity:1;transform:translateX(-50%) translateY(0)}
 #pause-button{background:rgba(77,163,255,.15);border:1px solid rgba(77,163,255,.5);color:#fff;font-family:inherit;font-size:1rem;padding:6px 14px;border-radius:8px;cursor:pointer;box-shadow:0 0 18px var(--b)}
@@ -46,7 +50,12 @@ body.playing #audio-controls{opacity:1;transform:translateX(-50%) translateY(0)}
 <img class="pfp" src="https://github.com/jujuexe/Juju-wtf/blob/main/cat%20pfp%20blue.png?raw=true">
 <div class="title bounce">JuJu.wtf</div>
 <div class="discord-wrapper">
-<a class="discord-logo" href="https://discordapp.com/users/151014356476362752" target="_blank" rel="noopener"></a>
+<div class="discord-box">
+<a class="discord-icon" href="https://discordapp.com/users/151014356476362752" target="_blank" rel="noopener">
+<img src="https://r2.guns.lol/147cf449-399d-4408-b008-f07f093c5448.webp">
+</a>
+</div>
+<div class="discord-tooltip">add me on discord</div>
 </div>
 </div>
 
@@ -60,15 +69,8 @@ const v=document.getElementById('background-video')
 const i=document.getElementById('intro')
 const p=document.getElementById('pause-button')
 let s=false
-
-i.onclick=()=>{
-i.classList.add('fade')
-document.body.classList.add('playing')
-v.play()
-}
-
+i.onclick=()=>{i.classList.add('fade');document.body.classList.add('playing');v.play()}
 p.onclick=()=>{s?v.play():v.pause();p.textContent=s?'Pause ⏯':'Play ⏯';s=!s}
-
 document.addEventListener('mousemove',e=>{
 const d=document.createElement('div')
 d.className='shoot'
@@ -82,4 +84,3 @@ setTimeout(()=>d.remove(),500)
 </script>
 </body>
 </html>
-
