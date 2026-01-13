@@ -23,13 +23,13 @@ body.playing .container{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .title{font-size:2.1rem;letter-spacing:.12rem}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .discord-wrapper{margin-top:28px;position:relative}
-.discord-box{width:56px;height:56px;border-radius:14px;background:rgba(0,0,0,.65);box-shadow:0 0 30px var(--b);display:flex;align-items:center;justify-content:center}
-.discord-icon img{width:32px;height:32px;cursor:pointer;filter:drop-shadow(0 0 8px rgba(77,163,255,.9)) drop-shadow(0 0 18px rgba(77,163,255,.7));transition:transform .2s ease,filter .2s ease}
-.discord-icon:hover img{transform:scale(1.1);filter:drop-shadow(0 0 12px rgba(120,190,255,1)) drop-shadow(0 0 28px rgba(120,190,255,.9))}
+.discord-icon svg{width:38px;height:38px;cursor:pointer;fill:#fff;filter:drop-shadow(0 0 10px rgba(77,163,255,.9)) drop-shadow(0 0 26px rgba(77,163,255,.7));transition:transform .2s ease,filter .2s ease}
+.discord-icon:hover svg{transform:scale(1.15);filter:drop-shadow(0 0 14px rgba(120,190,255,1)) drop-shadow(0 0 36px rgba(120,190,255,.95))}
 .discord-tooltip{position:absolute;bottom:-34px;background:rgba(0,0,0,.9);color:#9ecbff;font-size:12px;padding:6px 10px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transform:translateY(-4px);transition:opacity .2s ease,transform .2s ease}
 .discord-wrapper:hover .discord-tooltip{opacity:1;transform:translateY(0)}
 #audio-controls{position:absolute;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(0,0,0,.65);padding:12px 18px;border-radius:14px;box-shadow:0 0 35px var(--b);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;transition:opacity 1.2s ease,transform 1.2s ease}
 body.playing #audio-controls{opacity:1;transform:translateX(-50%) translateY(0)}
+.now-playing{text-shadow:0 0 12px var(--b),0 0 30px var(--b)}
 #pause-button{background:rgba(77,163,255,.15);border:1px solid rgba(77,163,255,.5);color:#fff;font-family:inherit;font-size:1rem;padding:6px 14px;border-radius:8px;cursor:pointer;box-shadow:0 0 18px var(--b)}
 #pause-button:hover{background:rgba(77,163,255,.3)}
 .shoot{position:fixed;width:1px;height:18px;background:linear-gradient(to top,transparent,var(--b));pointer-events:none;filter:drop-shadow(0 0 6px var(--b));animation:shoot .5s linear forwards;z-index:9999}
@@ -37,6 +37,7 @@ body.playing #audio-controls{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
+
 <div class="intro-screen" id="intro">
 <img src="https://github.com/jujuexe/Juju-wtf/blob/main/cat%20pfp%20blue.png?raw=true">
 <div class="bounce">click to enter</div>
@@ -49,18 +50,20 @@ body.playing #audio-controls{opacity:1;transform:translateX(-50%) translateY(0)}
 <div class="container">
 <img class="pfp" src="https://github.com/jujuexe/Juju-wtf/blob/main/cat%20pfp%20blue.png?raw=true">
 <div class="title bounce">JuJu.wtf</div>
+
 <div class="discord-wrapper">
-<div class="discord-box">
 <a class="discord-icon" href="https://discordapp.com/users/151014356476362752" target="_blank" rel="noopener">
-<img src="https://github.com/jujuexe/Juju-wtf/blob/main/4a44bb2df7ea0e09d051abb06f471a5f.webp?raw=true">
+<svg viewBox="0 0 245 240" xmlns="http://www.w3.org/2000/svg">
+<path d="M104.4 104.9c-5.7 0-10.2 5-10.2 11.1 0 6.1 4.6 11.1 10.2 11.1 5.7 0 10.2-5 10.2-11.1 0-6.1-4.5-11.1-10.2-11.1zm36.2 0c-5.7 0-10.2 5-10.2 11.1 0 6.1 4.6 11.1 10.2 11.1 5.7 0 10.2-5 10.2-11.1 0-6.1-4.5-11.1-10.2-11.1z"/>
+<path d="M189.5 20h-134C24.5 20 10 34.5 10 52.5v135c0 18 14.5 32.5 32.5 32.5h113l-5.3-18.5 12.8 11.9 12.1 11.2 21.5 19V52.5c0-18-14.5-32.5-32.6-32.5zm-39.7 130s-3.7-4.4-6.8-8.3c13.5-3.8 18.6-12.2 18.6-12.2-4.2 2.8-8.2 4.8-11.8 6.2-5.1 2.1-10 3.5-14.8 4.3-9.8 1.8-18.8 1.3-26.5-.1-5.8-1.1-10.8-2.6-15-4.3-2.4-.9-5-2-7.6-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.9 8.2 17.9 12.1c-3.1 3.9-6.9 8.6-6.9 8.6-22.8-.7-31.5-15.7-31.5-15.7 0-33.3 14.9-60.3 14.9-60.3 14.9-11.2 29-10.9 29-10.9l1 1.2c-18.6 5.4-27.2 13.6-27.2 13.6s2.3-1.3 6.1-3.1c11-4.8 19.7-6.1 23.3-6.4.6-.1 1.1-.2 1.7-.2 6-.8 12.8-1 19.9-.2 9.4 1.1 19.5 3.9 29.7 9.9 0 0-8.2-7.8-26-13.2l1.4-1.6s14.1-.3 29 10.9c0 0 14.9 27 14.9 60.3 0 0-8.8 15-31.6 15.7z"/>
+</svg>
 </a>
-</div>
 <div class="discord-tooltip">add me on discord</div>
 </div>
 </div>
 
 <div id="audio-controls">
-<div class="bounce">Now Playing: Freestyle</div>
+<div class="now-playing">Now Playing: Freestyle</div>
 <button id="pause-button">Pause ⏯</button>
 </div>
 
@@ -82,6 +85,6 @@ document.body.appendChild(d)
 setTimeout(()=>d.remove(),500)
 })
 </script>
+
 </body>
 </html>
-
