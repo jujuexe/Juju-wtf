@@ -11,8 +11,8 @@
         *{box-sizing:border-box}
         :root{
             --b:#4da3ff;
-            --bg:#05070c;
             --glow:#7cc6ff;
+            --bg:#05070c;
         }
         body{
             margin:0;
@@ -240,7 +240,7 @@
         <div class="bounce">click to enter ♡</div>
     </div>
 
-    <video id="background-video" loop playsinline muted>
+    <video id="background-video" loop playsinline>
         <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Freestyle%20(1).mp4" type="video/mp4">
     </video>
 
@@ -271,14 +271,12 @@
         
         let isPaused = false
 
-        // Enter site
         intro.onclick = () => {
             intro.classList.add('fade')
             document.body.classList.add('playing')
-            video.play().catch(() => {})
+            video.play()
         }
 
-        // Audio controls
         pauseBtn.onclick = () => {
             if (isPaused) {
                 video.play()
@@ -292,19 +290,16 @@
             isPaused = !isPaused
         }
 
-        // Enhanced mouse shoot effect (more particles)
         document.addEventListener('mousemove', e => {
-            for (let i = 0; i < 2; i++) {  // double particles for richer effect
+            for (let i = 0; i < 2; i++) {
                 const shoot = document.createElement('div')
                 shoot.className = 'shoot'
                 shoot.style.left = e.clientX + 'px'
                 shoot.style.top = e.clientY + 'px'
                 shoot.style.setProperty('--dx', (Math.random() * 80 - 40) + 'px')
                 shoot.style.setProperty('--dy', (-Math.random() * 110 - 20) + 'px')
-                // random slight color variation
                 if (Math.random() > 0.7) shoot.style.background = 'linear-gradient(to top, transparent, #a0d8ff)'
                 document.body.appendChild(shoot)
-                
                 setTimeout(() => shoot.remove(), 650)
             }
         })
