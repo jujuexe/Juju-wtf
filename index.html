@@ -1,139 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-size='80' fill='white' transform='rotate(180 50 50)'>✝</text></svg>">
-<meta property="og:image" content="https://github.com/jujuexe/Juju-wtf/blob/main/cat%20pfp%20blue.png?raw=true">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>♡ juju.wtf</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box}
-:root{--b:#4da3ff;--bg:#05070c}
-body{margin:0;background:var(--bg);color:#fff;font-family:Inter,sans-serif;height:100vh;overflow:hidden}
-#background-video{position:fixed;inset:0;width:100vw;height:100vh;object-fit:cover;z-index:-1;opacity:0;transition:opacity 1.2s ease}
-body.playing #background-video{opacity:1}
-.intro-screen{position:fixed;inset:0;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:1.2rem;cursor:pointer;z-index:200;transition:opacity 1s ease,transform 1s ease}
-.intro-screen img{width:120px;height:120px;border-radius:50%;margin-bottom:18px;box-shadow:0 0 30px var(--b)}
-.intro-screen.fade{opacity:0;transform:scale(1.1);pointer-events:none}
-.container{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.95);text-align:center;display:flex;flex-direction:column;align-items:center;opacity:0;transition:opacity 1.2s ease,transform 1.2s ease}
-body.playing .container{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.pfp{width:110px;height:110px;border-radius:50%;margin-bottom:22px;box-shadow:0 0 35px var(--b)}
-.bounce{animation:bounce 2s ease-in-out infinite;text-shadow:0 0 12px var(--b),0 0 30px var(--b)}
-.title{font-size:2.1rem;letter-spacing:.12rem}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-size='80' fill='white' transform='rotate(180 50 50)'>✝</text></svg>">
+    <meta property="og:image" content="https://github.com/jujuexe/Juju-wtf/blob/main/juxvv-avatar.png?raw=true">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>♡ juju.wtf</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box}
+        :root{
+            --b:#4da3ff;
+            --bg:#05070c;
+            --glow:#7cc6ff;
+        }
+        body{
+            margin:0;
+            background:var(--bg);
+            color:#fff;
+            font-family:Inter,sans-serif;
+            height:100vh;
+            overflow:hidden;
+        }
+        #background-video{
+            position:fixed;
+            inset:0;
+            width:100vw;
+            height:100vh;
+            object-fit:cover;
+            z-index:-1;
+            opacity:0;
+            transition:opacity 1.5s ease;
+        }
+        body.playing #background-video{opacity:1}
 
-.discord-wrapper{
-  margin-top:32px;
-  position:relative;
-}
+        .intro-screen{
+            position:fixed;
+            inset:0;
+            background:#000;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            font-size:1.3rem;
+            cursor:pointer;
+            z-index:200;
+            transition:all 1.2s cubic-bezier(0.23,1,0.32,1);
+        }
+        .intro-screen img{
+            width:130px;
+            height:130px;
+            border-radius:50%;
+            margin-bottom:20px;
+            box-shadow:0 0 40px var(--b);
+        }
+        .intro-screen.fade{
+            opacity:0;
+            transform:scale(1.15);
+            pointer-events:none;
+        }
 
-.discord-icon{
-  width:48px;
-  height:48px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transform:translateY(4px);
-}
+        .container{
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%) scale(0.92);
+            text-align:center;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            opacity:0;
+            transition:all 1.4s cubic-bezier(0.23,1,0.32,1);
+        }
+        body.playing .container{
+            opacity:1;
+            transform:translate(-50%,-50%) scale(1);
+        }
 
-.discord-icon svg{
-  width:40px;
-  height:40px;
-  fill:#fff;
-  cursor:pointer;
-  filter:
-    drop-shadow(0 0 10px rgba(77,163,255,.9))
-    drop-shadow(0 0 26px rgba(77,163,255,.7));
-  transition:transform .2s ease,filter .2s ease;
-}
+        .pfp{
+            width:128px;
+            height:128px;
+            border-radius:50%;
+            margin-bottom:24px;
+            box-shadow: 
+                0 0 30px var(--b),
+                0 0 60px rgba(77,163,255,0.6),
+                inset 0 0 20px rgba(255,255,255,0.1);
+            transition: all 0.4s ease;
+        }
+        .pfp:hover{
+            transform: scale(1.08) rotate(4deg);
+            box-shadow: 
+                0 0 50px var(--glow),
+                0 0 90px rgba(124,198,255,0.8);
+        }
 
-.discord-icon:hover svg{
-  transform:scale(1.15);
-  filter:
-    drop-shadow(0 0 14px rgba(120,190,255,1))
-    drop-shadow(0 0 36px rgba(120,190,255,.95));
-}
+        .title{
+            font-size:2.4rem;
+            letter-spacing:0.15rem;
+            text-shadow: 
+                0 0 10px var(--b),
+                0 0 30px var(--b),
+                0 0 50px rgba(77,163,255,0.5);
+            transition: all 0.3s ease;
+        }
+        .title:hover{
+            text-shadow: 
+                0 0 20px #fff,
+                0 0 40px var(--glow),
+                0 0 70px var(--glow);
+            animation: glitch 0.4s linear infinite alternate;
+        }
 
-.discord-tooltip{
-  position:absolute;
-  top:-36px;
-  left:50%;
-  transform:translateX(-50%) translateY(4px);
-  background:rgba(0,0,0,.9);
-  color:#9ecbff;
-  font-size:12px;
-  padding:6px 10px;
-  border-radius:6px;
-  white-space:nowrap;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity .2s ease,transform .2s ease;
-}
+        @keyframes glitch{
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
 
-.discord-wrapper:hover .discord-tooltip{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}
+        .bounce{
+            animation: bounce 2.2s ease-in-out infinite;
+        }
+        @keyframes bounce{
+            0%,100%{transform:translateY(0)}
+            50%{transform:translateY(-7px)}
+        }
 
-#audio-controls{position:absolute;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(0,0,0,.65);padding:12px 18px;border-radius:14px;box-shadow:0 0 35px var(--b);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;transition:opacity 1.2s ease,transform 1.2s ease}
-body.playing #audio-controls{opacity:1;transform:translateX(-50%) translateY(0)}
-.now-playing{text-shadow:0 0 12px var(--b),0 0 30px var(--b)}
-#pause-button{background:rgba(77,163,255,.15);border:1px solid rgba(77,163,255,.5);color:#fff;font-family:inherit;font-size:1rem;padding:6px 14px;border-radius:8px;cursor:pointer;box-shadow:0 0 18px var(--b)}
-#pause-button:hover{background:rgba(77,163,255,.3)}
-.shoot{position:fixed;width:1px;height:18px;background:linear-gradient(to top,transparent,var(--b));pointer-events:none;filter:drop-shadow(0 0 6px var(--b));animation:shoot .5s linear forwards;z-index:9999}
-@keyframes shoot{to{opacity:0;transform:translate(var(--dx),var(--dy))}}
-</style>
+        .discord-wrapper{
+            margin-top:38px;
+            position:relative;
+        }
+        .discord-icon{
+            width:52px;
+            height:52px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .discord-icon svg{
+            width:44px;
+            height:44px;
+            fill:#fff;
+            filter: drop-shadow(0 0 12px rgba(77,163,255,0.9)) drop-shadow(0 0 30px rgba(77,163,255,0.6));
+            transition: all 0.3s ease;
+        }
+        .discord-icon:hover svg{
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 0 20px #7cc6ff) drop-shadow(0 0 45px #7cc6ff);
+        }
+        .discord-tooltip{
+            position:absolute;
+            top:-42px;
+            left:50%;
+            transform:translateX(-50%) translateY(8px);
+            background:rgba(0,0,0,0.92);
+            color:#9ecbff;
+            font-size:12.5px;
+            padding:7px 14px;
+            border-radius:8px;
+            white-space:nowrap;
+            opacity:0;
+            pointer-events:none;
+            transition:all 0.25s ease;
+            box-shadow:0 0 15px rgba(77,163,255,0.4);
+        }
+        .discord-wrapper:hover .discord-tooltip{
+            opacity:1;
+            transform:translateX(-50%) translateY(0);
+        }
+
+        #audio-controls{
+            position:absolute;
+            bottom:28px;
+            left:50%;
+            transform:translateX(-50%) translateY(25px);
+            background:rgba(5,7,12,0.75);
+            padding:14px 22px;
+            border-radius:16px;
+            box-shadow:0 0 40px var(--b);
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:10px;
+            opacity:0;
+            transition:all 1.4s cubic-bezier(0.23,1,0.32,1);
+            border:1px solid rgba(77,163,255,0.2);
+        }
+        body.playing #audio-controls{
+            opacity:1;
+            transform:translateX(-50%) translateY(0);
+        }
+
+        .now-playing{
+            font-size:0.95rem;
+            text-shadow:0 0 15px var(--b);
+        }
+
+        #pause-button{
+            background:rgba(77,163,255,0.12);
+            border:1px solid rgba(77,163,255,0.6);
+            color:#fff;
+            font-family:inherit;
+            font-size:1rem;
+            padding:8px 20px;
+            border-radius:10px;
+            cursor:pointer;
+            box-shadow:0 0 20px var(--b);
+            transition:all 0.3s ease;
+        }
+        #pause-button:hover{
+            background:rgba(77,163,255,0.35);
+            box-shadow:0 0 30px var(--glow);
+        }
+
+        .shoot{
+            position:fixed;
+            width:2px;
+            height:22px;
+            background:linear-gradient(to top, transparent, var(--glow));
+            pointer-events:none;
+            filter:drop-shadow(0 0 8px var(--b));
+            animation:shoot 0.6s linear forwards;
+            z-index:9999;
+        }
+        @keyframes shoot{
+            to{
+                opacity:0;
+                transform:translate(var(--dx), var(--dy));
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="intro-screen" id="intro">
+        <img src="https://github.com/jujuexe/Juju-wtf/blob/main/juxvv-avatar.png?raw=true" alt="juju">
+        <div class="bounce">click to enter ♡</div>
+    </div>
 
-<div class="intro-screen" id="intro">
-<img src="https://github.com/jujuexe/Juju-wtf/blob/main/cat%20pfp%20blue.png?raw=true">
-<div class="bounce">click to enter</div>
-</div>
+    <video id="background-video" loop playsinline muted>
+        <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Freestyle%20(1).mp4" type="video/mp4">
+    </video>
 
-<video id="background-video" loop playsinline>
-<source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Freestyle%20(1).mp4" type="video/mp4">
-</video>
+    <div class="container">
+        <img class="pfp" src="https://github.com/jujuexe/Juju-wtf/blob/main/juxvv-avatar.png?raw=true" alt="juju pfp">
+        <div class="title bounce">JuJu.wtf</div>
+        
+        <div class="discord-wrapper">
+            <div class="discord-tooltip">add me on discord</div>
+            <a class="discord-icon" href="https://discordapp.com/users/151014356476362752" target="_blank" rel="noopener">
+                <svg viewBox="0 0 127.14 96.36" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.22 0A72.37 72.37 0 0 0 45.53 0a105.89 105.89 0 0 0-26.27 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.35 2.66-2.06 20.87 9.78 43.55 9.78 64.17 0 .87.71 1.76 1.4 2.66 2.06a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1A105.25 105.25 0 0 0 126.6 80.2c2.64-27.57-4.53-51.3-18.9-72.13ZM42.45 65.69c-6.28 0-11.45-5.75-11.45-12.8 0-7.06 5.1-12.81 11.45-12.81s11.48 5.75 11.45 12.81c0 7.05-5.1 12.8-11.45 12.8Zm42.24 0c-6.28 0-11.45-5.75-11.45-12.8 0-7.06 5.1-12.81 11.45-12.81s11.48 5.75 11.45 12.81c0 7.05-5.1 12.8-11.45 12.8Z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
 
-<div class="container">
-<img class="pfp" src="https://github.com/jujuexe/Juju-wtf/blob/main/cat%20pfp%20blue.png?raw=true">
-<div class="title bounce">JuJu.wtf</div>
+    <div id="audio-controls">
+        <div class="now-playing" id="now-playing">Now Playing: Freestyle</div>
+        <button id="pause-button">Pause ⏯</button>
+    </div>
 
-<div class="discord-wrapper">
-<div class="discord-tooltip">add me on discord</div>
-<a class="discord-icon" href="https://discordapp.com/users/151014356476362752" target="_blank" rel="noopener">
-<svg viewBox="0 0 127.14 96.36" xmlns="http://www.w3.org/2000/svg">
-<path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.22 0A72.37 72.37 0 0 0 45.53 0a105.89 105.89 0 0 0-26.27 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.35 2.66-2.06 20.87 9.78 43.55 9.78 64.17 0 .87.71 1.76 1.4 2.66 2.06a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1A105.25 105.25 0 0 0 126.6 80.2c2.64-27.57-4.53-51.3-18.9-72.13ZM42.45 65.69c-6.28 0-11.45-5.75-11.45-12.8 0-7.06 5.1-12.81 11.45-12.81s11.48 5.75 11.45 12.81c0 7.05-5.1 12.8-11.45 12.8Zm42.24 0c-6.28 0-11.45-5.75-11.45-12.8 0-7.06 5.1-12.81 11.45-12.81s11.48 5.75 11.45 12.81c0 7.05-5.1 12.8-11.45 12.8Z"/>
-</svg>
-</a>
-</div>
-</div>
+    <script>
+        const video = document.getElementById('background-video')
+        const intro = document.getElementById('intro')
+        const pauseBtn = document.getElementById('pause-button')
+        const nowPlaying = document.getElementById('now-playing')
+        
+        let isPaused = false
 
-<div id="audio-controls">
-<div class="now-playing">Now Playing: Freestyle</div>
-<button id="pause-button">Pause ⏯</button>
-</div>
+        // Enter site
+        intro.onclick = () => {
+            intro.classList.add('fade')
+            document.body.classList.add('playing')
+            video.play().catch(() => {})
+        }
 
-<script>
-const v=document.getElementById('background-video')
-const i=document.getElementById('intro')
-const p=document.getElementById('pause-button')
-let s=false
-i.onclick=()=>{i.classList.add('fade');document.body.classList.add('playing');v.play()}
-p.onclick=()=>{s?v.play():v.pause();p.textContent=s?'Pause ⏯':'Play ⏯';s=!s}
-document.addEventListener('mousemove',e=>{
-const d=document.createElement('div')
-d.className='shoot'
-d.style.left=e.clientX+'px'
-d.style.top=e.clientY+'px'
-d.style.setProperty('--dx',(Math.random()*60-30)+'px')
-d.style.setProperty('--dy',(-Math.random()*90)+'px')
-document.body.appendChild(d)
-setTimeout(()=>d.remove(),500)
-})
-</script>
+        // Audio controls
+        pauseBtn.onclick = () => {
+            if (isPaused) {
+                video.play()
+                pauseBtn.textContent = 'Pause ⏯'
+                nowPlaying.textContent = 'Now Playing: Freestyle'
+            } else {
+                video.pause()
+                pauseBtn.textContent = 'Play ⏯'
+                nowPlaying.textContent = 'Paused'
+            }
+            isPaused = !isPaused
+        }
 
+        // Enhanced mouse shoot effect (more particles)
+        document.addEventListener('mousemove', e => {
+            for (let i = 0; i < 2; i++) {  // double particles for richer effect
+                const shoot = document.createElement('div')
+                shoot.className = 'shoot'
+                shoot.style.left = e.clientX + 'px'
+                shoot.style.top = e.clientY + 'px'
+                shoot.style.setProperty('--dx', (Math.random() * 80 - 40) + 'px')
+                shoot.style.setProperty('--dy', (-Math.random() * 110 - 20) + 'px')
+                // random slight color variation
+                if (Math.random() > 0.7) shoot.style.background = 'linear-gradient(to top, transparent, #a0d8ff)'
+                document.body.appendChild(shoot)
+                
+                setTimeout(() => shoot.remove(), 650)
+            }
+        })
+    </script>
 </body>
 </html>
-
