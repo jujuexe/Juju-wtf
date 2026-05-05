@@ -33,7 +33,6 @@
             transition:opacity 0.8s cubic-bezier(0.4,0,0.2,1);
         }
         body.playing #background-video{opacity:1}
-
         .intro-screen{
             position:fixed;
             inset:0;
@@ -65,7 +64,6 @@
             transform:scale(1.08);
             pointer-events:none;
         }
-
         .container{
             position:absolute;
             top:50%;
@@ -82,13 +80,12 @@
             opacity:1;
             transform:translate(-50%,-50%) scale(1);
         }
-
         .pfp{
             width:128px;
             height:128px;
             border-radius:50%;
             margin-bottom:24px;
-            box-shadow: 
+            box-shadow:
                 0 0 30px var(--b),
                 0 0 70px rgba(255,77,163,0.7),
                 inset 0 0 20px rgba(255,255,255,0.1);
@@ -96,28 +93,26 @@
         }
         .pfp:hover{
             transform: scale(1.08) rotate(4deg);
-            box-shadow: 
+            box-shadow:
                 0 0 55px var(--glow),
                 0 0 100px rgba(255,153,204,0.8);
         }
-
         .title{
             font-size:2.4rem;
             letter-spacing:0.15rem;
-            text-shadow: 
+            text-shadow:
                 0 0 12px var(--b),
                 0 0 35px var(--b),
                 0 0 60px rgba(255,77,163,0.6);
             transition: all 0.3s ease;
         }
         .title:hover{
-            text-shadow: 
+            text-shadow:
                 0 0 25px #fff,
                 0 0 50px var(--glow),
                 0 0 80px var(--glow);
             animation: glitch 0.35s linear infinite alternate;
         }
-
         @keyframes glitch{
             0% { transform: translate(0); }
             20% { transform: translate(-2px, 2px); }
@@ -126,7 +121,6 @@
             80% { transform: translate(2px, -2px); }
             100% { transform: translate(0); }
         }
-
         .bounce{
             animation: bounce 2.2s ease-in-out infinite;
         }
@@ -134,12 +128,10 @@
             0%,100%{transform:translateY(0)}
             50%{transform:translateY(-7px)}
         }
-
         @keyframes promptPulse{
             0%,100%{opacity:0.7; transform:scale(0.95);}
             50%{opacity:1; transform:scale(1.05);}
         }
-
         .social-wrapper{
             margin-top:38px;
             display:flex;
@@ -147,7 +139,6 @@
             justify-content:center;
             align-items:center;
         }
-
         .social-icon{
             width:52px;
             height:52px;
@@ -171,7 +162,6 @@
             transform: scale(1.2) rotate(10deg);
             filter: drop-shadow(0 0 20px #ff99cc) drop-shadow(0 0 45px #ff99cc);
         }
-
         .social-tooltip{
             position:absolute;
             top:-48px;
@@ -190,7 +180,6 @@
             opacity:1;
             transform:translateY(-4px);
         }
-
         #audio-controls{
             position:absolute;
             bottom:28px;
@@ -212,12 +201,10 @@
             opacity:1;
             transform:translateX(-50%) translateY(0);
         }
-
         .now-playing{
             font-size:0.95rem;
             text-shadow:0 0 15px var(--b);
         }
-
         #pause-button{
             background:rgba(255,77,163,0.12);
             border:1px solid rgba(255,77,163,0.6);
@@ -234,7 +221,6 @@
             background:rgba(255,77,163,0.35);
             box-shadow:0 0 30px var(--glow);
         }
-
         .shoot{
             position:fixed;
             width:2px;
@@ -258,17 +244,15 @@
         <img src="https://github.com/jujuexe/Juju-wtf/blob/main/juxvv-avatar.png?raw=true" alt="juju">
         <div class="enter-text bounce">click to enter ♡</div>
     </div>
-
     <video id="background-video" loop playsinline>
         <source src="https://github.com/jujuexe/Juju-wtf/raw/refs/heads/main/Freestyle%20(1).mp4" type="video/mp4">
     </video>
-
     <div class="container">
         <img class="pfp" src="https://github.com/jujuexe/Juju-wtf/blob/main/juxvv-avatar.png?raw=true" alt="juju pfp">
         <div class="title bounce">JuJu.wtf</div>
-        
+       
         <div class="social-wrapper">
-            
+           
             <div class="social-icon">
                 <div class="social-tooltip">add juxvv on discord</div>
                 <a href="https://discord.com/users/125800817457364992" target="_blank" rel="noopener">
@@ -277,43 +261,31 @@
                     </svg>
                 </a>
             </div>
-
-            <div class="social-icon">
-                <div class="social-tooltip">add me on telegram</div>
-                <a href="https://t.me/fudboss" target="_blank" rel="noopener">
-                    <img src="https://github.com/jujuexe/Juju-wtf/blob/main/download%20(1).png?raw=true" alt="telegram">
-                </a>
-            </div>
-
+            
             <div class="social-icon">
                 <div class="social-tooltip">view my statshark</div>
                 <a href="https://statshark.net/player/201846484" target="_blank" rel="noopener">
                     <img src="https://github.com/jujuexe/Juju-wtf/blob/main/statshark%20blackj%20white.png?raw=true" alt="statshark">
                 </a>
             </div>
-
         </div>
     </div>
-
     <div id="audio-controls">
         <div class="now-playing" id="now-playing">Now Playing: Freestyle</div>
         <button id="pause-button">Pause ⏯</button>
     </div>
-
     <script>
         const video = document.getElementById('background-video')
         const intro = document.getElementById('intro')
         const pauseBtn = document.getElementById('pause-button')
         const nowPlaying = document.getElementById('now-playing')
-        
+       
         let isPaused = false
-
         intro.onclick = () => {
             intro.classList.add('fade')
             document.body.classList.add('playing')
             video.play()
         }
-
         pauseBtn.onclick = () => {
             if (isPaused) {
                 video.play()
@@ -326,7 +298,6 @@
             }
             isPaused = !isPaused
         }
-
         document.addEventListener('mousemove', e => {
             for (let i = 0; i < 2; i++) {
                 const shoot = document.createElement('div')
